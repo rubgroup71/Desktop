@@ -4,34 +4,38 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
-    public class ValuesController : ApiController
+    public class CityController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        // GET: api/City
+        public IEnumerable<City> Get()
         {
-            return new string[] { "value1", "value2" };
+            City c = new City();
+            List<City> city = c.Read();
+            return city;
         }
 
-        // GET api/values/5
+
+        // GET: api/City/5
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/values
+        // POST: api/City
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/values/5
+        // PUT: api/City/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE: api/City/5
         public void Delete(int id)
         {
         }
