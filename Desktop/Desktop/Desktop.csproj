@@ -181,6 +181,16 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SalesPersonController.cs" />
+    <Compile Include="Controllers\Stage10Controller.cs" />
+    <Compile Include="Controllers\Stage1Controller.cs" />
+    <Compile Include="Controllers\Stage2Controller.cs" />
+    <Compile Include="Controllers\Stage3Controller.cs" />
+    <Compile Include="Controllers\Stage4Controller.cs" />
+    <Compile Include="Controllers\Stage5Controller.cs" />
+    <Compile Include="Controllers\Stage6Controller.cs" />
+    <Compile Include="Controllers\Stage7Controller.cs" />
+    <Compile Include="Controllers\Stage8Controller.cs" />
+    <Compile Include="Controllers\Stage9Controller.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -195,6 +205,16 @@
     <Compile Include="Models\ItemCustomer.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\SalesPerson.cs" />
+    <Compile Include="Models\Stage1.cs" />
+    <Compile Include="Models\Stage10.cs" />
+    <Compile Include="Models\Stage2.cs" />
+    <Compile Include="Models\Stage3.cs" />
+    <Compile Include="Models\Stage4.cs" />
+    <Compile Include="Models\Stage5.cs" />
+    <Compile Include="Models\Stage6.cs" />
+    <Compile Include="Models\Stage7.cs" />
+    <Compile Include="Models\Stage8.cs" />
+    <Compile Include="Models\Stage9.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

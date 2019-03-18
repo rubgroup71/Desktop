@@ -7,6 +7,7 @@ using System.Web.Configuration;
 using System.Data;
 using System.Text;
 using WebApplication2.Models;
+using Desktop.Models;
 
 /// <summary>
 /// DBServices is a class created by me to provides some DataBase Services
@@ -522,6 +523,437 @@ public class DBservices
         }
 
     }
+    public List<Stage1> read2(string conString, string tableName)
+    {
+
+        SqlConnection con = null;
+        List<Stage1> lc = new List<Stage1>();
+        try
+        {
+            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
+
+            String selectSTR = "SELECT * FROM " + tableName;
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            // get a reader
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+            while (dr.Read())
+            {   // Read till the end of the data into a row
+                Stage1 p = new Stage1();
+
+                p.ID = Convert.ToString(dr["ID"]);
+                p.Description = Convert.ToString(dr["Description"]);
+
+
+                lc.Add(p);
+            }
+
+            return lc;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+
+        }
+
+    }
+    public List<Stage2> read3(string conString, string tableName)
+    {
+
+        SqlConnection con = null;
+        List<Stage2> lc = new List<Stage2>();
+        try
+        {
+            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
+
+            String selectSTR = "SELECT * FROM " + tableName;
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            // get a reader
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+            while (dr.Read())
+            {   // Read till the end of the data into a row
+                Stage2 p = new Stage2();
+
+                p.ID = Convert.ToString(dr["ID"]);
+                p.Description = Convert.ToString(dr["Description"]);
+
+
+                lc.Add(p);
+            }
+
+            return lc;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+
+        }
+
+    }
+    public List<Stage3> read4(string conString, string tableName)
+    {
+
+        SqlConnection con = null;
+        List<Stage3> lc = new List<Stage3>();
+        try
+        {
+            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
+
+            String selectSTR = "SELECT * FROM " + tableName;
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            // get a reader
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+            while (dr.Read())
+            {   // Read till the end of the data into a row
+                Stage3 p = new Stage3();
+
+                p.ID = Convert.ToString(dr["ID"]);
+                p.Description = Convert.ToString(dr["Description"]);
+
+
+                lc.Add(p);
+            }
+
+            return lc;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+
+        }
+
+    }
+    public List<Stage4> read5(string conString, string tableName)
+    {
+
+        SqlConnection con = null;
+        List<Stage4> lc = new List<Stage4>();
+        try
+        {
+            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
+
+            String selectSTR = "SELECT * FROM " + tableName;
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            // get a reader
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+            while (dr.Read())
+            {   // Read till the end of the data into a row
+                Stage4 p = new Stage4();
+
+                p.ID = Convert.ToString(dr["ID"]);
+                p.Description = Convert.ToString(dr["Description"]);
+
+
+                lc.Add(p);
+            }
+
+            return lc;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+
+        }
+
+    }
+    public List<Stage5> read6(string conString, string tableName)
+    {
+
+        SqlConnection con = null;
+        List<Stage5> lc = new List<Stage5>();
+        try
+        {
+            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
+
+            String selectSTR = "SELECT * FROM " + tableName;
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            // get a reader
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+            while (dr.Read())
+            {   // Read till the end of the data into a row
+                Stage5 p = new Stage5();
+
+                p.ID = Convert.ToString(dr["ID"]);
+                p.Description = Convert.ToString(dr["Description"]);
+
+
+                lc.Add(p);
+            }
+
+            return lc;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+
+        }
+
+    }
+    public List<Stage6> read7(string conString, string tableName)
+    {
+
+        SqlConnection con = null;
+        List<Stage6> lc = new List<Stage6>();
+        try
+        {
+            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
+
+            String selectSTR = "SELECT * FROM " + tableName;
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            // get a reader
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+            while (dr.Read())
+            {   // Read till the end of the data into a row
+                Stage6 p = new Stage6();
+
+                p.ID = Convert.ToString(dr["ID"]);
+                p.Description = Convert.ToString(dr["Description"]);
+
+
+                lc.Add(p);
+            }
+
+            return lc;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+
+        }
+
+    }
+    public List<Stage7> Read8(string conString, string tableName)
+    {
+
+        SqlConnection con = null;
+        List<Stage7> lc = new List<Stage7>();
+        try
+        {
+            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
+
+            String selectSTR = "SELECT * FROM " + tableName;
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            // get a reader
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+            while (dr.Read())
+            {   // Read till the end of the data into a row
+                Stage7 p = new Stage7();
+
+                p.ID = Convert.ToString(dr["ID"]);
+                p.Description = Convert.ToString(dr["Description"]);
+
+
+                lc.Add(p);
+            }
+
+            return lc;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+
+        }
+
+    }
+    public List<Stage8> Read9(string conString, string tableName)
+    {
+
+        SqlConnection con = null;
+        List<Stage8> lc = new List<Stage8>();
+        try
+        {
+            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
+
+            String selectSTR = "SELECT * FROM " + tableName;
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            // get a reader
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+            while (dr.Read())
+            {   // Read till the end of the data into a row
+                Stage8 p = new Stage8();
+
+                p.ID = Convert.ToString(dr["ID"]);
+                p.Description = Convert.ToString(dr["Description"]);
+
+
+                lc.Add(p);
+            }
+
+            return lc;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+
+        }
+
+    }
+    public List<Stage9> Read10(string conString, string tableName)
+    {
+
+        SqlConnection con = null;
+        List<Stage9> lc = new List<Stage9>();
+        try
+        {
+            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
+
+            String selectSTR = "SELECT * FROM " + tableName;
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            // get a reader
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+            while (dr.Read())
+            {   // Read till the end of the data into a row
+                Stage9 p = new Stage9();
+
+                p.ID = Convert.ToString(dr["ID"]);
+                p.Description = Convert.ToString(dr["Description"]);
+
+
+                lc.Add(p);
+            }
+
+            return lc;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+
+        }
+
+    }
+    public List<Stage10> Read11(string conString, string tableName)
+    {
+
+        SqlConnection con = null;
+        List<Stage10> lc = new List<Stage10>();
+        try
+        {
+            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
+
+            String selectSTR = "SELECT * FROM " + tableName;
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            // get a reader
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+            while (dr.Read())
+            {   // Read till the end of the data into a row
+                Stage10 p = new Stage10();
+
+                p.ID = Convert.ToString(dr["ID"]);
+                p.Description = Convert.ToString(dr["Description"]);
+
+
+                lc.Add(p);
+            }
+
+            return lc;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+
+        }
+
+    }
+
     ////קריאת נתונים מהSQL
     //public List<Hobbies> Read(string conString, string tableName)
     //{
