@@ -522,6 +522,57 @@ public class DBservices
         }
 
     }
+
+    public SalesPerson Test(string conString, string tableName, string username)
+    {
+
+        SqlConnection con;
+        SalesPerson S = new SalesPerson();
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+        }
+
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+        try
+        {
+            String selectSTR = "SELECT * FROM " + tableName + " WHERE UserName='" + username + "'";
+
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dr.Read())
+            {
+
+                S.UserName = Convert.ToString(dr["UserName"]).TrimEnd();
+                S.Password = Convert.ToString(dr["Password"]).TrimEnd();
+                S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
+                S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
+                S.PhoneNumber = Convert.ToInt32(dr["PhoneNumber"]);
+                S.Area = Convert.ToString(dr["Area"]).TrimEnd();
+                S.Email = Convert.ToString(dr["Email"]).TrimEnd();
+
+
+            }
+            return S;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+    }
     ////קריאת נתונים מהSQL
     //public List<Hobbies> Read(string conString, string tableName)
     //{

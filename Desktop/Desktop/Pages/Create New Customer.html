@@ -70,7 +70,7 @@
             color: red;
         }
 
-        label, table {
+        label, table,select {
             display: block;
             margin: 15px;
         }
@@ -91,12 +91,12 @@
             color: #888;
         }
 
-        select {
+        /*select {
             width: 72%;
             height: 45px;
             padding: 5px 10px;
             margin-bottom: 10px;
-        }
+        }*/
 
         .Yorder {
             margin-top: 15px;
@@ -167,7 +167,7 @@
         //console.log(new RegExp(str))
 
         $(document).ready(function () {
-       
+            ajaxCall("GET", "../api/City", "", successGetCity, errorGetCity);
             
            
             $("#CForm").submit(f1);
@@ -207,7 +207,18 @@
             return false; // the return false will prevent the form from being submitted
             // hence the page will not reload
         }
+        function successGetCity(citydata) {
+            for (var i = 0; i < citydata.length; i++) {
+                $("#city").append($("<option></option>").val(citydata[i].ID).html(citydata[i].Name));
 
+            }
+        }
+
+        // this function is activated in case of a failure
+        function errorGetCity(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
      
 
     </script>
@@ -255,12 +266,17 @@
                     <span>Country<span class="required">*</span></span>
                     <input type="text" name="lname" id="country">
                 </label>
-                <label for="city"><input type=""City </label>
-                    <label>
-                        <span>City<span class="required">*</span></span>
-                        <input type="text" name="lname" id="city">
-                    </label>
-                    <input type="submit" value="Insert" />
+                <label>  
+                    <span>City<span class="required">*</span></span>
+                <select id="city">
+                <option/>
+                  </select>
+                </label>
+                <!--<label>
+        <span>City<span class="required">*</span></span>
+        <input type="text" name="lname" id="city">
+    </label>-->
+                <input type="submit" value="Insert" />
             </form>
           
         </div>
