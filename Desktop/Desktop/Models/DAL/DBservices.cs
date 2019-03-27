@@ -40,7 +40,7 @@ public class DBservices
     //--------------------------------------------------------------------------------------------------
     // This method inserts a car to the cars table 
     //--------------------------------------------------------------------------------------------------
-   //הכנסת פרטי משתמש לתוך בסיס נתונים
+    //הכנסת פרטי משתמש לתוך בסיס נתונים
     public int insertS(SalesPerson S)
     {
 
@@ -85,14 +85,14 @@ public class DBservices
 
     }
 
-   
+
     private String BuildInsertCommandS(SalesPerson S)
     {
         String command;
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', {4}, '{5}','{6}' )", S.UserName, S.Password, S.FirstName, S.LastName, S.PhoneNumber, S.Area,S.Email);
+        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', {4}, '{5}','{6}' )", S.UserName, S.Password, S.FirstName, S.LastName, S.PhoneNumber, S.Area, S.Email);
         String prefix = "INSERT INTO SalesPerson " + "(UserName,Password,FirstName,LastName,PhoneNumber,Area,Email)";
         command = prefix + sb.ToString();
 
@@ -188,7 +188,7 @@ public class DBservices
             while (dr.Read())
             {
                 City c = new City();
-      
+
                 c.Name = Convert.ToString(dr["cityName"]).TrimEnd();
 
 
@@ -445,7 +445,7 @@ public class DBservices
             SqlCommand cmd = new SqlCommand(selectSTR, con);
 
             SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            
+
             while (dr.Read())
             {
                 SalesPerson S = new SalesPerson();
@@ -458,8 +458,8 @@ public class DBservices
                 S.Area = Convert.ToString(dr["Area"]).TrimEnd();
                 S.Email = Convert.ToString(dr["Email"]).TrimEnd();
 
-                
-              
+
+
                 f.Add(S);
             }
             return f;
@@ -499,7 +499,7 @@ public class DBservices
             SqlCommand cmd = new SqlCommand(selectSTR, con);
 
             SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            
+
             while (dr.Read())
             {
 
@@ -523,6 +523,7 @@ public class DBservices
         }
 
     }
+
     public List<Stage1> read2(string conString, string tableName)
     {
 
@@ -856,6 +857,7 @@ public class DBservices
         {
             // write to log
             throw (ex);
+
         }
         finally
         {
@@ -864,94 +866,222 @@ public class DBservices
                 con.Close();
             }
 
+
         }
-
     }
-    public List<Stage9> Read10(string conString, string tableName)
-    {
 
-        SqlConnection con = null;
-        List<Stage9> lc = new List<Stage9>();
-        try
+
+        public SalesPerson Test(string conString, string tableName, string username)
         {
-            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
 
-            String selectSTR = "SELECT * FROM " + tableName;
-            SqlCommand cmd = new SqlCommand(selectSTR, con);
+            SqlConnection con;
+            SalesPerson S = new SalesPerson();
 
-            // get a reader
-            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+            try
+            {
 
-            while (dr.Read())
-            {   // Read till the end of the data into a row
-                Stage9 p = new Stage9();
-
-                p.ID = Convert.ToString(dr["ID"]);
-                p.Description = Convert.ToString(dr["Description"]);
-
-
-                lc.Add(p);
+                con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
             }
 
-            return lc;
+
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+
+            }
+            try
+            {
+                String selectSTR = "SELECT * FROM " + tableName + " WHERE UserName='" + username + "'";
+
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dr.Read())
+                {
+
+                    S.UserName = Convert.ToString(dr["UserName"]).TrimEnd();
+                    S.Password = Convert.ToString(dr["Password"]).TrimEnd();
+                    S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
+                    S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
+                    S.PhoneNumber = Convert.ToInt32(dr["PhoneNumber"]);
+                    S.Area = Convert.ToString(dr["Area"]).TrimEnd();
+                    S.Email = Convert.ToString(dr["Email"]).TrimEnd();
+
+
+                }
+                return S;
+
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+
+            }
+
+
+        }
+        public List<Stage9> Read10(string conString, string tableName)
+        {
+
+            SqlConnection con = null;
+            List<Stage9> lc = new List<Stage9>();
+            try
+            {
+                con = connect(conString); // create a connection to the database using the connection String defined in the web config file
+
+                String selectSTR = "SELECT * FROM " + tableName;
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                while (dr.Read())
+                {   // Read till the end of the data into a row
+                    Stage9 p = new Stage9();
+
+                    p.ID = Convert.ToString(dr["ID"]);
+                    p.Description = Convert.ToString(dr["Description"]);
+
+
+                    lc.Add(p);
+                }
+
+                return lc;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+
+        }
+        public List<Stage10> Read11(string conString, string tableName)
+        {
+
+            SqlConnection con = null;
+            List<Stage10> lc = new List<Stage10>();
+            try
+            {
+                con = connect(conString); // create a connection to the database using the connection String defined in the web config file
+
+                String selectSTR = "SELECT * FROM " + tableName;
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                while (dr.Read())
+                {   // Read till the end of the data into a row
+                    Stage10 p = new Stage10();
+
+                    p.ID = Convert.ToString(dr["ID"]);
+                    p.Description = Convert.ToString(dr["Description"]);
+
+
+                    lc.Add(p);
+                }
+
+                return lc;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+
+            }
+
+        }
+
+
+    public void Delete(string conString, string tableName, string UserName)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create the connection
         }
         catch (Exception ex)
         {
             // write to log
             throw (ex);
         }
-        finally
-        {
-            if (con != null)
-            {
-                con.Close();
-            }
 
-        }
+        String cStr = BuildputCommand(UserName);      // helper method to build the insert string
 
-    }
-    public List<Stage10> Read11(string conString, string tableName)
-    {
+        cmd = CreateCommand(cStr, con);             // create the command
 
-        SqlConnection con = null;
-        List<Stage10> lc = new List<Stage10>();
         try
         {
-            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
-
-            String selectSTR = "SELECT * FROM " + tableName;
-            SqlCommand cmd = new SqlCommand(selectSTR, con);
-
-            // get a reader
-            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
-
-            while (dr.Read())
-            {   // Read till the end of the data into a row
-                Stage10 p = new Stage10();
-
-                p.ID = Convert.ToString(dr["ID"]);
-                p.Description = Convert.ToString(dr["Description"]);
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
 
 
-                lc.Add(p);
-            }
-
-            return lc;
         }
         catch (Exception ex)
         {
+            ;
             // write to log
             throw (ex);
         }
+
         finally
         {
             if (con != null)
             {
+                // close the db connection
                 con.Close();
             }
-
         }
 
+    }
+
+
+    //--------------------------------------------------------------------
+    // Build the Insert a movie command String
+    //--------------------------------------------------------------------
+    private String BuildputCommand(string a)
+    {
+
+
+
+        // use a string builder to create the dynamic string
+
+        String prefix = "DELETE FROM SalesPerson where UserName=" + a;
+
+
+        return prefix;
     }
 
     ////קריאת נתונים מהSQL
@@ -1175,3 +1305,5 @@ public class DBservices
     //}
 
 }
+
+        

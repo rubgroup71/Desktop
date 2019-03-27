@@ -24,6 +24,11 @@ namespace WebApplication2.Controllers
             SalesPerson S = new SalesPerson();
             return S.Login(username, password);
         }
+        public SalesPerson Get(string username)
+        {
+            SalesPerson S = new SalesPerson();
+            return S.Test(username);
+        }
 
         // POST: api/SalesPerson
         public void Post([FromBody]SalesPerson S)

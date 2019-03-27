@@ -44,6 +44,11 @@ namespace WebApplication2.Models
             DBservices DBS = new DBservices();
             return DBS.Login("ConnectionStringName", "SalesPerson",username,password);
         }
+        public SalesPerson Test(string username)
+        {
+            DBservices DBS = new DBservices();
+            return DBS.Test("ConnectionStringName", "SalesPerson", username);
+        }
 
         public List<SalesPerson> Show()
         {
