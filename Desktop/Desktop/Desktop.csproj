@@ -195,6 +195,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Stage10.cs" />
+    <Compile Include="Models\Stage9.cs" />
+    <Compile Include="Models\Stage8.cs" />
+    <Compile Include="Models\Stage7.cs" />
+    <Compile Include="Models\Stage6.cs" />
+    <Compile Include="Models\Stage5.cs" />
+    <Compile Include="Models\Stage4.cs" />
+    <Compile Include="Models\Stage3.cs" />
+    <Compile Include="Models\Stage2.cs" />
+    <Compile Include="Models\Stage1.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Customer.cs" />
