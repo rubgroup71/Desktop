@@ -44,6 +44,13 @@ namespace WebApplication2.Models
             DBservices DBS = new DBservices();
             return DBS.Login("ConnectionStringName", "SalesPerson",username,password);
         }
+
+        internal void delete(string UserName)
+        {
+            DBservices DBS = new DBservices();
+            DBS.Delete("ConnectionStringName", "SalesPerson", UserName);
+        }
+
         public SalesPerson Test(string username)
         {
             DBservices DBS = new DBservices();

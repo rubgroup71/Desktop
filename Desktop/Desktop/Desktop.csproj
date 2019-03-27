@@ -226,6 +226,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="HtmlPage1.html" />
+    <Content Include="Pages\InsertItem.html" />
     <Content Include="Pages\Create New Customer.html" />
     <Content Include="Pages\Create New Order.html" />
     <Content Include="Pages\Create New User.html" />

@@ -137,6 +137,7 @@
         td {
             border-bottom: 1px solid #dadada;
             padding: 25px 25px 25px 0;
+            
         }
 
         p {
@@ -151,15 +152,17 @@
         }
 
         button {
-            width: 40%;
+            width: 100%;
             margin-top: 10px;
-            padding: 10px;
+            padding: 0px;
             border: none;
             border-radius: 30px;
             background: #52ad9c;
             color: #fff;
-            font-size: 10px;
+            font-size: 15px;
             font-weight: bold;
+            
+            
         }
 
             button:hover {
@@ -189,6 +192,13 @@
                 box-shadow: 0 6px 14px 0 #666;
                 transform: scale(1.05);
             }
+            .deletebtn{
+                float:left;
+                background-color:red;
+            }
+            .edit{
+                float:left;
+            }
         
     </style>
     <script>
@@ -197,7 +207,45 @@
 
         });
 
+        function buttonEvents() {
 
+            //$(document).on("click", ".editBtn", function () {
+            //    markSelected(this);
+            //    $("#editDiv").show();
+            //    $("#editDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
+            //    populateFields(this.getAttribute('data-carId')); // fill the form fields according to the selected row
+            //});
+
+            
+
+            $(document).on("click", ".deletebtn", function () {
+                //tbl.row($(this).parents('tr')).remove().draw(false);
+                markSelected(this);
+                var SalseUser = this.getAttribute('data-User');
+                swal({ // this will open a dialouge 
+                    title: "Are you sure ??",
+                    text: "",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                })
+                    .then(function (willDelete) {
+                        if (willDelete) DeleteUser(SalseUser);
+                        else swal("Not Deleted!");
+                    });
+            });
+        }
+
+        function markSelected(btn) {
+            $("#salestable tr").removeClass("selected"); // remove seleced class from rows that were selected before
+            row = (btn.parentNode).parentNode; // button is in TD which is in Row
+            row.className = 'selected'; // mark as selected
+        }
+
+        // Delete a car from the server
+        function DeleteUser(user) {
+            ajaxCall("DELETE", "../api/SalesPerson?UserName='" + user+"'" , "", deleteSuccess, deleteerror);
+        }
         function getSuccess(SalesPersonData) {
 
             SalesData = SalesPersonData;
@@ -216,12 +264,13 @@
 
                         {
                             render: function (data, type, row, meta) {
-                                let dataPerson = "data-personId='" + row.ID + "'";
+                                let DataU = "data-User='" + row.UserName + "'";
 
 
-                                editBtn = "<button type='button' id='" + row.ID + "' class = 'editBtn btn btn-info' " + dataPerson + "> edit active  </button>";
-                                //deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataCar + "> Delete </button>";
-                                return editBtn;/* + viewBtn + deleteBtn;*/
+                                //edit = "<button type='button' id='" + row.UserName + "class='edit' " + SalesData + "> Edit </button>";
+                                deleteBtn = "<button type='button' class='deletebtn btn btn-danger' " + DataU + "> Delete </button>";
+                                
+                                return deleteBtn;
                             }
                         }
 
@@ -230,7 +279,7 @@
 
                     ],
                 });
-                //buttonEvents();
+                buttonEvents();
             }
 
             catch (err) {
@@ -243,7 +292,25 @@
         function error(err) {
             swal("Error: " + err );
         }
-            
+        function deleteSuccess(SalesPersonData) {
+       
+            tbl.clear();
+            redrawTable(tbl,SalesPersonData);
+            console.log(Userdata);
+            buttonEvents(); // after redrawing the table, we must wire the new buttons
+            //$("#editDiv").hide();
+            swal("Deleted Successfuly!", "Great Job", "success");
+        } 
+        function redrawTable(tbl,data) {
+            tbl.clear();
+            for (var i = 0; i < data.lenght; i++) {
+                tbl.row.add(data[i]);
+            }
+            tbl.draw();
+        }
+        function deleteerror(err) {
+            swal("Error: " + err);
+        }
      
     </script>
 </head>
