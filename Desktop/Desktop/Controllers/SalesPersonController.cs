@@ -46,11 +46,8 @@ namespace WebApplication2.Controllers
         }
 
         // DELETE: api/SalesPerson/5
-        public void Delete(string UserName)
+        public void Delete(int id)
         {
-            SalesPerson S = new SalesPerson();
-            S.delete(UserName);
-
         }
     }
 }

@@ -189,16 +189,6 @@
                 box-shadow: 0 6px 14px 0 #666;
                 transform: scale(1.05);
             }
-        .wrapper {
-            display: grid;
-            grid-template-columns: 50% 50% 50% 50% 50% 50% 50% 50% 50% 50%;
-            grid-gap: 10px;
-           
-        }
-        .item {
-            border: solid black 1px;
-            text-align: center;
-        }
     </style>
     <script>
         $(document).ready(function () {
@@ -232,19 +222,173 @@
 
         </div>
         <div class="d-flex">
-            <div class="wrapper">
-                <div class="item">1</div>
-                <div class="item">2</div>
-                <div class="item">3</div>
-                <div class="item">4</div>
-                <div class="item">5</div>
-                <div class="item">6</div>
-                <div class="item">7</div>
-                <div class="item">8</div>
-                <div class="item">9</div>
-                <div class="item">10</div>
-            </div>
+            <form>
+                <table id="example" class="hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Type</th>
+                            <th>Serial Number</th>
 
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tiger Nixon</td>
+                            <td>System Architect</td>
+                            <td>Edinburgh</td>
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Garrett Winters</td>
+                            <td>Accountant</td>
+                            <td>Tokyo</td>
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ashton Cox</td>
+                            <td>Junior Technical Author</td>
+                            <td>San Francisco</td>
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Cedric Kelly</td>
+                            <td>Senior Javascript Developer</td>
+                            <td>Edinburgh</td>
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Airi Satou</td>
+                            <td>Accountant</td>
+                            <td>Tokyo</td>
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Brielle Williamson</td>
+                            <td>Integration Specialist</td>
+                            <td>New York</td>
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Herrod Chandler</td>
+                            <td>Sales Assistant</td>
+                            <td>San Francisco</td>
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rhona Davidson</td>
+                            <td>Integration Specialist</td>
+                            <td>Tokyo</td>
+
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Colleen Hurst</td>
+                            <td>Javascript Developer</td>
+                            <td>San Francisco</td>
+
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sonya Frost</td>
+                            <td>Software Engineer</td>
+                            <td>Edinburgh</td>
+
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Jena Gaines</td>
+                            <td>Office Manager</td>
+                            <td>London</td>
+
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Charde Marshall</td>
+                            <td>Regional Director</td>
+                            <td>San Francisco</td>
+
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Haley Kennedy</td>
+                            <td>Senior Marketing Designer</td>
+                            <td>London</td>
+
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tatyana Fitzpatrick</td>
+                            <td>Regional Director</td>
+                            <td>London</td>
+
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Michael Silva</td>
+                            <td>Marketing Designer</td>
+                            <td>London</td>
+
+                            <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Number</th>
+                            <th>Type</th>
+                            <th>Serial Number</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </form>
         </div><!-- Yorder -->
 
         <div class="fab" onclick="location.href='Insert New Item.html'"> + </div>

@@ -9,5 +9,4 @@
         success: successCB,
         error: errorCB
     });
-
-   
+}
