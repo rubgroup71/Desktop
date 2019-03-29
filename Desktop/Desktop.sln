@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.csproj", "{7F298D50-8B49-4D73-A16B-25CE78C96E87}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{379A03AE-1218-45E5-BC90-1A3EEDAE9ED1}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\Web.config = ..\..\..\..\Web.config
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

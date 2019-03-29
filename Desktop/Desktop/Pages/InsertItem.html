@@ -3,15 +3,29 @@
 <head>
     <title></title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href=" https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
-
     <style>
+
+
         @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
+
+        table.dataTable tbody th, table.dataTable tbody td {
+            padding: 6px 70px 0px 10px;
+            text-align: left;
+            float: unset;
+            color: black;
+        }
 
         body {
             background: url('http://all4desktop.com/data_images/original/4236532-background-images.jpg');
@@ -70,19 +84,16 @@
             color: red;
         }
 
-        label, table,select {
-            display: block;
-            margin: 15px;
+
+
+        label > span {
+            float: left;
+            width: 25%;
+            margin-top: 12px;
+            padding-right: 10px;
         }
 
-            label > span {
-                float: left;
-                width: 25%;
-                margin-top: 12px;
-                padding-right: 10px;
-            }
-
-        input[type="text"], input[type="submit"], input[type="tel"], input[type="email"], select {
+        input[type="text"], input[type="tel"], input[type="email"], select {
             width: 70%;
             height: 30px;
             padding: 5px 10px;
@@ -91,19 +102,19 @@
             color: #888;
         }
 
-        /*select {
+        select {
             width: 72%;
             height: 45px;
             padding: 5px 10px;
             margin-bottom: 10px;
-        }*/
+        }
 
-        .Yorder {
+        /*.Yorder {
             margin-top: 15px;
             height: 600px;
             padding: 20px;
             border: 1px solid #dadada;
-        }
+        }*/
 
         table {
             margin: 0;
@@ -141,15 +152,15 @@
             padding: 15px 0;
         }
 
-        button, input[type="submit"] {
-            width: 100%;
+        button {
+            width: 40%;
             margin-top: 10px;
             padding: 10px;
             border: none;
             border-radius: 30px;
             background: #52ad9c;
             color: #fff;
-            font-size: 15px;
+            font-size: 10px;
             font-weight: bold;
         }
 
@@ -157,129 +168,238 @@
                 cursor: pointer;
                 background: #428a7d;
             }
+
+
+
+        .fab {
+            width: 70px;
+            height: 70px;
+            background-color: red;
+            border-radius: 50%;
+            box-shadow: 0 6px 10px 0 #666;
+            transition: all 0.1s ease-in-out;
+            font-size: 50px;
+            color: white;
+            text-align: center;
+            line-height: 70px;
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+        }
+
+            .fab:hover {
+                box-shadow: 0 6px 14px 0 #666;
+                transform: scale(1.05);
+            }
+
+        .wrapper {
+            display: grid;
+            grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+            grid-gap: 10px;
+            grid-row: 1;
+        }
+
+        .item {
+        }
+
+        .dana {
+            display: grid;
+            grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+            grid-gap: 10px;
+            grid-row: 1;
+            display: block;
+        }
     </style>
-
     <script>
-       //var str = '/2|3/';
-        //str = str.substring(1, str.length - 1)
-        //str += '|' + '1'
-        //console.log(str)
-        //console.log(new RegExp(str))
-
         $(document).ready(function () {
-            ajaxCall("GET", "../api/City", "", successGetCity, errorGetCity);
-            
-           
-            $("#CForm").submit(f1);
+            ajaxCall("GET", "../api/Stage1", "", successGetstage1, errorGetstage1);
+            ajaxCall("GET", "../api/Stage2", "", successGetstage2, errorGetstage2);
+            ajaxCall("GET", "../api/Stage3", "", successGetstage3, errorGetstage3);
+            ajaxCall("GET", "../api/Stage4", "", successGetstage4, errorGetstage4);
+            ajaxCall("GET", "../api/Stage5", "", successGetstage5, errorGetstage5);
+            ajaxCall("GET", "../api/Stage6", "", successGetstage6, errorGetstage6);
+            ajaxCall("GET", "../api/Stage7", "", successGetstage7, errorGetstage7);
+            ajaxCall("GET", "../api/Stage8", "", successGetstage8, errorGetstage8);
+            ajaxCall("GET", "../api/Stage9", "", successGetstage9, errorGetstage9);
+            ajaxCall("GET", "../api/Stage10", "", successGetstage10, errorGetstage10);
+
+
         });
-     
-
-           
-        function AddCustomer() {
-            
-            Customer = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
-                UserName: $("#username").val(),
-                Password: $("#password").val(),
-                FirstName: $("#firstname").val(),
-                LastName: $("#lastname").val(),
-                Address: $("#address").val(),
-                PhoneNumber: $("#phonenumber").val(),
-                CompanyName: $("#companyname").val(),
-                CityName: $("#cityname").val(),
-                CountryName: $("#countryname").val(),
-            };
-
-            ajaxCall("POST", "../api/Customer", JSON.stringify(Customer), success, error);
-            
-        }
-
-
-        function success(data) {
-            swal("Added Successfuly!", "Customer created", "success")
-        }
-
-        function error(err) {
-            alert("error");
-        }
-
-        function f1() {
-            AddCustomer();
-            return false; // the return false will prevent the form from being submitted
-            // hence the page will not reload
-        }
-        function successGetCity(citydata) {
-            for (var i = 0; i < citydata.length; i++) {
-                $("#city").append($("<option></option>").val(citydata[i].ID).html(citydata[i].Name));
+        function successGetstage1(stage1data) {
+            for (var i = 0; i < stage1data.length; i++) {
+                document.getElementById("stage0").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
 
             }
+
         }
 
-        // this function is activated in case of a failure
-        function errorGetCity(err) {
+        function errorGetstage1(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
-     
+        function successGetstage2(stage1data) {
+            for (var i = 0; i < stage1data.length; i++) {
+                document.getElementById("stage1").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
+
+            }
+
+        }
+
+        function errorGetstage2(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+        function successGetstage3(stage1data) {
+            for (var i = 0; i < stage1data.length; i++) {
+                document.getElementById("stage2").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
+
+            }
+
+        }
+
+        function errorGetstage3(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+        function successGetstage4(stage1data) {
+            for (var i = 0; i < stage1data.length; i++) {
+                document.getElementById("stage3").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
+
+            }
+
+        }
+
+        function errorGetstage4(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+        function successGetstage5(stage1data) {
+            for (var i = 0; i < stage1data.length; i++) {
+                document.getElementById("stage4").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
+
+            }
+
+        }
+
+        function errorGetstage5(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+        function successGetstage6(stage1data) {
+            for (var i = 0; i < stage1data.length; i++) {
+                document.getElementById("stage5").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
+
+            }
+
+        }
+
+        function errorGetstage6(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+        function successGetstage7(stage1data) {
+            for (var i = 0; i < stage1data.length; i++) {
+                document.getElementById("stage6").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
+
+            }
+
+        }
+
+        function errorGetstage7(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+        function successGetstage8(stage1data) {
+            for (var i = 0; i < stage1data.length; i++) {
+                document.getElementById("stage7").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
+
+            }
+
+        }
+
+        function errorGetstage8(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+        function successGetstage9(stage1data) {
+            for (var i = 0; i < stage1data.length; i++) {
+                document.getElementById("stage8").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
+
+            }
+
+        }
+
+        function errorGetstage9(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+        function successGetstage10(stage1data) {
+            for (var i = 0; i < stage1data.length; i++) {
+                document.getElementById("stage9").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
+
+            }
+
+        }
+
+        function errorGetstage10(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
 
     </script>
-
-
 </head>
 <body>
-
-
     <div class="container">
         <div class="title">
-            <h2>Create New Customer</h2>
+            <h2>Item List</h2>
+
         </div>
         <div class="d-flex">
-            <form action="" method="" id="CForm">
-                <label>
-                    <span class="lname">User Name  <span class="required">*</span></span>
-                    <input type="text" name="lname" id="username">
-                </label>
-                <label>
-                    <span class="lname">Password <span class="required">*</span></span>
-                    <input type="text" name="lname" id="password">
-                </label>
-                <label>
-                    <span class="lname">Company Name  <span class="required">*</span></span>
-                    <input type="text" name="lname" id="companyname">
-                </label>
-                <label>
-                    <span class="lname">First Name  <span class="required">*</span></span>
-                    <input type="text" name="lname" id="firstname">
-                </label>
-                <label>
-                    <span class="lname">Last Name  <span class="required">*</span></span>
-                    <input type="text" name="lname" id="lastname">
-                </label>
-                <label>
-                    <span>Address<span class="required">*</span></span>
-                    <input type="text" name="lname">
-                </label>
-                <label>
-                    <span>Phone Number<span class="required">*</span></span>
-                    <input type="tel" name="lname" id="phonenumber">
-                </label>
-                <label>
-                    <span>Country<span class="required">*</span></span>
-                    <input type="text" name="lname" id="country">
-                </label>
-                <label>  
-                    <span>City<span class="required">*</span></span>
-                <select id="city">
-                <option/>
-                  </select>
-                </label>
-                <!--<label>
-        <span>City<span class="required">*</span></span>
-        <input type="text" name="lname" id="city">
-    </label>-->
-                <input type="submit" value="Insert" />
-            </form>
-          
-        </div>
+
+            <div class="wrapper">
+
+                <div class="item" id="stage0">
+
+                </div>
+                <div class="item" id="stage1">
+
+
+                </div>
+                <div class="item" id="stage2">
+
+                </div>
+                <div class="item" id="stage3">
+
+
+                </div>
+                <div class="item" id="stage4">
+
+
+                </div>
+                <div class="item" id="stage5">
+
+
+                </div>
+                <div class="item" id="stage6">
+
+
+                </div>
+                <div class="item" id="stage7">
+
+
+                </div>
+                <div class="item" id="stage8">
+
+
+                </div>
+                <div class="item" id="stage9">
+
+                </div>
+            </div>
+
+        </div><!-- Yorder -->
+
+        <div class="fab" onclick="location.href='Insert New Item.html'"> + </div>
     </div>
 </body>
 </html>
