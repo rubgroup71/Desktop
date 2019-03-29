@@ -161,7 +161,7 @@
     <script>
 
         $(document).ready(function () {
-<<<<<<< HEAD
+
            
             ajaxCall("GET", "../api/Stage1", "", successGetstage1, errorGetstage1);
             ajaxCall("GET", "../api/Stage2", "", successGetstage2, errorGetstage2);
@@ -195,7 +195,7 @@
         function successGetstage2(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
                 $("#stage2").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
-<<<<<<< HEAD
+
 
             }
 
@@ -206,9 +206,9 @@
         }
         function successGetstage3(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
-<<<<<<< HEAD
+
                 $("#stage3").append($("<option></option>").val(stage1data[i].ID).html(stage1data[i].Description));
-=======
+
 
 
 
@@ -245,72 +245,69 @@
         function successGetstage2(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
                 $("#stage2").append($("<option></option>").val(stage1data[i].ID).html(stage1data[i].Description));
->>>>>>> noam
-=======
+
                 $("#stage3").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
->>>>>>> parent of 9eaf9cc... delete
-=======
->>>>>>> parent of 9eaf9cc... delete
+
 
             }
 
         }
-<<<<<<< HEAD
+
         function errorGetstage3(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
         function successGetstage4(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
-<<<<<<< HEAD
+
                 $("#stage4").append($("<option></option>").val(stage1data[i].ID).html(stage1data[i].Description));
-=======
+
         function errorGetstage2(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
         function successGetstage3(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
-<<<<<<< HEAD
+
                 $("#stage3").append($("<option></option>").val(stage1data[i].ID).html(stage1data[i].Description));
->>>>>>> noam
-=======
+
                 $("#stage4").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
->>>>>>> parent of 9eaf9cc... delete
-=======
+
                 $("#stage3").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
->>>>>>> parent of 9eaf9cc... delete
+
+
+                $("#stage3").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
+
 
             }
 
         }
-<<<<<<< HEAD
+
         function errorGetstage4(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
         function successGetstage5(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
-<<<<<<< HEAD
+
                 $("#stage5").append($("<option></option>").val(stage1data[i].ID).html(stage1data[i].Description));
-=======
+
         function errorGetstage3(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
         function successGetstage4(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
-<<<<<<< HEAD
+
                 $("#stage4").append($("<option></option>").val(stage1data[i].ID).html(stage1data[i].Description));
->>>>>>> noam
-=======
+
                 $("#stage5").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
->>>>>>> parent of 9eaf9cc... delete
+
 
             }
 
         }
-<<<<<<< HEAD
+
         function errorGetstage5(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
@@ -329,9 +326,11 @@
         function successGetstage7(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
                 $("#stage7").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
-=======
+
                 $("#stage4").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
->>>>>>> parent of 9eaf9cc... delete
+
+                $("#stage4").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
+
 
             }
 
@@ -342,23 +341,24 @@
         }
         function successGetstage8(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
-<<<<<<< HEAD
+
                 $("#stage8").append($("<option></option>").val(stage1data[i].ID).html(stage1data[i].Description));
-=======
+
         function errorGetstage4(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
         function successGetstage5(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
-<<<<<<< HEAD
+
                 $("#stage5").append($("<option></option>").val(stage1data[i].ID).html(stage1data[i].Description));
-=======
+
                 $("#stage8").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
->>>>>>> parent of 9eaf9cc... delete
-=======
+
                 $("#stage5").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
->>>>>>> parent of 9eaf9cc... delete
+
+                $("#stage5").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
+
 
             }
 
@@ -380,47 +380,47 @@
         }
         function successGetstage7(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
-<<<<<<< HEAD
+
                 $("#stage7").append($("<option></option>").val(stage1data[i].ID).html(stage1data[i].Description));
->>>>>>> noam
-=======
+
                 $("#stage7").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
->>>>>>> parent of 9eaf9cc... delete
+
+                $("#stage7").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
+
 
             }
 
         }
-<<<<<<< HEAD
+
         function errorGetstage8(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
         function successGetstage9(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
-<<<<<<< HEAD
+
                 $("#stage9").append($("<option></option>").val(stage1data[i].ID).html(stage1data[i].Description));
-=======
+
         function errorGetstage7(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
         function successGetstage8(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
-<<<<<<< HEAD
+
                 $("#stage8").append($("<option></option>").val(stage1data[i].ID).html(stage1data[i].Description));
->>>>>>> noam
-=======
+
                 $("#stage9").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
->>>>>>> parent of 9eaf9cc... delete
-=======
+
                 $("#stage8").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
->>>>>>> parent of 9eaf9cc... delete
+
+                $("#stage8").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
+
 
             }
 
         }
-<<<<<<< HEAD
-=======
+
         function errorGetstage8(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
@@ -432,7 +432,7 @@
             }
 
         }
->>>>>>> noam
+
         function errorGetstage9(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
@@ -449,12 +449,12 @@
             swal("Error!", err.ExceptionMessage, "error");
         }
 
-<<<<<<< HEAD
+
 
 
         
     </script>
-=======
+
         function additem() {
             // Note that the name of the fields must be identical to the names of the properties of the object in the server
             stage1 = $("#stage1").val(),
@@ -489,7 +489,7 @@
             $("#stage10").val("");
             $("#quantity").val("");
         }
->>>>>>> noam
+
 
     </script>
 
@@ -508,7 +508,7 @@
                     <select id="stage1" name="selection">
                         <option  class="required"></option>
                     </select>
-<<<<<<< HEAD
+
                 </label>
                 <label>
                     <span class="fname">Model <span class="required">*</span></span>
@@ -523,7 +523,7 @@
                         <option value="-1">Select a body</option>
                         
                         
-=======
+
 
                 </label>
                 <label>
@@ -532,100 +532,100 @@
                         <option ></option>
 
 
->>>>>>> noam
+
                     </select>
                 </label>
                 <label>
                     <span>Port<span class="required">*</span></span>
                     <select id="stage3" name="selection">
-<<<<<<< HEAD
+
                         <option value="select">Select a port</option>
 
-=======
+
                         <option value="select"></option>
->>>>>>> noam
+
                     </select>
                 </label>
                 <label>
                     <span>Function<span class="required">*</span></span>
                     <select id="stage4" name="selection">
-<<<<<<< HEAD
+
                         <option value="select">Select a function</option>
                        
-=======
+
                         <option value="select"></option>
 
->>>>>>> noam
+
                     </select>
                 </label>
                 <label>
                     <span>Orifice<span class="required">*</span></span>
                     <select id="stage5" name="selection">
-<<<<<<< HEAD
+
                         <option value="select">Select a orifice</option>
                  
-=======
+
                         <option value="select"></option>
 
->>>>>>> noam
+
                     </select>
                 </label>
                 <label>
                     <span>Seals<span class="required">*</span></span>
                     <select id="stage6" name="selection">
-<<<<<<< HEAD
+
                         <option value="select">Select a seals</option>
                        
-=======
+
                         <option value="select"></option>
 
->>>>>>> noam
+
                     </select>
                 </label>
                 <label>
                     <span>Manual OverRide<span class="required">*</span></span>
                     <select id="stage7" name="selection">
-<<<<<<< HEAD
+
                         <option value="select">Select manual override</option>
 
-=======
+
                         <option value="select"></option>
->>>>>>> noam
+
                     </select>
                 </label>
                 <label>
                     <span>Voltage<span class="required">*</span></span>
                     <select id="stage8" name="selection">
-<<<<<<< HEAD
+
                         <option value="select">Select voltage</option>
 
-=======
+
                         <option value="select"></option>
->>>>>>> noam
+
                     </select>
                 </label>
                 <label>
                     <span>Power<span class="required">*</span></span>
                     <select id="stage9" name="selection">
-<<<<<<< HEAD
+
                         <option value="select">Select power</option>
                 
-=======
+
                         <option value="select"></option>
 
->>>>>>> noam
+
                     </select>
                 </label>
                 <label>
                     <span>Connector<span class="required">*</span></span>
                     <select id="stage10" name="selection">
-<<<<<<< HEAD
+
                         <option value="select">Select connector</option>
           
-=======
+
                         <option value="select"></option>
 
->>>>>>> noam
+
                     </select>
                 </label>
                 <label>
