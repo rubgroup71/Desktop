@@ -9,8 +9,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
-
     <style>
+
         @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
 
         body {
@@ -158,11 +158,12 @@
                 background: #428a7d;
             }
     </style>
-
     <script>
-       
+
         $(document).ready(function () {
-           
+
+
+
             ajaxCall("GET", "../api/Stage1", "", successGetstage1, errorGetstage1);
             ajaxCall("GET", "../api/Stage2", "", successGetstage2, errorGetstage2);
             ajaxCall("GET", "../api/Stage3", "", successGetstage3, errorGetstage3);
@@ -174,20 +175,21 @@
             ajaxCall("GET", "../api/Stage9", "", successGetstage9, errorGetstage9);
             ajaxCall("GET", "../api/Stage10", "", successGetstage10, errorGetstage10);
 
-           
-           
-            $("#pForm").submit(f1);
+
+
+            $("#OForm").submit(f1);
         });
         
+
         // this function is activated in case of a success
         function successGetstage1(stage1data) {
             for (var i = 0; i < stage1data.length; i++) {
-                $("#stage1").append($("<option></option>").val(stage1data[i].ID).html(stage1data[i].Description));
+                $("#stage1").append($("<option></option>").val(stage1data[i].Description).html(stage1data[i].Description));
 
             }
-           
+
         }
- 
+
         function errorGetstage1(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
@@ -292,15 +294,45 @@
             swal("Error!", err.ExceptionMessage, "error");
         }
 
+        function additem() {
+            // Note that the name of the fields must be identical to the names of the properties of the object in the server
+            stage1 = $("#stage1").val(),
+            stage2 = $("#stage2").val();
+            stage3 = $("#stage3").val(),
+                stage4=$("#stage4").val(),
+                stage5=$("#stage5").val(),
+                stage6=$("#stage6").val(),
+                stage7=$("#stage7").val(),
+                stage8=$("#stage8").val(),
+                stage9=$("#stage9").val(),
+                stage10=$("#stage10").val(),
 
+                item=stage1 + stage2 + stage3 + stage4 + stage5 + stage6 + stage7 + stage8 + stage9 + stage10;
+            
+            quantity = $("#quantity").val();
+           
+            document.getElementById("table").innerHTML += '<tr><td>' + item + '</td><td>' + quantity+'</td></tr>';
+          
+            clean();
+        }
+        function clean() {
+            $("#stage1").val("");
+            $("#stage2").val("");
+            $("#stage3").val("");
+            $("#stage4").val("");
+            $("#stage5").val("");
+            $("#stage6").val("");
+            $("#stage7").val("");
+            $("#stage8").val("");
+            $("#stage9").val("");
+            $("#stage10").val("");
+            $("#quantity").val("");
+        }
 
-        
     </script>
-
 
 </head>
 <body>
-
 
     <div class="container">
         <div class="title">
@@ -308,116 +340,101 @@
         </div>
         <div class="d-flex">
             <form action="" method="">
-                <label>
-                    <span class="fname">Company Name <span class="required">*</span></span>
-                    <select name="selection">
-                        <option value="1"></option>
-                        <option value="1">HP</option>
-                        <option value="2">Rotlein</option>
-                        <option value="3">Lumenis</option>
-                    </select>
-                </label>
+               
                 <label>
                     <span class="fname">Model <span class="required">*</span></span>
                     <select id="stage1" name="selection">
-                        <option value="-1">select a model</option>
+                        <option  class="required"></option>
                     </select>
-            
+
                 </label>
                 <label>
                     <span>Body<span class="required">*</span></span>
-                    <select  id="stage2" name="selection">
-                        <option value="-1">Select a body</option>
-                        
-                        
+                    <select id="stage2" name="selection">
+                        <option ></option>
+
+
                     </select>
                 </label>
                 <label>
                     <span>Port<span class="required">*</span></span>
                     <select id="stage3" name="selection">
-                        <option value="select">Select a port</option>
-
+                        <option value="select"></option>
                     </select>
                 </label>
                 <label>
                     <span>Function<span class="required">*</span></span>
                     <select id="stage4" name="selection">
-                        <option value="select">Select a function</option>
-                       
+                        <option value="select"></option>
+
                     </select>
                 </label>
                 <label>
                     <span>Orifice<span class="required">*</span></span>
                     <select id="stage5" name="selection">
-                        <option value="select">Select a orifice</option>
-                 
+                        <option value="select"></option>
+
                     </select>
                 </label>
                 <label>
                     <span>Seals<span class="required">*</span></span>
                     <select id="stage6" name="selection">
-                        <option value="select">Select a seals</option>
-                       
+                        <option value="select"></option>
+
                     </select>
                 </label>
                 <label>
                     <span>Manual OverRide<span class="required">*</span></span>
                     <select id="stage7" name="selection">
-                        <option value="select">Select manual override</option>
-
+                        <option value="select"></option>
                     </select>
                 </label>
                 <label>
                     <span>Voltage<span class="required">*</span></span>
                     <select id="stage8" name="selection">
-                        <option value="select">Select voltage</option>
-
+                        <option value="select"></option>
                     </select>
                 </label>
                 <label>
                     <span>Power<span class="required">*</span></span>
                     <select id="stage9" name="selection">
-                        <option value="select">Select power</option>
-                
+                        <option value="select"></option>
+
                     </select>
                 </label>
                 <label>
                     <span>Connector<span class="required">*</span></span>
                     <select id="stage10" name="selection">
-                        <option value="select">Select connector</option>
-          
+                        <option value="select"></option>
+
                     </select>
                 </label>
                 <label>
                     <span class="fname">Quantity<span class="required">*</span></span>
-                    <input type="text" />
-
+                    <input type="text" id="quantity" />
 
                 </label>
-                <button type="button">Add</button>
+                <button type="button" onclick="additem()">Add</button>
             </form>
             <div class="Yorder">
-                <table>
+                <table id="table">
                     <tr>
                         <th colspan="2">Your order</th>
                     </tr>
                     <tr>
                         <td>
-                            <label for="field2">Items</label>
-                            <select multiple required>
-
-                                <option value="1" style="padding-left:600px">GEM-0192835</option>
-                                <option value="2"></option>
-                                <option value="3"> </option>
-                                <option value="4"></option>
-                                <option value="5"></option>
-                            </select>
-                           
+                            Items
                         </td>
-                  
-                </table><br>
-              
-                <button type="button">Create Order</button>
+                        <td>
+                            Quantity
+                        </td>
+                    </tr>
+
+
+
+                </table>
+                <input type="submit" value="Create Order" />
+         
             </div><!-- Yorder -->
         </div>
     </div>
