@@ -11,7 +11,7 @@ namespace Desktop.Controllers
     public class Stage1Controller : ApiController
     {
         // GET: api/Stage1
-        public IEnumerable<stage1> Get()
+        public IEnumerable<Stage1> Get()
         {
             Stage1 s = new Stage1();
             List<Stage1> ho = s.Read();

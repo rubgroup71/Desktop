@@ -39,6 +39,7 @@ namespace Desktop.Controllers
         // DELETE: api/Stage10/5
         public void Delete(int id)
         {
+
         }
     }
 }

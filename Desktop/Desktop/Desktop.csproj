@@ -195,16 +195,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Stage10.cs" />
-    <Compile Include="Models\Stage9.cs" />
-    <Compile Include="Models\Stage8.cs" />
-    <Compile Include="Models\Stage7.cs" />
-    <Compile Include="Models\Stage6.cs" />
-    <Compile Include="Models\Stage5.cs" />
-    <Compile Include="Models\Stage4.cs" />
-    <Compile Include="Models\Stage3.cs" />
-    <Compile Include="Models\Stage2.cs" />
-    <Compile Include="Models\Stage1.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -236,6 +226,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="HtmlPage1.html" />
+    <Content Include="Pages\InsertItem.html" />
     <Content Include="Pages\Create New Customer.html" />
     <Content Include="Pages\Create New Order.html" />
     <Content Include="Pages\Create New User.html" />
