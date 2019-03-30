@@ -195,156 +195,42 @@
         .wrapper {
             display: grid;
             grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+            grid-template-rows: 5%;
             grid-gap: 10px;
             grid-row: 1;
         }
 
         .item {
+            font-weight: bold;
         }
 
-        .dana {
-            display: grid;
-            grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
-            grid-gap: 10px;
-            grid-row: 1;
-            display: block;
-        }
+        
     </style>
     <script>
         $(document).ready(function () {
-            ajaxCall("GET", "../api/Stage1", "", successGetstage1, errorGetstage1);
-            ajaxCall("GET", "../api/Stage2", "", successGetstage2, errorGetstage2);
-            ajaxCall("GET", "../api/Stage3", "", successGetstage3, errorGetstage3);
-            ajaxCall("GET", "../api/Stage4", "", successGetstage4, errorGetstage4);
-            ajaxCall("GET", "../api/Stage5", "", successGetstage5, errorGetstage5);
-            ajaxCall("GET", "../api/Stage6", "", successGetstage6, errorGetstage6);
-            ajaxCall("GET", "../api/Stage7", "", successGetstage7, errorGetstage7);
-            ajaxCall("GET", "../api/Stage8", "", successGetstage8, errorGetstage8);
-            ajaxCall("GET", "../api/Stage9", "", successGetstage9, errorGetstage9);
-            ajaxCall("GET", "../api/Stage10", "", successGetstage10, errorGetstage10);
-
+  
+            ajaxCall("GET", "../api/AllItem", "", successGetstage, errorGetstage);
 
         });
-        function successGetstage1(stage1data) {
-            for (var i = 0; i < stage1data.length; i++) {
-                document.getElementById("stage0").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
+        function successGetstage(data) {
+            var result = Object.keys(data);
+            for (var i = 1; i <= result.length; i++) {
+                for (var j = 0; j < data[i].length; j++) {
 
-            }
+                    
+                        //$('#stage' + i).append($("<option></option>").val(data[i][j].Description).html(data[i][j].Description));
+                        document.getElementById('stage' + i).innerHTML += '<input type="checkbox" value="' + data[i][j].ID + '" />' + data[i][j].Description + '</br>';
+                    
+                  
+                }
 
+
+            };
         }
-
-        function errorGetstage1(err) {
-            err = JSON.parse(err.responseText);
+        function errorGetstage(err) {
             swal("Error!", err.ExceptionMessage, "error");
         }
-        function successGetstage2(stage1data) {
-            for (var i = 0; i < stage1data.length; i++) {
-                document.getElementById("stage1").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
-
-            }
-
-        }
-
-        function errorGetstage2(err) {
-            err = JSON.parse(err.responseText);
-            swal("Error!", err.ExceptionMessage, "error");
-        }
-        function successGetstage3(stage1data) {
-            for (var i = 0; i < stage1data.length; i++) {
-                document.getElementById("stage2").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
-
-            }
-
-        }
-
-        function errorGetstage3(err) {
-            err = JSON.parse(err.responseText);
-            swal("Error!", err.ExceptionMessage, "error");
-        }
-        function successGetstage4(stage1data) {
-            for (var i = 0; i < stage1data.length; i++) {
-                document.getElementById("stage3").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
-
-            }
-
-        }
-
-        function errorGetstage4(err) {
-            err = JSON.parse(err.responseText);
-            swal("Error!", err.ExceptionMessage, "error");
-        }
-        function successGetstage5(stage1data) {
-            for (var i = 0; i < stage1data.length; i++) {
-                document.getElementById("stage4").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
-
-            }
-
-        }
-
-        function errorGetstage5(err) {
-            err = JSON.parse(err.responseText);
-            swal("Error!", err.ExceptionMessage, "error");
-        }
-        function successGetstage6(stage1data) {
-            for (var i = 0; i < stage1data.length; i++) {
-                document.getElementById("stage5").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
-
-            }
-
-        }
-
-        function errorGetstage6(err) {
-            err = JSON.parse(err.responseText);
-            swal("Error!", err.ExceptionMessage, "error");
-        }
-        function successGetstage7(stage1data) {
-            for (var i = 0; i < stage1data.length; i++) {
-                document.getElementById("stage6").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
-
-            }
-
-        }
-
-        function errorGetstage7(err) {
-            err = JSON.parse(err.responseText);
-            swal("Error!", err.ExceptionMessage, "error");
-        }
-        function successGetstage8(stage1data) {
-            for (var i = 0; i < stage1data.length; i++) {
-                document.getElementById("stage7").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
-
-            }
-
-        }
-
-        function errorGetstage8(err) {
-            err = JSON.parse(err.responseText);
-            swal("Error!", err.ExceptionMessage, "error");
-        }
-        function successGetstage9(stage1data) {
-            for (var i = 0; i < stage1data.length; i++) {
-                document.getElementById("stage8").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
-
-            }
-
-        }
-
-        function errorGetstage9(err) {
-            err = JSON.parse(err.responseText);
-            swal("Error!", err.ExceptionMessage, "error");
-        }
-        function successGetstage10(stage1data) {
-            for (var i = 0; i < stage1data.length; i++) {
-                document.getElementById("stage9").innerHTML += '<input type="checkbox" value="' + stage1data[i].ID + '" />' + stage1data[i].Description + '</br>';
-
-            }
-
-        }
-
-        function errorGetstage10(err) {
-            err = JSON.parse(err.responseText);
-            swal("Error!", err.ExceptionMessage, "error");
-        }
+        
 
     </script>
 </head>
@@ -357,44 +243,56 @@
         <div class="d-flex">
 
             <div class="wrapper">
-
-                <div class="item" id="stage0">
-
-                </div>
-                <div class="item" id="stage1">
-
-
-                </div>
-                <div class="item" id="stage2">
-
-                </div>
-                <div class="item" id="stage3">
+                <div class="item"> Model</div>
+                <div class="item">Body</div>
+                <div class="item">Port</div>
+                <div class="item">Function</div>
+                <div class="item">Orifice</div>
+                <div class="item">Seals</div>
+                <div class="item">Override</div>
+                <div class="item">Voltage</div>
+                <div class="item">Power</div>
+                <div class="item">Connector</div>
 
 
-                </div>
-                <div class="item" id="stage4">
-
+                <div  id="stage1">
 
                 </div>
-                <div class="item" id="stage5">
+                <div  id="stage2">
 
 
                 </div>
-                <div class="item" id="stage6">
+                <div  id="stage3">
+
+                </div>
+                <div  id="stage4">
 
 
                 </div>
-                <div class="item" id="stage7">
+                <div  id="stage5">
 
 
                 </div>
-                <div class="item" id="stage8">
+                <div  id="stage6">
 
 
                 </div>
-                <div class="item" id="stage9">
+                <div  id="stage7">
+
 
                 </div>
+                <div  id="stage8">
+
+
+                </div>
+                <div  id="stage9">
+
+
+                </div>
+                <div  id="stage10">
+
+                </div>
+
             </div>
 
         </div><!-- Yorder -->

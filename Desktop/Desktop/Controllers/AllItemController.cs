@@ -1,4 +1,5 @@
 ﻿using Desktop.Models;
+//using Desktop.Models.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,33 +9,33 @@ using System.Web.Http;
 
 namespace Desktop.Controllers
 {
-    public class Stage9Controller : ApiController
+    public class AllItemController : ApiController
     {
-        // GET: api/Stage9
-        public IEnumerable<Stage9> Get()
+        // GET: api/AllItem
+        public Dictionary<int, List<Stage>> Get()
         {
-            Stage9 s = new Stage9();
-            List<Stage9> st = s.Read10();
-            return st;
+            Stage s = new Stage();
+            return s.Read();
+
         }
 
-        // GET: api/Stage9/5
+        // GET: api/AllItem/5
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST: api/Stage9
+        // POST: api/AllItem
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT: api/Stage9/5
+        // PUT: api/AllItem/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Stage9/5
+        // DELETE: api/AllItem/5
         public void Delete(int id)
         {
         }
