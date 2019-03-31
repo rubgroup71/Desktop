@@ -16,6 +16,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-functions.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         // Initialize Firebase
         // TODO: Replace with your project's customized code snippet
@@ -200,23 +201,18 @@
                 console.log(error.code);
                 console.log(error.message)
 
-                //var user = firebase.auth().currentUser;
-                //var uid;
-                //UID = user.getToken();
-                //UID = user.uid;
+            }).then(function () {
+                var user = firebase.auth().currentUser;
+                AddCustomer(user.uid)
             });
-            
-        }
-        function AddCustomer() {
-            //firebase.auth().signInWithEmailAndPassword($("#username").val(), $("#password").val())
-            //////נשמרים כל הפרטים של היוזר וכדי להכניס את הid
-            //id = user.uid
 
-            ////ולעבור את כל השלבים להכנסה בתוך טבלת customer
-            //var user = firebase.auth().currentUser;
-            Customer = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
-                //UserName: $("#username").val(),
-                //Password: $("#password").val(),
+
+        }
+        function AddCustomer(uid) {
+            
+            Address = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
+
+                UID:uid,
                 FirstName: $("#firstname").val(),
                 LastName: $("#lastname").val(),
                 Address: $("#address").val(),
@@ -224,12 +220,16 @@
                 CompanyName: $("#companyname").val(),
                 City: $("#city option:selected").text(),
                 //CountryName: $("#countryname").val(),
-             
+
+            };
+
+            Customer = {
+                UID: uid,
             };
 
 
-
-            ajaxCall("POST", "../api/Customer", JSON.stringify(Customer), success, error);
+            ajaxCall("POST", "../api/Address", JSON.stringify(Address), success, error);
+            ajaxCall("POST", "../api/Customer", JSON.stringify(Customer) , successCustomer, errorCustomer);
 
         }
 
@@ -256,6 +256,15 @@
 
         // this function is activated in case of a failure
         function errorGetCity(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+        function successCustomer() {
+            swal("Added Successfuly!", "Customer created", "success")
+        }
+
+        // this function is activated in case of a failure
+        function errorCustomer(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
@@ -316,7 +325,7 @@
         <input type="text" name="lname" id="city">
     </label>-->
                 <!--<input type="submit" value="Insert" />-->
-                <input type="button" onclick="AddCustomer(); Addfirebase(); " value="Insert"/>
+                <input type="button" onclick=" Addfirebase(); " value="Insert"/>
             </form>
           
         </div>

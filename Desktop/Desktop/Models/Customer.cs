@@ -8,27 +8,13 @@ namespace WebApplication2.Models
 {
     public class Customer
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int PhoneNumber { get; set; }
-        public string CompanyName { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-     
+        public string UID { get; set; }
 
 
-        public Customer(string _username,string _password, string _firstname, string _lastname, int _phonenumber,string _companyname,string _address, string _city)
+
+        public Customer(string _uid)
         {
-            UserName = _username;
-            Password = _password;
-            FirstName = _firstname;
-            LastName = _lastname;
-            PhoneNumber = _phonenumber;
-            CompanyName = _companyname;
-            Address = _address;
-            City =_city;
+            UID = _uid;
           
                 }
 
@@ -50,11 +36,11 @@ namespace WebApplication2.Models
         //    return DBS.Login("ConnectionStringName", "SalesPerson",username,password);
         //}
 
-        public List<Customer> Show()
-        {
-            DBservices DBS = new DBservices();
-            List<Customer> C = DBS.ShowCustomer("ConnectionStringName", "Address");
-            return C;
-        }
+        //public List<Customer> Show()
+        //{
+        //    DBservices DBS = new DBservices();
+        //    List<Customer> C = DBS.ShowCustomer("ConnectionStringName", "Address");
+        //    return C;
+        //}
     }
 }

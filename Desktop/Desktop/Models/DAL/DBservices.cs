@@ -463,11 +463,11 @@ public class DBservices
 
         return prefix;
     }
-    public List<Customer> ShowCustomer(string conString, string tableName)
+    public List<Address> ShowA(string conString, string tableName)
     {
 
         SqlConnection con;
-        List<Customer> f = new List<Customer>();
+        List<Address> f = new List<Address>();
 
         try
         {
@@ -492,12 +492,12 @@ public class DBservices
 
             while (dr.Read())
             {
-                Customer S = new Customer();
+                Address S = new Address();
 
                 S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
                 S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
                 S.City = Convert.ToString(dr["City"]).TrimEnd();
-                S.Address = Convert.ToString(dr["Address"]).TrimEnd();
+                S.Adress = Convert.ToString(dr["Address"]).TrimEnd();
                 S.PhoneNumber = Convert.ToInt32(dr["PhoneNumber"]);
                 S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
 
@@ -512,6 +512,66 @@ public class DBservices
 
         }
 
+    }
+
+
+    public int insertA(Address A)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("ConnectionStringName"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        String cStr = BuildInsertCommandA(A);      // helper method to build the insert string
+
+        cmd = CreateCommand(cStr, con);             // create the command
+
+        try
+        {
+
+            int numEffected = (int)cmd.ExecuteScalar();
+           
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+    }
+
+
+    private String BuildInsertCommandA(Address A)
+    {
+        String command;
+
+        StringBuilder sb = new StringBuilder();
+        // use a string builder to create the dynamic string
+        sb.AppendFormat("Values('{0}', '{1}', {2}, '{3}', '{4}', '{5}','{6}')", A.FirstName, A.LastName,A.PhoneNumber, A.CompanyName, A.Adress, A.City,A.UID);
+        String prefix = "INSERT INTO [Address] " + "(FirstName,LastName,PhoneNumber,CompanyName,[Address],City,UID)";
+        command = prefix + sb.ToString();
+
+        return command;
     }
 
 
@@ -566,8 +626,8 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', {2}, '{3}', '{4}', '{5}')", C.FirstName, C.LastName, C.PhoneNumber, C.CompanyName, C.Address, C.City);
-        String prefix = "INSERT INTO [Address] " + "(FirstName,LastName,PhoneNumber,CompanyName,[Address],City)";
+        sb.AppendFormat("Values('{0}')", C.UID);
+        String prefix = "INSERT INTO Customer " + "(UID)";
         command = prefix + sb.ToString();
 
         return command;
@@ -578,8 +638,6 @@ public class DBservices
 
 
 
-
-   
 
 }
 
