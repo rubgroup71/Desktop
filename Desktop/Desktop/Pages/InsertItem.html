@@ -15,7 +15,29 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+
+    <!-- Add additional services that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-functions.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCLpB6mH4QoqfMCM7-gx8S-Wks8sJG_Uow",
+            authDomain: "baccaraapp.firebaseapp.com",
+            databaseURL: "https://baccaraapp.firebaseio.com",
+            projectId: "baccaraapp",
+            storageBucket: "baccaraapp.appspot.com",
+            messagingSenderId: "200644605334"
+        };
+        firebase.initializeApp(config);
+    </script>
     <style>
+
 
 
         @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
@@ -203,25 +225,24 @@
         .item {
             font-weight: bold;
         }
-
-        
     </style>
     <script>
         $(document).ready(function () {
-  
+
             ajaxCall("GET", "../api/AllItem", "", successGetstage, errorGetstage);
 
         });
         function successGetstage(data) {
+            console.log(data);
             var result = Object.keys(data);
             for (var i = 1; i <= result.length; i++) {
                 for (var j = 0; j < data[i].length; j++) {
 
-                    
-                        //$('#stage' + i).append($("<option></option>").val(data[i][j].Description).html(data[i][j].Description));
-                        document.getElementById('stage' + i).innerHTML += '<input type="checkbox" value="' + data[i][j].ID + '" />' + data[i][j].Description + '</br>';
-                    
-                  
+
+                    //$('#stage' + i).append($("<option></option>").val(data[i][j].Description).html(data[i][j].Description));
+                    document.getElementById('stage' + i).innerHTML += '<input type="checkbox" value="' + data[i][j].ID + '" />' + data[i][j].Description + '</br>';
+
+
                 }
 
 
@@ -230,7 +251,7 @@
         function errorGetstage(err) {
             swal("Error!", err.ExceptionMessage, "error");
         }
-        
+
 
     </script>
 </head>

@@ -43,6 +43,30 @@
     <style>
 
 
+        #head {
+            list-style-type: none;
+            overflow: hidden;
+            background-color: LightGray;
+            border-style: solid;
+            border-color: #92a8d1;
+            margin-top: 0px;
+        }
+
+        li {
+            float: left;
+        }
+
+            li a {
+                display: block;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                li a:hover {
+                    background-color: #5195A8;
+                }
 
         @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
 
@@ -220,44 +244,77 @@
     </style>
     <script>
         $(document).ready(function () {
-            firebase.auth().signInWithEmailAndPassword('aa@aa.vvv', 'password').catch(function (error) {
-                // Handle Errors here.
-                console.log(error.code);
-                console.log(error.message)
+            //firebase.auth().signInWithEmailAndPassword('aa@aa.vvv', 'password').catch(function (error) {
+            //    // Handle Errors here.
+            //    console.log(error.code);
+            //    console.log(error.message)
                 
-                // ...
+            //    // ...
            
 
-            //firebase.auth().signInWithEmailAndPassword('a@a.com', 'aaaaaa')
-            //נשמרים כל הפרטים של היוזר וכדי להכניס את הid 
-            //id=user.uid
-            //ולעבור את כל השלבים להכנסה בתוך טבלת customer
-            var user = firebase.auth().currentUser;
-        
-            $('#example').DataTable();
-            columns: [
-                { data: "" },
-                { data: "" },
-                { data: "" },
-                { data: "" },
-                { data: "" },
-                {
-                    render: function (data, type, row, meta) {
-                        //let dataPerson = "data-personId='" + row.Id + "'";
+            ////firebase.auth().signInWithEmailAndPassword('a@a.com', 'aaaaaa')
+            ////נשמרים כל הפרטים של היוזר וכדי להכניס את הid 
+            ////id=user.uid
+            ////ולעבור את כל השלבים להכנסה בתוך טבלת customer
+            //var user = firebase.auth().currentUser;
+            ajaxCall("GET", "../api/Customer", "", getSuccess, error);
+        });
+
+        function getSuccess(CustomerData) {
+
+           Data = CustomerData;
+            try {
+                tbl = $('#customertable').DataTable({
+                    data: CustomerData,
+                    pageLength: 5,
+                    columns: [
+                        { data: "FirstName" },
+                        { data: "LastName" },
+                        { data: "City" },
+                        { data: "Address" },
+                        { data: "PhoneNumber" },
+                        { data: "CompanyName" },
+
+                        {
+                            render: function (data, type, row, meta) {
+                                let dataPerson = "data-personId='" + row.ID + "'";
 
 
-                        View = "<button type='button' id='" + row.Id + "' " + dataPerson + "> View  </button>";
-                        Confirm = "<button type='button'  " + row.Id + ">Confirm  </button>";
-                        return View + Confirm;
+                                editBtn = "<button type='button' id='" + row.ID + "' class = 'editBtn btn btn-info' " + dataPerson + "> Edit      </button>";
+                               
+                                return editBtn; + viewBtn + deleteBtn;
+                            }
+                        }
 
 
-                    }
-                }
-            ]
-            });
+
+
+                    ],
+                });
+                //buttonEvents();
+            }
+
+            catch (err) {
+                alert(err);
+            }
+
+        }
+
+        // this function is activated in case of a failure
+        function error(err) {
+            swal("Error: " + err);
+        }
+
     </script>
 </head>
 <body>
+ 
+    <ul id="head">
+        <li><a href="OrderList.html">Order List</a></li>
+        <li><a class="active" href="CustomerList.html">Customer List</a></li>
+        <li><a href="UserList.html">User List</a></li>
+        <li><a href="ItemList.html">Item List</a></li>
+    </ul>
     <div class="container">
         <div class="title">
             <h2>Customer List</h2>
@@ -265,226 +322,27 @@
         </div>
         <div class="d-flex">
             <form>
-                <table id="example" class="hover" style="width:100%">
+                <table id="customertable" class="hover" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Company Name</th>
+                            <th>First Name</th>
+                            <th style="text-align:center">Last Name</th>
+                            <th>City</th>
                             <th>Address</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>
-                                Contact person
-                            </th>
+                            <th>Phone Number</th>
+                            <th>Company Name</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>
-                                ely
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                            <td>
-                                bla
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                            <td>
-                                raz
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                            <td>
-                                ariel
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                            <td>
-                                lior
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>61</td>
-                            <td>
-                                tamar
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Herrod Chandler</td>
-                            <td>Sales Assistant</td>
-                            <td>San Francisco</td>
-                            <td>59</td>
-                            <td>
-                                barak
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Rhona Davidson</td>
-                            <td>Integration Specialist</td>
-                            <td>Tokyo</td>
-                            <td>55</td>
-                            <td>
-                                shir
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Colleen Hurst</td>
-                            <td>Javascript Developer</td>
-                            <td>San Francisco</td>
-                            <td>39</td>
-                            <td>
-                                omer
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
-                            <td>Edinburgh</td>
-                            <td>23</td>
-                            <td>
-                                sapir
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Jena Gaines</td>
-                            <td>Office Manager</td>
-                            <td>London</td>
-                            <td>30</td>
-                            <td>
-                                matan
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Charde Marshall</td>
-                            <td>Regional Director</td>
-                            <td>San Francisco</td>
-                            <td>36</td>
-                            <td>
-                                liav
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Haley Kennedy</td>
-                            <td>Senior Marketing Designer</td>
-                            <td>London</td>
-                            <td>43</td>
-                            <td>
-                                tomer
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Tatyana Fitzpatrick</td>
-                            <td>Regional Director</td>
-                            <td>London</td>
-                            <td>19</td>
-                            <td>
-                                noam
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Michael Silva</td>
-                            <td>Marketing Designer</td>
-                            <td>London</td>
-                            <td>66</td>
-                            <td>
-                                dana
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Edit</button>
-                            </td>
-                        </tr>
 
-                    </tbody>
                     <tfoot>
                         <tr>
-                            <th>Company Name</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>City</th>
                             <th>Address</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>
-                                Contact person
-                            </th>
+                            <th>Phone Number</th>
+                            <th>Company Name</th>
                             <th></th>
                         </tr>
                     </tfoot>

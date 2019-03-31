@@ -10,13 +10,13 @@ namespace WebApplication2.Controllers
 {
     public class CustomerController : ApiController
     {
-        // GET: api/Customer
-        //public IEnumerable<City> Get()
-        //{
-        //    City c = new City();
-        //    List<City> city = c.Read();
-        //    return city;
-        //}
+        //GET: api/Customer
+        public IEnumerable<Customer> Get()
+        {
+            Customer C = new Customer();
+            List<Customer> CUS = C.Show();
+            return CUS;
+        }
 
         // GET: api/Customer/5
         public string Get(int id)

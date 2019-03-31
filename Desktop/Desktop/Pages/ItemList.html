@@ -17,14 +17,40 @@
     <script src="../Scripts/ajaxCalls.js"></script>
     <style>
 
+        #head {
+            list-style-type: none;
+            overflow: hidden;
+            background-color: LightGray;
+            border-style: solid;
+            border-color: #92a8d1;
+            margin-top: 0px;
+        }
+
+        li {
+            float: left;
+        }
+
+            li a {
+                display: block;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                li a:hover {
+                    background-color: #5195A8;
+                }
 
         @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
+
         table.dataTable tbody th, table.dataTable tbody td {
             padding: 6px 70px 0px 10px;
             text-align: left;
             float: unset;
-            color:black;
+            color: black;
         }
+
         body {
             background: url('http://all4desktop.com/data_images/original/4236532-background-images.jpg');
             font-family: 'Roboto Condensed', sans-serif;
@@ -189,12 +215,13 @@
                 box-shadow: 0 6px 14px 0 #666;
                 transform: scale(1.05);
             }
+
         .wrapper {
             display: grid;
             grid-template-columns: 50% 50% 50% 50% 50% 50% 50% 50% 50% 50%;
             grid-gap: 10px;
-           
         }
+
         .item {
             border: solid black 1px;
             text-align: center;
@@ -226,6 +253,12 @@
     </script>
 </head>
 <body>
+    <ul id="head">
+        <li><a href="OrderList.html">Order List</a></li>
+        <li><a href="CustomerList.html">Customer List</a></li>
+        <li><a href="UserList.html">User List</a></li>
+        <li><a class="active" href="ItemList.html">Item List</a></li>
+    </ul>
     <div class="container">
         <div class="title">
             <h2>Item List</h2>
@@ -247,7 +280,7 @@
 
         </div><!-- Yorder -->
 
-        <div class="fab" onclick="location.href='Insert New Item.html'"> + </div>
+        <div class="fab" onclick="location.href='InsertItem.html'"> + </div>
     </div>
 </body>
 </html>

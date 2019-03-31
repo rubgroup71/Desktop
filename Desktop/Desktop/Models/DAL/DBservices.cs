@@ -99,63 +99,7 @@ public class DBservices
         return command;
     }
 
-    public int insertC(Customer C)
-    {
-
-        SqlConnection con;
-        SqlCommand cmd;
-
-        try
-        {
-            con = connect("ConnectionStringName"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-        }
-
-        String cStr = BuildInsertCommandC(C);      // helper method to build the insert string
-
-        cmd = CreateCommand(cStr, con);             // create the command
-
-        try
-        {
-
-            int numEffected = (int)cmd.ExecuteScalar();
-            return numEffected;
-        }
-        catch (Exception ex)
-        {
-            return 0;
-            // write to log
-            throw (ex);
-        }
-
-        finally
-        {
-            if (con != null)
-            {
-                // close the db connection
-                con.Close();
-            }
-        }
-
-    }
-
-
-    private String BuildInsertCommandC(Customer C)
-    {
-        String command;
-
-        StringBuilder sb = new StringBuilder();
-        // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', {4}, '{5}','{6}','{7}','{8}' )", C.UserName, C.Password, C.FirstName, C.LastName, C.PhoneNumber, C.CompanyName, C.Address, C.City, C.Country);
-        String prefix = "INSERT INTO Customer " + "(UserName,Password,FirstName,LastName,PhoneNumber,CompanyName,Address,CityName,CountryName)";
-        command = prefix + sb.ToString();
-
-        return command;
-    }
+   
 
 
     public List<City> Read(string conString, string tableName)
@@ -204,194 +148,9 @@ public class DBservices
         }
 
     }
-    //הכנסת תחביבים לטבלה מקשרת תחביבים של משתמשים
-    //public int insert1(Person p,int num)
-    //{
+    
 
-    //    SqlConnection con;
-    //    SqlCommand cmd;
-
-    //    try
-    //    {
-    //        con = connect("ConnectionStringName"); // create the connection
-
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        // write to log
-    //        throw (ex);
-    //    }
-
-    //        // helper method to build the insert string
-
-    //              // create the command
-
-    //    try
-    //    {
-
-    //        int change = 0;
-    //        for (int i = 0; i < p.Hobbies.Count; i++)
-    //        {
-    //            String cStr = BuildInsertCommand1(num,p.Hobbies[i]);
-    //            cmd = CreateCommand(cStr, con);
-    //            change = cmd.ExecuteNonQuery();
-    //        }
-    //        return change;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return 0;
-    //        // write to log
-    //        throw (ex);
-    //    }
-
-    //    finally
-    //    {
-    //        if (con != null)
-    //        {
-    //            // close the db connection
-    //            con.Close();
-    //        }
-    //    }
-
-    //}
-
-
-    //private String BuildInsertCommand1(int personid,int hobbiesid)
-    //{
-    //    String command;
-
-    //    StringBuilder sb = new StringBuilder();
-    //    // use a string builder to create the dynamic string
-    //    sb.AppendFormat("Values({0}, {1})", personid, hobbiesid);
-    //    String prefix = "INSERT INTO PersonsHobbies " + "(personID, hobbyID) ";
-    //    command = prefix + sb.ToString();
-
-    //    return command;
-    //}
-
-
-    //אפשרות לביצוע עריכת נתונים של המשתמש
-    //public int Update(Person p)
-    //{
-
-    //    SqlConnection con;
-    //    SqlCommand cmd;
-
-    //    try
-    //    {
-    //        con = connect("ConnectionStringName"); // create the connection
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        // write to log
-    //        throw (ex);
-    //    }
-
-    //    String cStr = BuildUpdateCommand(p);      // helper method to build the insert string
-
-    //    cmd = CreateCommand(cStr, con);             // create the command
-
-    //    try
-    //    {
-
-    //        int numEffected = cmd.ExecuteNonQuery();
-    //        Update1(p);/// execute the command
-    //        return numEffected;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return 0;
-    //        // write to log
-    //        throw (ex);
-    //    }
-
-    //    finally
-    //    {
-    //        if (con != null)
-    //        {
-    //            // close the db connection
-    //            con.Close();
-    //        }
-    //    }
-
-    //}
-
-
-    //private String BuildUpdateCommand(Person mov)
-    //{ 
-    //    String prefix = "UPDATE PersonTbl1 SET Name='"+mov.Name+"',FamilyName='"+mov.FamilyName+ "', Address='"+mov.Address+ "', Gender='"+mov.Gender+ "', Age="+mov.Age+ ", Height="+mov.Height+ ", Primeum="+mov.Primeum+ ", Phone="+mov.Phone+ ", Password='"+mov.Password+ "', Image='" + mov.Image + "' where id=" + mov.ID;
-
-    //    return prefix;
-    //}
-
-
-
-    //public int Update1(Person p)
-    //{
-
-    //    SqlConnection con;
-    //    SqlCommand cmd;
-
-    //    try
-    //    {
-    //        con = connect("ConnectionStringName"); // create the connection
-
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        // write to log
-    //        throw (ex);
-    //    }
-
-    //    // helper method to build the insert string
-
-    //    // create the command
-
-    //    try
-    //    {
-
-    //        int change = 0;
-    //        delete(p);
-    //        for (int i = 0; i < p.Hobbies.Count; i++)
-    //        {
-    //            String cStr = BuildUpdateCommand1(p.ID, p.Hobbies[i]);
-    //            cmd = CreateCommand(cStr, con);
-    //            change = cmd.ExecuteNonQuery();
-    //        }
-    //        return change;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return 0;
-    //        // write to log
-    //        throw (ex);
-    //    }
-
-    //    finally
-    //    {
-    //        if (con != null)
-    //        {
-    //            // close the db connection
-    //            con.Close();
-    //        }
-    //    }
-
-    //}
-
-
-    //private String BuildUpdateCommand1(int personid, int hobbiesid)
-    //{
-    //    String command;
-
-    //    StringBuilder sb = new StringBuilder();
-    //    // use a string builder to create the dynamic string
-    //    sb.AppendFormat("Values({0}, {1})", personid, hobbiesid);
-    //    String prefix = "INSERT INTO PersonsHobbies " + "(personID, hobbyID) ";
-    //    command = prefix + sb.ToString();
-
-    //    return command;
-    //}
+   
     //--------------------------------------------------------------------
     // Build the Insert command String
     //--------------------------------------------------------------------
@@ -704,227 +463,123 @@ public class DBservices
 
         return prefix;
     }
+    public List<Customer> ShowCustomer(string conString, string tableName)
+    {
 
-    ////קריאת נתונים מהSQL
-    //public List<Hobbies> Read(string conString, string tableName)
-    //{
+        SqlConnection con;
+        List<Customer> f = new List<Customer>();
 
-    //    SqlConnection con;
-    //    List<Hobbies> f = new List<Hobbies>();
+        try
+        {
 
-    //    try
-    //    {
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+        }
 
-    //        con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
-    //    }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
 
-    //    catch (Exception ex)
-    //    {
-    //        // write to log
-    //        throw (ex);
+        }
 
-    //    }
+        try
+        {
+            String selectSTR = "SELECT * FROM " + tableName;
 
-    //    try
-    //    {
-    //        String selectSTR = "SELECT * FROM " + tableName;
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
 
-    //        SqlCommand cmd = new SqlCommand(selectSTR, con);
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
-    //        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            while (dr.Read())
+            {
+                Customer S = new Customer();
 
-    //        while (dr.Read())
-    //        {
-    //            Hobbies p = new Hobbies();
+                S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
+                S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
+                S.City = Convert.ToString(dr["City"]).TrimEnd();
+                S.Address = Convert.ToString(dr["Address"]).TrimEnd();
+                S.PhoneNumber = Convert.ToInt32(dr["PhoneNumber"]);
+                S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
 
-    //            p.ID = Convert.ToInt32(dr["id"]);
-    //            p.Name = Convert.ToString(dr["name"]).TrimEnd();
+                f.Add(S);
+            }
+            return f;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
 
+        }
 
-    //            f.Add(p);
-    //        }
-    //        return f;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        // write to log
-    //        throw (ex);
-
-    //    }
-
-    //}
-
-
-    //--------------------------------------------------------------------
-    // Read from the DB into a table
-    //--------------------------------------------------------------------
-    //public void readCarsDataBase()
-    //{
-
-    //    SqlConnection con = connect("carsConnectionString"); // open the connection to the database/
-
-    //    String selectStr = "SELECT * FROM Cars"; // create the select that will be used by the adapter to select data from the DB
-
-    //    SqlDataAdapter da = new SqlDataAdapter(selectStr, con); // create the data adapter
-
-    //    DataSet ds = new DataSet("carsDS"); // create a DataSet and give it a name (not mandatory) as defualt it will be the same name as the DB
-
-    //    da.Fill(ds);       // Fill the datatable (in the dataset), using the Select command
-
-    //    dt = ds.Tables[0]; // point to the cars table , which is the only table in this case
-    //}
-    ////הכנסת נתונים לבן אדם ספציפי לפי ID
-    //public void Put(string conString, string tableName, int Active, int personID)
-    //{
-
-    //    SqlConnection con;
-    //    SqlCommand cmd;
-
-    //    try
-    //    {
-
-    //        con = connect("ConnectionStringName"); // create the connection
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        // write to log
-    //        throw (ex);
-    //    }
-
-    //    String cStr = BuildputCommand(Active, personID);      // helper method to build the insert string
-
-    //    cmd = CreateCommand(cStr, con);             // create the command
-
-    //    try
-    //    {
-    //        int numEffected = cmd.ExecuteNonQuery(); // execute the command
+    }
 
 
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        ;
-    //        // write to log
-    //        throw (ex);
-    //    }
+    public int insertC(Customer C)
+    {
 
-    //    finally
-    //    {
-    //        if (con != null)
-    //        {
-    //            // close the db connection
-    //            con.Close();
-    //        }
-    //    }
+        SqlConnection con;
+        SqlCommand cmd;
 
-    //}
+        try
+        {
+            con = connect("ConnectionStringName"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        String cStr = BuildInsertCommandC(C);      // helper method to build the insert string
+
+        cmd = CreateCommand(cStr, con);             // create the command
+
+        try
+        {
+
+            int numEffected = (int)cmd.ExecuteScalar();
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+    }
 
 
-    ////--------------------------------------------------------------------
-    //// Build the Insert a movie command String
-    ////--------------------------------------------------------------------
-    //private String BuildputCommand(int a, int p)
-    //{
+    private String BuildInsertCommandC(Customer C)
+    {
+        String command;
+
+        StringBuilder sb = new StringBuilder();
+        // use a string builder to create the dynamic string
+        sb.AppendFormat("Values('{0}', '{1}', {2}, '{3}', '{4}', '{5}')", C.FirstName, C.LastName, C.PhoneNumber, C.CompanyName, C.Address, C.City);
+        String prefix = "INSERT INTO [Address] " + "(FirstName,LastName,PhoneNumber,CompanyName,[Address],City)";
+        command = prefix + sb.ToString();
+
+        return command;
+    }
 
 
 
-    //    // use a string builder to create the dynamic string
-
-    //    String prefix = "UPDATE PersonTbl1 SET Active=" + a + " where id=" + p;
 
 
-    //    return prefix;
-    //}
-
-    ////מחיקת נתונים מבסיס הנתונים ,לצורך החלפתם בחדשים
-    //public int delete(Person p)
-    //{
-
-    //    SqlConnection con;
-    //    SqlCommand cmd;
-
-    //    try
-    //    {
-    //        con = connect("ConnectionStringName"); // create the connection
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        // write to log
-    //        throw (ex);
-    //    }
-
-    //    String cStr = BuildDeleteCommand(p.ID);      // helper method to build the insert string
-
-    //    cmd = CreateCommand(cStr, con);             // create the command
-
-    //    try
-    //    {
-    //        int numEffected = cmd.ExecuteNonQuery(); // execute the command
-    //        return numEffected;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return 0;
-    //        // write to log
-    //        throw (ex);
-    //    }
-
-    //    finally
-    //    {
-    //        if (con != null)
-    //        {
-    //            // close the db connection
-    //            con.Close();
-    //        }
-    //    }
-
-    //}
-    //public DBservices ReadFromDataBase(string conString)
-    //{
-
-    //    SqlConnection con = null;
-
-    //    try
-    //    {
-    //        con = connect(conString); // open the connection to the database/
-
-    //        String selectStr = "SELECT * FROM PersonsHobbies "; // create the select that will be used by the adapter to select data from the DB
-
-    //        SqlDataAdapter da = new SqlDataAdapter(selectStr, con); // create the data adapter
-
-    //        DataSet ds = new DataSet(); // create a DataSet and give it a name (not mandatory) as defualt it will be the same name as the DB
-    //        da.Fill(ds);                        // Fill the datatable (in the dataset), using the Select command
-
-    //        DataTable dt = ds.Tables[0];
-
-    //        // add the datatable and the dataa adapter to the dbS helper class in order to be able to save it to a Session Object
-    //        this.dt = dt;
-    //        this.da = da;
-
-    //        return this;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        // write to log
-    //        throw ex;
-    //    }
-    //    finally
-    //    {
-    //        if (con != null)
-    //        {
-    //            con.Close();
-    //        }
-    //    }
-    //}
-    //private string BuildDeleteCommand(int personid) { 
 
 
-    //    string cmdStr = "DELETE FROM PersonsHobbies WHERE personID=" + personid;
-    //    return cmdStr;
-
-
-    //}
+   
 
 }
 
-        

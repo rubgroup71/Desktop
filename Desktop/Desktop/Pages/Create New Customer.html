@@ -9,8 +9,28 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-functions.js"></script>
+    <script>
+        // Initialize Firebase
+        // TODO: Replace with your project's customized code snippet
+        var config = {
+            apiKey: "AIzaSyCLpB6mH4QoqfMCM7-gx8S-Wks8sJG_Uow",
+            authDomain: "<PROJECT_ID>.firebaseapp.com",
+            databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+            projectId: "<PROJECT_ID>",
+            storageBucket: "<BUCKET>.appspot.com",
+            messagingSenderId: "<SENDER_ID>",
+        };
+        firebase.initializeApp(config);
+    </script>
     <style>
+
         @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
 
         body {
@@ -70,7 +90,7 @@
             color: red;
         }
 
-        label, table,select {
+        label, table, select {
             display: block;
             margin: 15px;
         }
@@ -158,9 +178,8 @@
                 background: #428a7d;
             }
     </style>
-
     <script>
-       //var str = '/2|3/';
+        //var str = '/2|3/';
         //str = str.substring(1, str.length - 1)
         //str += '|' + '1'
         //console.log(str)
@@ -168,29 +187,50 @@
 
         $(document).ready(function () {
             ajaxCall("GET", "../api/City", "", successGetCity, errorGetCity);
-            
-           
+
+
             $("#CForm").submit(f1);
         });
-     
 
-           
-        function AddCustomer() {
+
+        function Addfirebase() {
+            UserName = $("#username").val();
+            Password = $("#password").val();
+            firebase.auth().createUserWithEmailAndPassword(UserName, Password).catch(function (error) {
+                console.log(error.code);
+                console.log(error.message)
+
+                //var user = firebase.auth().currentUser;
+                //var uid;
+                //UID = user.getToken();
+                //UID = user.uid;
+            });
             
+        }
+        function AddCustomer() {
+            //firebase.auth().signInWithEmailAndPassword($("#username").val(), $("#password").val())
+            //////נשמרים כל הפרטים של היוזר וכדי להכניס את הid
+            //id = user.uid
+
+            ////ולעבור את כל השלבים להכנסה בתוך טבלת customer
+            //var user = firebase.auth().currentUser;
             Customer = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
-                UserName: $("#username").val(),
-                Password: $("#password").val(),
+                //UserName: $("#username").val(),
+                //Password: $("#password").val(),
                 FirstName: $("#firstname").val(),
                 LastName: $("#lastname").val(),
                 Address: $("#address").val(),
                 PhoneNumber: $("#phonenumber").val(),
                 CompanyName: $("#companyname").val(),
-                CityName: $("#cityname").val(),
-                CountryName: $("#countryname").val(),
+                City: $("#city option:selected").text(),
+                //CountryName: $("#countryname").val(),
+             
             };
 
+
+
             ajaxCall("POST", "../api/Customer", JSON.stringify(Customer), success, error);
-            
+
         }
 
 
@@ -219,10 +259,9 @@
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
-     
+
 
     </script>
-
 
 </head>
 <body>
@@ -256,27 +295,28 @@
                 </label>
                 <label>
                     <span>Address<span class="required">*</span></span>
-                    <input type="text" name="lname">
+                    <input type="text" name="lname" id="address">
                 </label>
                 <label>
                     <span>Phone Number<span class="required">*</span></span>
                     <input type="tel" name="lname" id="phonenumber">
                 </label>
-                <label>
+                <!--<label>
                     <span>Country<span class="required">*</span></span>
                     <input type="text" name="lname" id="country">
-                </label>
+                </label>-->
                 <label>  
                     <span>City<span class="required">*</span></span>
                 <select id="city">
-                <option/>
+                <option id="city"/>
                   </select>
                 </label>
                 <!--<label>
         <span>City<span class="required">*</span></span>
         <input type="text" name="lname" id="city">
     </label>-->
-                <input type="submit" value="Insert" />
+                <!--<input type="submit" value="Insert" />-->
+                <input type="button" onclick="AddCustomer(); Addfirebase(); " value="Insert"/>
             </form>
           
         </div>
