@@ -24,17 +24,10 @@
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-functions.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+
+    <script src="../Scripts/fbconfig.js"></script>
     <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyCLpB6mH4QoqfMCM7-gx8S-Wks8sJG_Uow",
-            authDomain: "baccaraapp.firebaseapp.com",
-            databaseURL: "https://baccaraapp.firebaseio.com",
-            projectId: "baccaraapp",
-            storageBucket: "baccaraapp.appspot.com",
-            messagingSenderId: "200644605334"
-        };
-        firebase.initializeApp(config);
+        fbconfig()
     </script>
     <style>
 
@@ -404,6 +397,7 @@
 
         }
         function successGetstage(data) {
+
             console.log(data);
             var result = Object.keys(data);
             for (var i = 1; i <= result.length; i++) {
