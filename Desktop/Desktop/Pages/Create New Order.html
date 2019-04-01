@@ -173,12 +173,9 @@
             for (var i = 1; i <= result.length; i++) {
                 for (var j = 0; j < data[i].length; j++) {
                     
-                    if (i == 1) {
-                        $('#stage'+i).append($("<option></option>").val(data[i][j].Description).html(data[i][j].Description));
-                    }
-                    else {
+                    
                         $('#stage' + i).append($("<option></option>").val(data[i][j].ID).html(data[i][j].Description));
-                    }
+                    
                 }
                 
 
@@ -327,6 +324,12 @@
 
 
                 </table>
+                <select placeholder="Customer Type">
+                   
+                    <option>Exist Customer</option>
+                    <option>New Customer</option>
+                </select>
+            </br>
                 <input type="submit" value="Create Order" />
          
             </div><!-- Yorder -->
