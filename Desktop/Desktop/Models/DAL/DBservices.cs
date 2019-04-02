@@ -148,9 +148,58 @@ public class DBservices
         }
 
     }
-    
 
-   
+
+
+    public List<Question> ShowQ(string conString, string tableName)
+    {
+
+        SqlConnection con;
+        List<Question> f = new List<Question>();
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+        }
+
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+        try
+        {
+            String selectSTR = "SELECT * FROM " + tableName;
+
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dr.Read())
+            {
+                Question c = new Question();
+               
+                c.Name = Convert.ToString(dr["Name"]).TrimEnd();
+                c.QID = Convert.ToInt32(dr["QID"]);
+                c.Quesstion = Convert.ToString(dr["Quastion"]).TrimEnd();
+
+
+                f.Add(c);
+            }
+            return f;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+    }
+
     //--------------------------------------------------------------------
     // Build the Insert command String
     //--------------------------------------------------------------------
