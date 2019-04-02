@@ -11,10 +11,10 @@ namespace Desktop.Controllers
     public class QuestionController : ApiController
     {
         // GET: api/Question
-        public IEnumerable<Question> Get()
+        public IEnumerable<Questions> Get()
         {
-            Question Q = new Question();
-            List<Question> QS = Q.ShowQ();
+            Questions Q = new Questions();
+            List<Questions> QS = Q.ShowQ();
             return QS;
         }
 

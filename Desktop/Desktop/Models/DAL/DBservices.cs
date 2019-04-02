@@ -151,11 +151,11 @@ public class DBservices
 
 
 
-    public List<Question> ShowQ(string conString, string tableName)
+    public List<Questions> ShowQ(string conString, string tableName)
     {
 
         SqlConnection con;
-        List<Question> f = new List<Question>();
+        List<Questions> f = new List<Questions>();
 
         try
         {
@@ -180,11 +180,11 @@ public class DBservices
 
             while (dr.Read())
             {
-                Question c = new Question();
+                Questions c = new Questions();
                
                 c.Name = Convert.ToString(dr["Name"]).TrimEnd();
                 c.QID = Convert.ToInt32(dr["QID"]);
-                c.Quesstion = Convert.ToString(dr["Quastion"]).TrimEnd();
+                c.Question = Convert.ToString(dr["Question"]).TrimEnd();
 
 
                 f.Add(c);
