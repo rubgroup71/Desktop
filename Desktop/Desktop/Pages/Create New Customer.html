@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <title></title>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\
+    <script src="../Scripts/fbconfig.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -18,17 +20,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-functions.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-        // Initialize Firebase
-        // TODO: Replace with your project's customized code snippet
-        var config = {
-            apiKey: "AIzaSyCLpB6mH4QoqfMCM7-gx8S-Wks8sJG_Uow",
-            authDomain: "<PROJECT_ID>.firebaseapp.com",
-            databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
-            projectId: "<PROJECT_ID>",
-            storageBucket: "<BUCKET>.appspot.com",
-            messagingSenderId: "<SENDER_ID>",
-        };
-        firebase.initializeApp(config);
+        fbconfig()
     </script>
     <style>
 
@@ -223,13 +215,13 @@
 
             };
 
-            Customer = {
-                UID: uid,
-            };
+            //Customer = {
+            //    UID: uid,
+            //};
 
 
             ajaxCall("POST", "../api/Address", JSON.stringify(Address), success, error);
-            ajaxCall("POST", "../api/Customer", JSON.stringify(Customer) , successCustomer, errorCustomer);
+            ajaxCall("POST", "../api/Customer", JSON.stringify(uid) , successCustomer, errorCustomer);
 
         }
 

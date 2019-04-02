@@ -25,8 +25,9 @@ namespace WebApplication2.Controllers
         }
 
         // POST: api/Customer
-        public void Post([FromBody]Customer C)
+        public void Post([FromBody]string uid)
         {
+            Customer C = new Customer(uid);
             C.insertC();
         }
 
