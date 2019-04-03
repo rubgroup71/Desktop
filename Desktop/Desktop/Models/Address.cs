@@ -9,7 +9,7 @@ namespace WebApplication2.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public string CompanyName { get; set; }
         public string Adress { get; set; }
         public string City {get; set;}
@@ -18,7 +18,7 @@ namespace WebApplication2.Models
 
 
 
-        public Address(string _firstname, string _lastname, int _phonenumber, string _companyname, string _adress, string _city, string _uid)
+        public Address(string _firstname, string _lastname, string _phonenumber, string _companyname, string _adress, string _city, string _uid)
         {
             //UserName = _username;
             //Password = _password;

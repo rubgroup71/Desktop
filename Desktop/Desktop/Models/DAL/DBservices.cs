@@ -99,7 +99,7 @@ public class DBservices
         return command;
     }
 
-   
+
 
 
     public List<City> Read(string conString, string tableName)
@@ -181,7 +181,7 @@ public class DBservices
             while (dr.Read())
             {
                 Questions c = new Questions();
-               
+
                 c.Name = Convert.ToString(dr["Name"]).TrimEnd();
                 c.QID = Convert.ToInt32(dr["QID"]);
                 c.Question = Convert.ToString(dr["Question"]).TrimEnd();
@@ -332,70 +332,70 @@ public class DBservices
 
     }
 
-   
 
-        public SalesPerson Test(string conString, string tableName, string username)
+
+    public SalesPerson Test(string conString, string tableName, string username)
+    {
+
+        SqlConnection con;
+        SalesPerson S = new SalesPerson();
+
+        try
         {
 
-            SqlConnection con;
-            SalesPerson S = new SalesPerson();
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+        }
 
-            try
+
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+        try
+        {
+            String selectSTR = "SELECT * FROM " + tableName + " WHERE UserName='" + username + "'";
+
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dr.Read())
             {
 
-                con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
-            }
+                S.UserName = Convert.ToString(dr["UserName"]).TrimEnd();
+                S.Password = Convert.ToString(dr["Password"]).TrimEnd();
+                S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
+                S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
+                S.PhoneNumber = Convert.ToInt32(dr["PhoneNumber"]);
+                S.Area = Convert.ToString(dr["Area"]).TrimEnd();
+                S.Email = Convert.ToString(dr["Email"]).TrimEnd();
 
-
-            catch (Exception ex)
-            {
-                // write to log
-                throw (ex);
-
-            }
-            try
-            {
-                String selectSTR = "SELECT * FROM " + tableName + " WHERE UserName='" + username + "'";
-
-                SqlCommand cmd = new SqlCommand(selectSTR, con);
-
-                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                while (dr.Read())
-                {
-
-                    S.UserName = Convert.ToString(dr["UserName"]).TrimEnd();
-                    S.Password = Convert.ToString(dr["Password"]).TrimEnd();
-                    S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
-                    S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
-                    S.PhoneNumber = Convert.ToInt32(dr["PhoneNumber"]);
-                    S.Area = Convert.ToString(dr["Area"]).TrimEnd();
-                    S.Email = Convert.ToString(dr["Email"]).TrimEnd();
-
-
-                }
-                return S;
 
             }
-            catch (Exception ex)
+            return S;
+
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+        finally
+        {
+            if (con != null)
             {
-                // write to log
-                throw (ex);
-
-            }
-            finally
-            {
-                if (con != null)
-                {
-                    con.Close();
-                }
-
-
+                con.Close();
             }
 
 
         }
-   
+
+
+    }
+
 
     public void Delete(string conString, string tableName, string UserName)
     {
@@ -547,9 +547,9 @@ public class DBservices
                 S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
                 S.City = Convert.ToString(dr["City"]).TrimEnd();
                 S.Adress = Convert.ToString(dr["Address"]).TrimEnd();
-                S.PhoneNumber = Convert.ToInt32(dr["PhoneNumber"]);
+                S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]);
                 S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
-
+                S.UID = Convert.ToString(dr["UID"]).TrimEnd();
                 f.Add(S);
             }
             return f;
@@ -588,7 +588,7 @@ public class DBservices
         {
 
             int numEffected = (int)cmd.ExecuteScalar();
-           
+
             return numEffected;
         }
         catch (Exception ex)
@@ -616,7 +616,7 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', {2}, '{3}', '{4}', '{5}','{6}')", A.FirstName, A.LastName,A.PhoneNumber, A.CompanyName, A.Adress, A.City,A.UID);
+        sb.AppendFormat("Values('{0}', '{1}', {2}, '{3}', '{4}', '{5}','{6}')", A.FirstName, A.LastName, A.PhoneNumber, A.CompanyName, A.Adress, A.City, A.UID);
         String prefix = "INSERT INTO [Address] " + "(FirstName,LastName,PhoneNumber,CompanyName,[Address],City,UID)";
         command = prefix + sb.ToString();
 

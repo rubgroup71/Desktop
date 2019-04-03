@@ -187,6 +187,7 @@
 
 
         function Addfirebase() {
+            
             UserName = $("#username").val();
             Password = $("#password").val();
             firebase.auth().createUserWithEmailAndPassword(UserName, Password).catch(function (error) {
@@ -214,7 +215,7 @@
                 //CountryName: $("#countryname").val(),
 
             };
-
+            
             //Customer = {
             //    UID: uid,
             //};
