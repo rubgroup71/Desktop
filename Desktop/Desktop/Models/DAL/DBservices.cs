@@ -549,7 +549,7 @@ public class DBservices
                 S.Adress = Convert.ToString(dr["Address"]).TrimEnd();
                 S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]);
                 S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
-                S.UID = Convert.ToString(dr["UID"]).TrimEnd();
+                S.Email = Convert.ToString(dr["Email"]).TrimEnd();
                 f.Add(S);
             }
             return f;
