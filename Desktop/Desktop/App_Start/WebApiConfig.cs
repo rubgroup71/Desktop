@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Desktop
 {
@@ -12,6 +13,8 @@ namespace Desktop
             // Web API configuration and services
 
             // Web API routes
+            var corsAttr = new EnableCorsAttribute("http://localhost:3000", "*", "*");
+            config.EnableCors(corsAttr);
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
