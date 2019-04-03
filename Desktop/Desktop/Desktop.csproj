@@ -186,10 +186,8 @@
     <Compile Include="Controllers\AllItemController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\SalesPersonController.cs" />
-    <Compile Include="Controllers\stage.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
