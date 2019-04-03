@@ -616,8 +616,8 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', {2}, '{3}', '{4}', '{5}','{6}')", A.FirstName, A.LastName, A.PhoneNumber, A.CompanyName, A.Adress, A.City, A.UID);
-        String prefix = "INSERT INTO [Address] " + "(FirstName,LastName,PhoneNumber,CompanyName,[Address],City,UID)";
+        sb.AppendFormat("Values('{0}', '{1}', {2}, '{3}', '{4}', '{5}','{6}')", A.FirstName, A.LastName, A.PhoneNumber, A.CompanyName, A.Adress, A.City, A.Email);
+        String prefix = "INSERT INTO [Address] " + "(FirstName,LastName,PhoneNumber,CompanyName,[Address],City,Email)";
         command = prefix + sb.ToString();
 
         return command;
@@ -675,8 +675,8 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}')", C.UID);
-        String prefix = "INSERT INTO Customer " + "(UID)";
+        sb.AppendFormat("Values('{0}')",C.Email);
+        String prefix = "INSERT INTO Customer " + "(Email)";
         command = prefix + sb.ToString();
 
         return command;

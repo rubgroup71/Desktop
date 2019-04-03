@@ -13,12 +13,12 @@ namespace WebApplication2.Models
         public string CompanyName { get; set; }
         public string Adress { get; set; }
         public string City {get; set;}
-        public string UID { get; set; }
+        public string Email { get; set; }
 
 
 
 
-        public Address(string _firstname, string _lastname, string _phonenumber, string _companyname, string _adress, string _city, string _uid)
+        public Address(string _firstname, string _lastname, string _phonenumber, string _companyname, string _adress, string _city, string _email)
         {
             //UserName = _username;
             //Password = _password;
@@ -28,7 +28,7 @@ namespace WebApplication2.Models
             CompanyName = _companyname;
             Adress = _adress;
             City = _city;
-            UID = _uid;
+            Email = _email;
 
         }
 

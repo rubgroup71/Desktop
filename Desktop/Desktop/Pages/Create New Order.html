@@ -9,6 +9,20 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+
+    <!-- Add additional services that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-functions.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+
+    <script src="../Scripts/fbconfig.js"></script>
+    <script>
+        fbconfig()
+    </script>
     <style>
 
         @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
@@ -162,48 +176,60 @@
 
         $(document).ready(function () {
 
-
+            ajaxCall("GET", "../api/City", "", successGetCity, errorGetCity);
             //new
             ajaxCall("GET", "../api/AllItem", "", successGetstage, errorGetstage);
 
-            //$("#OForm").submit(f1);
+            $("#OForm").submit(f1);
         });
         function successGetstage(data) {
             var result = Object.keys(data);
             for (var i = 1; i <= result.length; i++) {
                 for (var j = 0; j < data[i].length; j++) {
-                    
-                    
-                        $('#stage' + i).append($("<option></option>").val(data[i][j].ID).html(data[i][j].Description));
-                    
+
+
+                    $('#stage' + i).append($("<option></option>").val(data[i][j].ID).html(data[i][j].Description));
+
                 }
-                
+
 
             };
+        }
+
+        function successGetCity(citydata) {
+            for (var i = 0; i < citydata.length; i++) {
+                $("#city").append($("<option></option>").val(citydata[i].ID).html(citydata[i].Name));
+
+            }
+        }
+
+        function errorGetCity(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
         }
         function errorGetstage(err) {
             swal("Error!", err.ExceptionMessage, "error");
         }
-        
+
         function additem() {
             // Note that the name of the fields must be identical to the names of the properties of the object in the server
             stage1 = $("#stage1").val(),
-            stage2 = $("#stage2").val();
+                stage2 = $("#stage2").val();
             stage3 = $("#stage3").val(),
-                stage4=$("#stage4").val(),
-                stage5=$("#stage5").val(),
-                stage6=$("#stage6").val(),
-                stage7=$("#stage7").val(),
-                stage8=$("#stage8").val(),
-                stage9=$("#stage9").val(),
-                stage10=$("#stage10").val(),
+                stage4 = $("#stage4").val(),
+                stage5 = $("#stage5").val(),
+                stage6 = $("#stage6").val(),
+                stage7 = $("#stage7").val(),
+                stage8 = $("#stage8").val(),
+                stage9 = $("#stage9").val(),
+                stage10 = $("#stage10").val(),
 
-                item=stage1 + stage2 + stage3 + stage4 + stage5 + stage6 + stage7 + stage8 + stage9 + stage10;
-            
+                item = stage1 + stage2 + stage3 + stage4 + stage5 + stage6 + stage7 + stage8 + stage9 + stage10;
+
             quantity = $("#quantity").val();
-           
-            document.getElementById("table").innerHTML += '<tr><td>' + item + '</td><td>' + quantity+'</td></tr>';
-          
+
+            document.getElementById("table").innerHTML += '<tr><td>' + item + '</td><td>' + quantity + '</td></tr>';
+
             clean();
         }
         function clean() {
@@ -219,6 +245,59 @@
             $("#stage10").val("");
             $("#quantity").val("");
         }
+
+        var counter = 0;
+        var click = false;
+        function moreFields() {
+            if (click == false) {
+                counter++;
+                var newFields = document.getElementById('readroot').cloneNode(true);
+                newFields.id = '';
+                newFields.style.display = 'block';
+                var newField = newFields.childNodes;
+                for (var i = 0; i < newField.length; i++) {
+                    var theName = newField[i].name
+                    if (theName)
+                        newField[i].name = theName + counter;
+                }
+                var insertHere = document.getElementById('writeroot');
+                insertHere.parentNode.insertBefore(newFields, insertHere);
+                click = true;
+            }
+            return false;
+        }
+        //function AddOrder() {
+
+        //    Order = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
+
+        //        UID: uid,
+        //        FirstName: $("#firstname").val(),
+        //        LastName: $("#lastname").val(),
+        //        Address: $("#address").val(),
+        //        PhoneNumber: $("#phonenumber").val(),
+        //        CompanyName: $("#companyname").val(),
+        //        City: $("#city option:selected").text(),
+        //        //CountryName: $("#countryname").val(),
+
+        //    };
+
+        //    Customer = {
+        //        UID: uid,
+        //    };
+
+
+        //    ajaxCall("POST", "../api/Address", JSON.stringify(Address), success, error);
+        //    ajaxCall("POST", "../api/Customer", JSON.stringify(Customer), successCustomer, errorCustomer);
+
+        //}
+        function f1() {
+            AddOrder();
+            return false; // the return false will prevent the form from being submitted
+            // hence the page will not reload
+        }
+
+
+
 
     </script>
 
@@ -324,14 +403,56 @@
 
 
                 </table>
-                <select placeholder="Customer Type">
-                   
-                    <option>Exist Customer</option>
-                    <option>New Customer</option>
+                <input type="button"value="Exist Customer" onclick="">
+                <select id="">
+                    <option id="Customer" />
                 </select>
-            </br>
-                <input type="submit" value="Create Order" />
-         
+                <input type="button" id="btn" onclick="moreFields()" value="Order as a New Customer" />
+                <div id="readroot" style="display: none">
+                    <label>
+                        <span class="lname">User Name  <span class="required">*</span></span>
+                        <input type="text" name="lname" id="username">
+                    </label>
+                    <label>
+                        <span class="lname">Password <span class="required">*</span></span>
+                        <input type="text" name="lname" id="password">
+                    </label>
+                    <label>
+                        <span class="lname">Company Name  <span class="required">*</span></span>
+                        <input type="text" name="lname" id="companyname">
+                    </label>
+                    <label>
+                        <span class="lname">First Name  <span class="required">*</span></span>
+                        <input type="text" name="lname" id="firstname">
+                    </label>
+                    <label>
+                        <span class="lname">Last Name  <span class="required">*</span></span>
+                        <input type="text" name="lname" id="lastname">
+                    </label>
+                    <label>
+                        <span>Address<span class="required">*</span></span>
+                        <input type="text" name="lname" id="address">
+                    </label>
+                    <label>
+                        <span>Phone Number<span class="required">*</span></span>
+                        <input type="tel" name="lname" id="phonenumber">
+                    </label>
+                    <label>
+                        <span>City<span class="required">*</span></span>
+                        <select id="city">
+                            <option id="city" />
+                        </select>
+                    </label>
+                    <input type="submit" id="btn" value="Send" />
+                </div>
+
+                <form method="post" action="/cgi-bin/show_params.cgi">
+
+                    <span id="writeroot"></span>
+
+
+                </form>
+
             </div><!-- Yorder -->
         </div>
     </div>

@@ -8,13 +8,15 @@ namespace WebApplication2.Models
 {
     public class Customer
     {
-        public string UID { get; set; }
+      
+        public string Email { get; set; }
 
 
 
-        public Customer(string _uid)
+        public Customer(string _email)
         {
-            UID = _uid;
+           
+            Email = _email;
           
                 }
 

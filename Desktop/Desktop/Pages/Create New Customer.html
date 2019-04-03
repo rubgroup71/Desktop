@@ -196,16 +196,16 @@
 
             }).then(function () {
                 var user = firebase.auth().currentUser;
-                AddCustomer(user.uid)
+                AddCustomer(user.email)
             });
 
 
         }
-        function AddCustomer(uid) {
+        function AddCustomer(email) {
             
             Address = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
 
-                UID:uid,
+                Email: email,
                 FirstName: $("#firstname").val(),
                 LastName: $("#lastname").val(),
                 Address: $("#address").val(),
@@ -218,11 +218,12 @@
             
             //Customer = {
             //    UID: uid,
+            //    Email:Identifier,
             //};
 
 
             ajaxCall("POST", "../api/Address", JSON.stringify(Address), success, error);
-            ajaxCall("POST", "../api/Customer", JSON.stringify(uid) , successCustomer, errorCustomer);
+            ajaxCall("POST", "../api/Customer", JSON.stringify(email) , successCustomer, errorCustomer);
 
         }
 
