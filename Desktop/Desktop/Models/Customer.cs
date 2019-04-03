@@ -38,11 +38,11 @@ namespace WebApplication2.Models
         //    return DBS.Login("ConnectionStringName", "SalesPerson",username,password);
         //}
 
-        //public List<Customer> Show()
-        //{
-        //    DBservices DBS = new DBservices();
-        //    List<Customer> C = DBS.ShowCustomer("ConnectionStringName", "Address");
-        //    return C;
-        //}
+        public List<Customer> ShowEmail()
+        {
+            DBservices DBS = new DBservices();
+            List<Customer> C = DBS.ShowEmail("ConnectionStringName", "Customer");
+            return C;
+        }
     }
 }

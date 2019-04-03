@@ -46,7 +46,7 @@ namespace WebApplication2.Models
         public List<Address> Show()
         {
             DBservices DBS = new DBservices();
-            List<Address> C = DBS.ShowA("ConnectionStringName", "Address");
+            List<Address> C = DBS.ShowA("ConnectionStringName", "Addresses");
             return C;
         }
 

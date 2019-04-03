@@ -187,16 +187,17 @@
 
 
         function Addfirebase() {
-            
             UserName = $("#username").val();
             Password = $("#password").val();
             firebase.auth().createUserWithEmailAndPassword(UserName, Password).catch(function (error) {
                 console.log(error.code);
                 console.log(error.message)
 
-            }).then(function () {
-                var user = firebase.auth().currentUser;
-                AddCustomer(user.email)
+            }).then(function (resp) {
+                //var user = firebase.auth().currentUser;
+                AddCustomer(resp.user.email)
+                
+
             });
 
 
@@ -208,7 +209,7 @@
                 Email: email,
                 FirstName: $("#firstname").val(),
                 LastName: $("#lastname").val(),
-                Address: $("#address").val(),
+                Adress: $("#address").val(),
                 PhoneNumber: $("#phonenumber").val(),
                 CompanyName: $("#companyname").val(),
                 City: $("#city option:selected").text(),

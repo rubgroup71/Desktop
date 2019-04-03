@@ -11,12 +11,12 @@ namespace WebApplication2.Controllers
     public class CustomerController : ApiController
     {
         //GET: api/Customer
-        //public IEnumerable<Customer> Get()
-        //{
-        //    //Customer C = new Customer();
-        //    //List<Customer> CUS = C.Show();
-        //    //return CUS;
-        //}
+        public IEnumerable<Customer> Get()
+        {
+           Customer C = new Customer();
+            List<Customer> CUS = C.ShowEmail();
+            return CUS;
+        }
 
         // GET: api/Customer/5
         public string Get(int id)

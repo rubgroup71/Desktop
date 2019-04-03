@@ -103,7 +103,7 @@ public class DBservices
 
 
     public List<City> Read(string conString, string tableName)
-    {
+          {
 
         SqlConnection con;
         List<City> f = new List<City>();
@@ -199,7 +199,52 @@ public class DBservices
         }
 
     }
+    // לשלוח לדנה
 
+    public List<Customer> ShowEmail(string conString, string tableName)
+    {
+
+        SqlConnection con;
+        List<Customer> f = new List<Customer>();
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+        }
+
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+        try
+        {
+            String selectSTR = "SELECT * FROM " + tableName;
+
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dr.Read())
+            {
+                Customer c = new Customer();
+
+                c.Email = Convert.ToString(dr["Email"]).TrimEnd();
+                f.Add(c);
+            }
+            return f;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+    }
     //--------------------------------------------------------------------
     // Build the Insert command String
     //--------------------------------------------------------------------
@@ -617,7 +662,7 @@ public class DBservices
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
         sb.AppendFormat("Values('{0}', '{1}', {2}, '{3}', '{4}', '{5}','{6}')", A.FirstName, A.LastName, A.PhoneNumber, A.CompanyName, A.Adress, A.City, A.Email);
-        String prefix = "INSERT INTO [Address] " + "(FirstName,LastName,PhoneNumber,CompanyName,[Address],City,Email)";
+        String prefix = "INSERT INTO [Addresses] " + "(FirstName,LastName,PhoneNumber,CompanyName,[Address],City,Email)";
         command = prefix + sb.ToString();
 
         return command;
@@ -676,7 +721,7 @@ public class DBservices
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
         sb.AppendFormat("Values('{0}')",C.Email);
-        String prefix = "INSERT INTO Customer " + "(Email)";
+        String prefix = "INSERT INTO Customers " + "(Email)";
         command = prefix + sb.ToString();
 
         return command;

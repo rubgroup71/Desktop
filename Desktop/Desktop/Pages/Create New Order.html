@@ -176,7 +176,7 @@
 
         $(document).ready(function () {
 
-            ajaxCall("GET", "../api/City", "", successGetCity, errorGetCity);
+            ajaxCall("GET", "../api/Customer", "", successGetEmail, errorGetEmail);
             //new
             ajaxCall("GET", "../api/AllItem", "", successGetstage, errorGetstage);
 
@@ -296,7 +296,17 @@
             // hence the page will not reload
         }
 
+        function successGetEmail(email) {
+            for (var i = 0; i < email.length; i++) {
+                $("#email").append($("<option></option>").val(email[i].Email).html(email[i].Email));
 
+            }
+        }
+
+        function errorGetCity(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
 
 
     </script>
@@ -403,9 +413,9 @@
 
 
                 </table>
-                <input type="button"value="Exist Customer" onclick="">
-                <select id="">
-                    <option id="Customer" />
+                <input type="button"value="Exist Customer" >
+                <select id="email">
+                    <option id="email" />
                 </select>
                 <input type="button" id="btn" onclick="moreFields()" value="Order as a New Customer" />
                 <div id="readroot" style="display: none">
