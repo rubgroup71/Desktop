@@ -327,6 +327,7 @@ public class DBservices
 
             }
             // return id;
+           
 
         }
 
@@ -1052,7 +1053,109 @@ public class DBservices
         return command;
     }
 
+    public List<Address> FilterAddress(string conString, string tableName,int addressid)
+    {
 
+        SqlConnection con;
+        List<Address> f = new List<Address>();
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+        }
+
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+        try
+        {
+            String selectSTR = "SELECT * FROM " + tableName + " WHERE ID ="+ addressid;
+
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            
+            while (dr.Read())
+            {
+                Address S = new Address();
+
+
+                S.Email = Convert.ToString(dr["Email"]).TrimEnd();
+                S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
+                S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
+                S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]).TrimEnd();
+                S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
+                S.Adress = Convert.ToString(dr["Address"]).TrimEnd();
+                S.City = Convert.ToString(dr["City"]).TrimEnd();
+
+                f.Add(S);
+            }
+            return f;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+    }
+
+    public List<Order> FilterOrder(string conString, string tableName, int orderid)
+    {
+
+        SqlConnection con;
+        List<Order> f = new List<Order>();
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+        }
+
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+        try
+        {
+            String selectSTR = "SELECT * FROM " + tableName + " WHERE OrderNum =" + orderid;
+
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dr.Read())
+            {
+                Order S = new Order();
+
+
+                S.OrderNumber = Convert.ToInt32(dr["OrderNum"]);
+                S.OrderDate = Convert.ToDateTime(dr["OrderDate"]);
+                S.Email = Convert.ToString(dr["Email"]).TrimEnd();
+                S.Status = Convert.ToString(dr["Status"]).TrimEnd();
+             
+
+                f.Add(S);
+            }
+            return f;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+    }
 
 
 

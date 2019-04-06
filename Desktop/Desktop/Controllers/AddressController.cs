@@ -17,6 +17,12 @@ namespace WebApplication2.Controllers
             List<Address> CUS = C.Show();
             return CUS;
         }
+        public IEnumerable<Address> Get(int email)
+        {
+            Address AD = new Address();
+            List<Address> a = AD.Filter(email);
+            return a;
+        }
 
         // GET: api/Address/5
         public Address Get(string email)

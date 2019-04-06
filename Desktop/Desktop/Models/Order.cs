@@ -20,11 +20,23 @@ namespace WebApplication2.Models
             OrderNumber = _ordernum;
 
         }
+
+        public Order()
+        {
+        }
+
         public int insertO()
         {
             DBservices DBS = new DBservices();
             int numAffected = DBS.insertO(this);
             return numAffected;
+        }
+
+        public List<Order> FilterOrder(int orderid)
+        {
+            DBservices dbs = new DBservices();
+            List<Order> h = dbs.FilterOrder("ConnectionStringName", "Orders", orderid);
+            return h;
         }
     }
 }

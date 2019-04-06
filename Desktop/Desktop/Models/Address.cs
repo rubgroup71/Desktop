@@ -56,5 +56,12 @@ namespace WebApplication2.Models
             return p;
         }
 
+        public List<Address> FilterAddress(int addressid)
+        {
+            DBservices dbs = new DBservices();
+            List<Address> h = dbs.FilterAddress("ConnectionStringName", "Addresses", addressid);
+            return h;
+        }
+
     }
 }
