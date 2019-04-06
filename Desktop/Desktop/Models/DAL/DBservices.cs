@@ -295,29 +295,30 @@ public class DBservices
         String cStr = BuildInsertCommandtemCustomer(item,ItemID);      // helper method to build the insert string
 
         cmd = CreateCommand(cStr, con);             // create the command
-
-        try
+        int id = 0;
+        try { 
+            try 
         {
 
-            int numEffected = (int)cmd.ExecuteScalar();
-            //return numEffected;
-        }
+            int numEffected = cmd.ExecuteNonQuery();
+
+                // return numEffected;
+            }
         catch (Exception ex)
         {
-            //return 0;
+           //return 0;
             // write to log
             throw (ex);
         }
-        int id = 0;
-        try
-        {
 
-            String selectSTR = "SELECT TOP 1 OrderNum FROM Orders ORDER BY OrderNum ";
+        
+
+            String selectSTR = "SELECT TOP 1 OrderNum FROM Orders ORDER BY OrderNum DESC ";
 
             SqlCommand cmd1 = new SqlCommand(selectSTR, con);
 
             SqlDataReader dr = cmd1.ExecuteReader(CommandBehavior.CloseConnection);
-            
+
             while (dr.Read())
             {
 
@@ -325,33 +326,38 @@ public class DBservices
 
 
             }
-           
+            // return id;
+
         }
+
+
         catch (Exception ex)
         {
             // write to log
             throw (ex);
 
         }
-       
 
         finally
         {
-            
+
             if (con != null)
             {
                 // close the db connection
-                
+
                 con.Close();
-                
+
             }
+
             InsertIOC(item, ItemID, id, quantity);
+        }
+
+
+
+       
+
 
         }
-        InsertIOC(item, ItemID, id, quantity);
-
-
-    }
     private String BuildInsertCommandtemCustomer(Items item, int ItemID)
     {
         String command;
