@@ -100,6 +100,270 @@ public class DBservices
     }
 
 
+    public int insertO(Order O)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("ConnectionStringName"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        String cStr = BuildInsertCommandO(O);      // helper method to build the insert string
+
+        cmd = CreateCommand(cStr, con); 
+        
+        // create the command
+
+        try
+        {
+
+            int numEffected = (int)cmd.ExecuteScalar();
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+    }
+
+
+    private String BuildInsertCommandO(Order O)
+    {
+        String command;
+
+        StringBuilder sb = new StringBuilder();
+        // use a string builder to create the dynamic string
+        sb.AppendFormat("Values('{0}', '{1}', '{2}')", O.Email, O.OrderDate, O.Status);
+        String prefix = "INSERT INTO Orders " + "(Email,OrderDate,Status)";
+        command = prefix + sb.ToString();
+
+        return command;
+    }
+
+
+    public int  InsertIOC(Items item,int ItemID,int id,int quantity)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("ConnectionStringName"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        String cStr = BuildInsertCommandIOC(item,ItemID,id, quantity);      // helper method to build the insert string
+
+        cmd = CreateCommand(cStr, con);             // create the command
+
+        try
+        {
+
+            int numEffected = (int)cmd.ExecuteScalar();
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+    }
+    private String BuildInsertCommandIOC(Items item,int ItemID,int id,int quantity)
+    {
+        String command;
+
+        StringBuilder sb = new StringBuilder();
+        // use a string builder to create the dynamic string
+        sb.AppendFormat("Values('{0}',{1},{2},{3})", item.Email,ItemID, id, quantity);
+        String prefix = "INSERT INTO IOC " + "(Email,ItemID,OrderNum,Quantity)";
+        command = prefix + sb.ToString();
+
+        return command;
+    }
+
+
+    public int InsertItem(Items item,int quantity)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("ConnectionStringName"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        String cStr = BuildInsertCommandItem(item);      // helper method to build the insert string
+
+        cmd = CreateCommand(cStr, con);             // create the command
+
+        try
+        {
+
+            int numEffected = (int)cmd.ExecuteScalar();
+            InsertItemCustomer(item, numEffected, quantity);
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+    }
+
+
+    private String BuildInsertCommandItem(Items item)
+    {
+        String command;
+
+        StringBuilder sb = new StringBuilder();
+        // use a string builder to create the dynamic string
+        sb.AppendFormat("Values('{0}', '{1}','{2}')", item.ItemSerial,item.IsStandard,item.ItemName);
+        String prefix = "INSERT INTO Items " + "(ItemSerial,IsStandard,ItemName)";
+        command = prefix + sb.ToString()+";SELECT CAST(scope_identity() AS int)";
+
+        return command;
+    }
+    public void InsertItemCustomer(Items item,int ItemID,int quantity)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("ConnectionStringName"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        String cStr = BuildInsertCommandtemCustomer(item,ItemID);      // helper method to build the insert string
+
+        cmd = CreateCommand(cStr, con);             // create the command
+
+        try
+        {
+
+            int numEffected = (int)cmd.ExecuteScalar();
+            //return numEffected;
+        }
+        catch (Exception ex)
+        {
+            //return 0;
+            // write to log
+            throw (ex);
+        }
+        int id = 0;
+        try
+        {
+
+            String selectSTR = "SELECT TOP 1 OrderNum FROM Orders ORDER BY OrderNum ";
+
+            SqlCommand cmd1 = new SqlCommand(selectSTR, con);
+
+            SqlDataReader dr = cmd1.ExecuteReader(CommandBehavior.CloseConnection);
+            
+            while (dr.Read())
+            {
+
+                id = Convert.ToInt32(dr["OrderNum"]);
+
+
+            }
+           
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+       
+
+        finally
+        {
+            
+            if (con != null)
+            {
+                // close the db connection
+                
+                con.Close();
+                
+            }
+            InsertIOC(item, ItemID, id, quantity);
+
+        }
+        InsertIOC(item, ItemID, id, quantity);
+
+
+    }
+    private String BuildInsertCommandtemCustomer(Items item, int ItemID)
+    {
+        String command;
+
+        StringBuilder sb = new StringBuilder();
+        // use a string builder to create the dynamic string
+        sb.AppendFormat("Values('{0}', {1})", item.Email,ItemID);
+        String prefix = "INSERT INTO ItemsCustomer " + "(Email,ItemID)";
+        command = prefix + sb.ToString();
+
+        return command;
+    }
 
 
     public List<City> Read(string conString, string tableName)
@@ -376,6 +640,61 @@ public class DBservices
         }
 
     }
+    public Address getcustomer(string conString, string tableName, string email)
+    {
+
+        SqlConnection con;
+        Address S = new Address();
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+        }
+
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+        try
+        {
+            String selectSTR = "SELECT * FROM " + tableName + " WHERE Email='" + email + "'";
+
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dr.Read())
+            {
+
+                S.Email = Convert.ToString(dr["Email"]).TrimEnd();
+                S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
+                S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
+                S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]).TrimEnd();
+                S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
+                S.Adress = Convert.ToString(dr["Address"]).TrimEnd();
+                S.City = Convert.ToString(dr["City"]).TrimEnd();
+
+
+            }
+            return S;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+    }
+
+
+
+
+
 
 
 

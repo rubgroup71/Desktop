@@ -23,7 +23,30 @@
         fbconfig()
     </script>
     <style>
+        #head {
+            list-style-type: none;
+            overflow: hidden;
+            background-color: LightGray;
+            border-style: solid;
+            border-color: #92a8d1;
+            margin-top: 0px;
+        }
 
+        li {
+            float: left;
+        }
+
+            li a {
+                display: block;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                li a:hover {
+                    background-color: #5195A8;
+                }
         @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
 
         body {
@@ -269,7 +292,12 @@
 
 </head>
 <body>
-
+    <ul id="head">
+        <li><a href="OrderList.html">Order List</a></li>
+        <li><a class="active" href="CustomerList.html">Customer List</a></li>
+        <li><a href="UserList.html">User List</a></li>
+        <li><a href="InsertItem.html">Item List</a></li>
+    </ul>
 
     <div class="container">
         <div class="title">
@@ -309,20 +337,20 @@
                     <span>Country<span class="required">*</span></span>
                     <input type="text" name="lname" id="country">
                 </label>-->
-                <label>  
+                <label>
                     <span>City<span class="required">*</span></span>
-                <select id="city">
-                <option id="city"/>
-                  </select>
+                    <select id="city">
+                        <option id="city" />
+                    </select>
                 </label>
                 <!--<label>
-        <span>City<span class="required">*</span></span>
-        <input type="text" name="lname" id="city">
-    </label>-->
+                    <span>City<span class="required">*</span></span>
+                    <input type="text" name="lname" id="city">
+                </label>-->
                 <!--<input type="submit" value="Insert" />-->
-                <input type="button" onclick=" Addfirebase(); " value="Insert"/>
+                <input type="button" onclick=" Addfirebase(); " value="Insert" />
             </form>
-          
+
         </div>
     </div>
 </body>

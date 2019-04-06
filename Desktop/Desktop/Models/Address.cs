@@ -49,6 +49,12 @@ namespace WebApplication2.Models
             List<Address> C = DBS.ShowA("ConnectionStringName", "Addresses");
             return C;
         }
+        public Address getcustomer(string email)
+        {
+            DBservices dbs = new DBservices();
+            Address p = dbs.getcustomer("ConnectionStringName", "Addresses", email);
+            return p;
+        }
 
     }
 }

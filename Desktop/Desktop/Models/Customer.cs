@@ -41,7 +41,7 @@ namespace WebApplication2.Models
         public List<Customer> ShowEmail()
         {
             DBservices DBS = new DBservices();
-            List<Customer> C = DBS.ShowEmail("ConnectionStringName", "Customer");
+            List<Customer> C = DBS.ShowEmail("ConnectionStringName", "Customers");
             return C;
         }
     }

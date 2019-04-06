@@ -19,9 +19,10 @@ namespace WebApplication2.Controllers
         }
 
         // GET: api/Address/5
-        public string Get(int id)
+        public Address Get(string email)
         {
-            return "value";
+            Address C = new Address();
+            return C.getcustomer(email);
         }
 
         // POST: api/Address
