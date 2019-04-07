@@ -188,6 +188,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\IOCController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
+    <Compile Include="Controllers\ItemsCustomerController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\SalesPersonController.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ItemCustomer.cs" />
     <Compile Include="Models\Items.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Address.cs" />
@@ -204,7 +206,6 @@
     <Compile Include="Models\DAL\DBservices.cs" />
     <Compile Include="Models\Expert.cs" />
     <Compile Include="Models\IOC.cs" />
-    <Compile Include="Models\ItemCustomer.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\SalesPerson.cs" />
     <Compile Include="Models\Stage.cs" />

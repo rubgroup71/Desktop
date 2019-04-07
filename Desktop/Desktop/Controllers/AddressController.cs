@@ -17,18 +17,20 @@ namespace WebApplication2.Controllers
             List<Address> CUS = C.Show();
             return CUS;
         }
-        public IEnumerable<Address> Get(int email)
+        [HttpGet]
+        [Route("api/Address/5")]
+        public IEnumerable<Address>GetAddress(string email)
         {
             Address AD = new Address();
-            List<Address> a = AD.Filter(email);
+            List<Address> a = AD.FilterAddress(email);
             return a;
         }
 
         // GET: api/Address/5
-        public Address Get(string email)
+        public Address Get(string Email)
         {
             Address C = new Address();
-            return C.getcustomer(email);
+            return C.getcustomer(Email);
         }
 
         // POST: api/Address

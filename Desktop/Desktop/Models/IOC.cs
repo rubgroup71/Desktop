@@ -24,11 +24,12 @@ namespace WebApplication2.Models
         {
 
         }
-        //public int InsertIOC()
-        //{
-        //    DBservices DBS = new DBservices();
-        //    int numAffected = DBS.InsertIOC(this);
-        //    return numAffected;
-        //}
+        public List<IOC> FilterIOC(string email)
+        {
+            DBservices dbs = new DBservices();
+            List<IOC> h = dbs.FilterIOC("ConnectionStringName", "IOC", email);
+            return h;
+        }
+
     }
 }

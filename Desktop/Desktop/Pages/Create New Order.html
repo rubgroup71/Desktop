@@ -48,6 +48,7 @@
                 li a:hover {
                     background-color: #5195A8;
                 }
+
         @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
 
         body {
@@ -236,9 +237,9 @@
         function errorGetstage(err) {
             swal("Error!", err.ExceptionMessage, "error");
         }
-       
+
         function additem() {
-            
+
             // Note that the name of the fields must be identical to the names of the properties of the object in the server
             stage1 = $("#stage1").val(),
                 stage2 = $("#stage2").val();
@@ -254,7 +255,7 @@
                 item = stage1 + stage2 + stage3 + stage4 + stage5 + stage6 + stage7 + stage8 + stage9 + stage10;
             quantity = $("#quantity").val();
 
-            document.getElementById("table").innerHTML += '<tr><td id="part">' + item + '</td><td id="qu">' + quantity + '</td></tr>';
+            document.getElementById("table").innerHTML += '<tr><td class="part">' + item + '</td><td class="qu">' + quantity + '</td></tr>';
 
             clean();
         }
@@ -272,64 +273,62 @@
             $("#quantity").val("");
         }
 
-        var counter = 0;
+        //var counter = 0;
         var click = false;
-        function moreFields() {
-            //if ($("#email").val() != null) {
+        //function moreFields() {
+        //    if ($("#email").val() != null) {
 
 
-            //}
-            if (click == false) {
-                counter++;
-                var newFields = document.getElementById('readroot').cloneNode(true);
-                newFields.id = '';
-                newFields.style.display = 'block';
-                var newField = newFields.childNodes;
-                for (var i = 0; i < newField.length; i++) {
-                    var theName = newField[i].name
-                    if (theName)
-                        newField[i].name = theName + counter;
-                }
-                var insertHere = document.getElementById('writeroot');
-                insertHere.parentNode.insertBefore(newFields, insertHere);
-                $('#username').val(data.UserName);
-                click = true;
-            }
-            return false;
-        }
+        //    }
+        //    if (click == false) {
+        //        counter++;
+        //        var newFields = document.getElementById('readroot').cloneNode(true);
+        //        newFields.id = '';
+        //        newFields.style.display = 'block';
+        //        var newField = newFields.childNodes;
+        //        for (var i = 0; i < newField.length; i++) {
+        //            var theName = newField[i].name
+        //            if (theName)
+        //                newField[i].name = theName + counter;
+        //        }
+        //        var insertHere = document.getElementById('writeroot');
+        //        insertHere.parentNode.insertBefore(newFields, insertHere);
+        //        $('#username').val(data.UserName);
+        //        click = true;
+        //    }
+        //    return false;
+        //}
         function AddOrder(data) {
+            var parts = []
+            var quantity = []
             var d = new Date();
-            //itemsquntity = [,];
-
-            //for (var i = 0,j=0; i,j < itemsquntity.length; i++,j++) {
-              
-            //        itemsquntity.push= [$("#part").text(),$("#qu").text()];
-            //    }
-            //}
+            $("td.part").map(function (x, y) { parts.push(y.textContent) });         
+            $("td.qu").map(function (x, y) { quantity.push(y.textContent) });
+         
             
+
             Order = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
 
-                
-                Email: data,                
-                OrderDate: d.getFullYear() + "-" + d.getMonth() + "-" + d.getDay(),
-                Status: "Confirm",
-                //Quantity: $("#qu").text(),
-                ItemName:"Part",
-                ItemSerial: $("#part").text(),
+
+                Email: data,
+                Part: parts,
+                Quantity: quantity
+
+
 
             };
-        quantity= $("#qu").text()
-          
 
 
-            ajaxCall("POST", "../api/Order", JSON.stringify(Order), successOrder, errorOrder);
-        ajaxCall("POST", "../api/Items?quantity=" + quantity, JSON.stringify(Order), successItem, errorItem);
+
+
+            ajaxCall("POST", "../api/Order", JSON.stringify(Order), successOrder, errorOrder)
+      
 
         }
-        function successOrder() {            
+        function successOrder() {
             swal("Added Successfuly!", "Order created", "success")
-           
-            
+
+
         }
 
 
@@ -338,25 +337,9 @@
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
-        //function successIOC() {
-        //    swal("Added Successfuly!", "IOC created", "success")
-        //}
+       
 
-        //// this function is activated in case of a failure
-        //function errorIOC(err) {
-        //    err = JSON.parse(err.responseText);
-        //    swal("Error!", err.ExceptionMessage, "error");
-        //}
 
-        function successItem() {
-            swal("Added Successfuly!", "Item created", "success")
-        }
-
-        // this function is activated in case of a failure
-        function errorItem(err) {
-            err = JSON.parse(err.responseText);
-            swal("Error!", err.ExceptionMessage, "error");
-        }
 
         function f1() {
             AddOrder();
@@ -379,7 +362,7 @@
         //    //uri = "../api/Address?Email=" + $("#email").val();
         //    //ajaxCall("GET", uri, "", successGetcustomer, errorGetcustomer);
         //}
-        
+
         function successGetcustomer(data) {
             datauser = data;
             if (click == false) {
@@ -393,7 +376,7 @@
                 document.getElementById("table2").innerHTML += '<tr>Email : </tr>' + UserName + ' </br>' + '<tr>First Name : </tr>' + FirstName + ' </br>'
                     + '<tr>Last Name : </tr>' + LastName + ' </br>' + '<tr>Phone : </tr>' + PhoneNumber + ' </br>' + '<tr>Company Name : </tr>' + CompanyName + ' </br>' +
                     '<tr>Address : </tr>' + Adress + ' </br>' + '<tr>City : </tr>' + City + '<input type="button" onClick="Javacsript:AddOrder(UserName)" value="Send"/>';
-              
+
             }
             return false;
 
@@ -403,7 +386,7 @@
 
         }
         function ShowDetails() {
-           
+
             uri = "../api/Address?Email=" + $("#email").val();
             ajaxCall("GET", uri, "", successGetcustomer, errorGetcustomer);
         }
@@ -511,7 +494,7 @@
                     <option id="email" />Choose Customer
                 </select>
                 <input type="button" onclick="ShowDetails()" value="Exist Customer">
-                <input type="button" id="btn" onclick="moreFields()" value="Order as a New Customer" />
+                <!--<input type="button" id="btn" onclick="moreFields()" value="Order as a New Customer" />-->
                 <div id="readroot" style="display: none">
                     <label>
                         <span class="lname">User Name  <span class="required">*</span></span>
@@ -557,6 +540,7 @@
 
                 </form>
                 <div id="table2"></div>
+
 
             </div><!-- Yorder -->
         </div>

@@ -11,9 +11,12 @@ namespace Desktop.Controllers
     public class IOCController : ApiController
     {
         // GET: api/IOC
-        public IEnumerable<string> Get()
+        public IEnumerable<IOC> Get(string email)
         {
-            return new string[] { "value1", "value2" };
+            IOC IO = new IOC();
+            List<IOC> a = IO.FilterIOC(email);
+            return a;
+
         }
 
         // GET: api/IOC/5

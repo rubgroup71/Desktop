@@ -16,14 +16,7 @@ namespace Desktop.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        public IEnumerable<Order> Get(int orderid)
-        {
-            Order OO = new Order();
-            List<Order> a = OO.FilterOrder(orderid);
-            return a;
-
-
-        }
+    
         // GET: api/Order/5
         public string Get(int id)
         {
@@ -33,7 +26,7 @@ namespace Desktop.Controllers
         // POST: api/Order
         public void Post([FromBody]Order O)
         {
-            O.insertO();
+            O.insertO(O.Part,O.Quantity);
         }
 
         // PUT: api/Order/5

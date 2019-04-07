@@ -7,36 +7,35 @@ namespace WebApplication2.Models
 {
     public class Order
     {
-        public int OrderNumber { get; set; }
-        public DateTime OrderDate { get; set; }
+        
+        public string OrderDate { get; set; }= DateTime.Now.Date.ToShortDateString();
         public string Email { get; set; }
-        public string Status { get; set; }
+        public string Status { get; set; } = "Confirm";
+        public string [] Part { get; set; }
+        public string[] Quantity { get; set; }
 
-        public Order(DateTime _orderdate, string _email,int _ordernum)
+        public Order(string _email,string [] _part, string[] _qun)
         {
-            OrderDate = _orderdate;
-            Email = _email;
-            Status ="Confirm";
-            OrderNumber = _ordernum;
 
+            //OrderDate = 
+            Email = _email;
+          
+            
+            Part = _part;
+            Quantity = _qun;
         }
 
         public Order()
         {
         }
 
-        public int insertO()
+        public int insertO(string [] parts, string[] quantity)
         {
             DBservices DBS = new DBservices();
-            int numAffected = DBS.insertO(this);
+            int numAffected = DBS.insertO(this, parts, quantity);
             return numAffected;
         }
 
-        public List<Order> FilterOrder(int orderid)
-        {
-            DBservices dbs = new DBservices();
-            List<Order> h = dbs.FilterOrder("ConnectionStringName", "Orders", orderid);
-            return h;
-        }
+       
     }
 }

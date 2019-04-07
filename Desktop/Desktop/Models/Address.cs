@@ -49,17 +49,17 @@ namespace WebApplication2.Models
             List<Address> C = DBS.ShowA("ConnectionStringName", "Addresses");
             return C;
         }
-        public Address getcustomer(string email)
+        public Address getcustomer(string Email)
         {
             DBservices dbs = new DBservices();
-            Address p = dbs.getcustomer("ConnectionStringName", "Addresses", email);
+            Address p = dbs.getcustomer("ConnectionStringName", "Addresses", Email);
             return p;
         }
 
-        public List<Address> FilterAddress(int addressid)
+        public List<Address> FilterAddress(string email)
         {
             DBservices dbs = new DBservices();
-            List<Address> h = dbs.FilterAddress("ConnectionStringName", "Addresses", addressid);
+            List<Address> h = dbs.FilterAddress("ConnectionStringName", "Addresses", email);
             return h;
         }
 

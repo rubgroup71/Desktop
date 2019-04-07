@@ -13,20 +13,28 @@ namespace WebApplication2.Models
         public bool IsStandard { get; set; }
         public string Email { get; set; }
 
-        public Items(string itemname,string itemserial,bool isstandatd,int itemid,string email)
+        public Items(string itemserial,bool isstandatd,string email)
         {
             ItemSerial = itemserial;
-            ItemName = itemname;
-            IsStandard = isstandatd;
-            ItemID = itemid;
+            ItemName = "part";
+            IsStandard = isstandatd;          
             Email = email;
 
         }
-        public int InsertItem(int quantity)
+        public Items(string itemserial, string email)
+        {
+            ItemSerial = itemserial;
+            ItemName = "part";
+            IsStandard = false;
+            Email = email;
+        }
+        public int InsertItem()
         {
             DBservices DBS = new DBservices();
-            int numAffected = DBS.InsertItem(this,quantity);
+            int numAffected = DBS.InsertItem(this);
             return numAffected;
         }
+        
+
     }
 }
