@@ -679,7 +679,56 @@ public class DBservices
 
 
 
+    public Address getAD(string conString, string tableName, string address)
+    {
 
+        SqlConnection con;
+        Address S = new Address();
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+        }
+
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+        try
+        {
+            String selectSTR = "SELECT * FROM " + tableName + " WHERE Email='" + address + "'";
+
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dr.Read())
+            {
+
+                S.Email = Convert.ToString(dr["Email"]).TrimEnd();
+                S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
+                S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
+                S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]).TrimEnd();
+                S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
+                S.Adress = Convert.ToString(dr["Address"]).TrimEnd();
+                S.City = Convert.ToString(dr["City"]).TrimEnd();
+
+
+            }
+            return S;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+    }
 
 
 
@@ -1053,7 +1102,7 @@ public class DBservices
 
         try
         {
-            String selectSTR = "SELECT * FROM " + tableName + " WHERE Email ="+ email;
+            String selectSTR = "SELECT * FROM " + tableName + " WHERE Email ='"+ email+"'";
 
             SqlCommand cmd = new SqlCommand(selectSTR, con);
 

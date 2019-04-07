@@ -63,5 +63,11 @@ namespace WebApplication2.Models
             return h;
         }
 
+        public Address getAD(string address)
+        {
+            DBservices dbs = new DBservices();
+            Address p = dbs.getAD("ConnectionStringName", "Addresses", address);
+            return p;
+        }
     }
 }

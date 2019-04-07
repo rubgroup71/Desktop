@@ -199,7 +199,7 @@
     <script>
 
         $(document).ready(function () {
-
+            ajaxCall("GET", "../api/Address", "", successGetAD, errorGetAD);
             ajaxCall("GET", "../api/Customer", "", successGetEmail, errorGetEmail);
             //new
             ajaxCall("GET", "../api/AllItem", "", successGetstage, errorGetstage);
@@ -231,6 +231,18 @@
         }
 
         function errorGetCity(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+
+        function successGetAD(address) {
+            for (var i = 0; i < address.length; i++) {
+                $("#adress").append($("<option></option>").val(address[i].ID).html(address[i].address));
+
+            }
+        }
+
+        function errorGetAD(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
@@ -492,6 +504,9 @@
                 </table>
                 <select id="email">
                     <option id="email" />Choose Customer
+                </select>
+                <select id="address">
+                    <option id="address" />Choose Address
                 </select>
                 <input type="button" onclick="ShowDetails()" value="Exist Customer">
                 <!--<input type="button" id="btn" onclick="moreFields()" value="Order as a New Customer" />-->
