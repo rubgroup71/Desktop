@@ -100,7 +100,7 @@ public class DBservices
     }
 
 
-    public int insertO(Order O, string [] parts, string[] quantity)
+    public int insertO(Order O, string [] parts, string[] quantity,int addressid)
     {
 
         SqlConnection con;
@@ -128,7 +128,7 @@ public class DBservices
             int numEffected = (int)cmd.ExecuteScalar();
             for (int i = 0; i < parts.Length; i++)
             {
-                InsertOrderItem(parts[i], quantity[i], numEffected, O.Email);
+                InsertOrderItem(parts[i], quantity[i], numEffected, O.Email,addressid);
 
             }
             return numEffected;
@@ -166,7 +166,7 @@ public class DBservices
     }
 
 
-    public int  InsertIOC(int itemid,int orderid,string email,string quantity)
+    public int  InsertIOC(int itemid,int orderid,string email,string quantity ,int addressid)
     {
 
         SqlConnection con;
@@ -182,7 +182,7 @@ public class DBservices
             throw (ex);
         }
 
-        String cStr = BuildInsertCommandIOC(itemid, orderid, email, quantity);      // helper method to build the insert string
+        String cStr = BuildInsertCommandIOC(itemid, orderid, email, quantity,addressid);      // helper method to build the insert string
 
         cmd = CreateCommand(cStr, con);             // create the command
 
@@ -209,21 +209,21 @@ public class DBservices
         }
 
     }
-    private String BuildInsertCommandIOC(int itemid,int orderid,string email,string quantity)
+    private String BuildInsertCommandIOC(int itemid,int orderid,string email,string quantity,int addressid)
     {
         String command;
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values({0},{1},'{2}','{3}')", itemid, orderid, email, quantity);
-        String prefix = "INSERT INTO IOC " + "(ItemID,OrderNum,Email,Quantity)";
+        sb.AppendFormat("Values({0},{1},'{2}','{3}',{4})", itemid, orderid, email, quantity,addressid);
+        String prefix = "INSERT INTO IOC " + "(ItemID,OrderNum,Email,Quantity,AdressID)";
         command = prefix + sb.ToString();
 
         return command;
     }
 
 
-    public int InsertOrderItem(string item,string quantity,int orderid,string email)
+    public int InsertOrderItem(string item,string quantity,int orderid,string email,int addressid)
     {
 
         SqlConnection con;
@@ -249,7 +249,7 @@ public class DBservices
 
             int numEffected = (int)cmd.ExecuteScalar();
             InsertItemCustomer(numEffected,email);
-            InsertIOC(numEffected, orderid ,email, quantity);
+            InsertIOC(numEffected, orderid ,email, quantity,addressid);
             return numEffected;
         }
         catch (Exception ex)
@@ -626,7 +626,7 @@ public class DBservices
         }
 
     }
-    public Address getcustomer(string conString, string tableName, string Email)
+    public Address getcustomer(string conString, string tableName,string address)
     {
 
         SqlConnection con;
@@ -647,7 +647,8 @@ public class DBservices
 
         try
         {
-            String selectSTR = "SELECT * FROM " + tableName + " WHERE Email='" + Email + "'";
+          
+            String selectSTR = "SELECT * FROM " + tableName + " WHERE Address='" + address + "'";
 
             SqlCommand cmd = new SqlCommand(selectSTR, con);
 
@@ -663,6 +664,7 @@ public class DBservices
                 S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
                 S.Adress = Convert.ToString(dr["Address"]).TrimEnd();
                 S.City = Convert.ToString(dr["City"]).TrimEnd();
+                S.ID = Convert.ToInt32(dr["ID"]);
 
 
             }
@@ -679,56 +681,7 @@ public class DBservices
 
 
 
-    public Address getAD(string conString, string tableName, string address)
-    {
-
-        SqlConnection con;
-        Address S = new Address();
-
-        try
-        {
-
-            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
-        }
-
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-
-        }
-
-        try
-        {
-            String selectSTR = "SELECT * FROM " + tableName + " WHERE Email='" + address + "'";
-
-            SqlCommand cmd = new SqlCommand(selectSTR, con);
-
-            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-            while (dr.Read())
-            {
-
-                S.Email = Convert.ToString(dr["Email"]).TrimEnd();
-                S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
-                S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
-                S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]).TrimEnd();
-                S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
-                S.Adress = Convert.ToString(dr["Address"]).TrimEnd();
-                S.City = Convert.ToString(dr["City"]).TrimEnd();
-
-
-            }
-            return S;
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-
-        }
-
-    }
+    
 
 
 
@@ -949,6 +902,7 @@ public class DBservices
                 S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]);
                 S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
                 S.Email = Convert.ToString(dr["Email"]).TrimEnd();
+                S.ID = Convert.ToInt32(dr["ID"]);
                 f.Add(S);
             }
             return f;
@@ -1120,6 +1074,7 @@ public class DBservices
                 S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
                 S.Adress = Convert.ToString(dr["Address"]).TrimEnd();
                 S.City = Convert.ToString(dr["City"]).TrimEnd();
+                S.ID = Convert.ToInt32(dr["ID"]);
 
                 f.Add(S);
             }

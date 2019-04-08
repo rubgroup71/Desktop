@@ -26,7 +26,7 @@ namespace Desktop.Controllers
         // POST: api/Order
         public void Post([FromBody]Order O)
         {
-            O.insertO(O.Part,O.Quantity);
+            O.insertO(O.Part,O.Quantity,O.Addressid);
         }
 
         // PUT: api/Order/5

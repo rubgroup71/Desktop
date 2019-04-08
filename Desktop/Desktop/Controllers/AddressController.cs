@@ -27,19 +27,13 @@ namespace WebApplication2.Controllers
         }
 
         // GET: api/Address/5
-        public Address Get(string Email)
+        public Address Get(string address)
         {
             Address C = new Address();
-            return C.getcustomer(Email);
+            return C.getcustomer(address);
         }
     
-    [HttpGet]
-    [Route("api/Address")]
-    public Address GetAD(string address)
-        {
-            Address C = new Address();
-            return C.getAD(address);
-        }
+    
 
         // POST: api/Address
         public void Post([FromBody]Address A)

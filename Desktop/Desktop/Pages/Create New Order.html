@@ -199,6 +199,8 @@
     <script>
 
         $(document).ready(function () {
+
+        
             ajaxCall("GET", "../api/Address", "", successGetAD, errorGetAD);
             ajaxCall("GET", "../api/Customer", "", successGetEmail, errorGetEmail);
             //new
@@ -316,6 +318,8 @@
             var d = new Date();
             $("td.part").map(function (x, y) { parts.push(y.textContent) });         
             $("td.qu").map(function (x, y) { quantity.push(y.textContent) });
+            var address = $("#address").val();
+            
          
             
 
@@ -324,8 +328,9 @@
 
                 Email: data,
                 Part: parts,
-                Quantity: quantity
-
+                Quantity: quantity,
+                Addressid: address
+                
 
 
             };
@@ -376,7 +381,9 @@
         //}
 
         function successGetcustomer(data) {
+            console.log(data);
             datauser = data;
+
             if (click == false) {
                 UserName = datauser.Email,
                     FirstName = datauser.FirstName;
@@ -399,9 +406,29 @@
         }
         function ShowDetails() {
 
-            uri = "../api/Address?Email=" + $("#email").val();
+            uri = "../api/Address?address=" + $("#address").val();
             ajaxCall("GET", uri, "", successGetcustomer, errorGetcustomer);
         }
+        function address() {
+            uri = "../api/Address/5?Email=" + $("#email").val();
+            ajaxCall("GET", uri, "", successGetaddress, errorGetaddress);
+        }
+
+        function successGetaddress(data) {
+            for (var i = 0; i < data.length; i++) {
+                $("#address").append($("<option></option>").val(data[i].ID).html(data[i].Adress));
+               
+
+            }
+        }
+
+        function errorGetaddress(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+
+     
+
     </script>
 
 </head>
@@ -505,10 +532,15 @@
                 <select id="email">
                     <option id="email" />Choose Customer
                 </select>
+
+                <input type="button" value="Approve" onclick="address()" />
+                <br />
+            <br />
                 <select id="address">
-                    <option id="address" />Choose Address
+                    <option id="aba" />Choose Address
                 </select>
-                <input type="button" onclick="ShowDetails()" value="Exist Customer">
+
+                <input type="button" onclick="ShowDetails()" value="Show Details">
                 <!--<input type="button" id="btn" onclick="moreFields()" value="Order as a New Customer" />-->
                 <div id="readroot" style="display: none">
                     <label>

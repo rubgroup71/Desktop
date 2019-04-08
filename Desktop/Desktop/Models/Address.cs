@@ -7,6 +7,7 @@ namespace WebApplication2.Models
 {
     public class Address
     {
+        public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
@@ -18,7 +19,7 @@ namespace WebApplication2.Models
 
 
 
-        public Address(string _firstname, string _lastname, string _phonenumber, string _companyname, string _adress, string _city, string _email)
+        public Address(string _firstname, string _lastname, string _phonenumber, string _companyname, string _adress, string _city, string _email,int _id)
         {
             //UserName = _username;
             //Password = _password;
@@ -29,6 +30,7 @@ namespace WebApplication2.Models
             Adress = _adress;
             City = _city;
             Email = _email;
+            ID = _id;
 
         }
 
@@ -49,25 +51,20 @@ namespace WebApplication2.Models
             List<Address> C = DBS.ShowA("ConnectionStringName", "Addresses");
             return C;
         }
-        public Address getcustomer(string Email)
+        public Address getcustomer(string address)
         {
             DBservices dbs = new DBservices();
-            Address p = dbs.getcustomer("ConnectionStringName", "Addresses", Email);
+            Address p = dbs.getcustomer("ConnectionStringName", "Addresses",address);
             return p;
         }
 
-        public List<Address> FilterAddress(string email)
-        {
+        public List<Address> FilterAddress(string email) { 
+        
             DBservices dbs = new DBservices();
             List<Address> h = dbs.FilterAddress("ConnectionStringName", "Addresses", email);
             return h;
         }
 
-        public Address getAD(string address)
-        {
-            DBservices dbs = new DBservices();
-            Address p = dbs.getAD("ConnectionStringName", "Addresses", address);
-            return p;
-        }
+    
     }
 }
