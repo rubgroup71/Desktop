@@ -319,6 +319,7 @@
             $("td.part").map(function (x, y) { parts.push(y.textContent) });         
             $("td.qu").map(function (x, y) { quantity.push(y.textContent) });
             var address = $("#address").val();
+           
             
          
             
@@ -406,7 +407,7 @@
         }
         function ShowDetails() {
 
-            uri = "../api/Address?address=" + $("#address").val();
+            uri = "../api/Address?address=" + $("#address option:selected").text();
             ajaxCall("GET", uri, "", successGetcustomer, errorGetcustomer);
         }
         function address() {
