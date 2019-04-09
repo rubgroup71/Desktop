@@ -213,8 +213,6 @@
             var result = Object.keys(data);
             for (var i = 1; i <= result.length; i++) {
                 for (var j = 0; j < data[i].length; j++) {
-
-
                     $('#stage' + i).append($("<option></option>").val(data[i][j].ID).html(data[i][j].Description));
 
                 }

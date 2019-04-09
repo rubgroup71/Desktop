@@ -857,6 +857,9 @@ public class DBservices
 
 
 
+
+
+
         // use a string builder to create the dynamic string
 
         String prefix = "DELETE FROM SalesPerson where UserName=" + a;
