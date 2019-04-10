@@ -324,11 +324,12 @@
 
             Order = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
 
-
+                
                 Email: data,
                 Part: parts,
                 Quantity: quantity,
-                Addressid: address
+                
+                
 
 
 
@@ -337,7 +338,7 @@
 
 
 
-            ajaxCall("POST", "../api/Order", JSON.stringify(Order), successOrder, errorOrder)
+            ajaxCall("POST", "../api/Order?address=" + address, JSON.stringify(Order), successOrder, errorOrder)
 
 
         }

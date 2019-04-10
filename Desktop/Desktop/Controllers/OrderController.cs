@@ -11,22 +11,26 @@ namespace Desktop.Controllers
     public class OrderController : ApiController
     {
         // GET: api/Order
-        public IEnumerable<string> Get()
+        public IEnumerable<Order> Get()
         {
-            return new string[] { "value1", "value2" };
+            Order O = new Order();
+            List<Order> orders = O.GetOrders();
+            return orders;
         }
 
-    
+
         // GET: api/Order/5
-        public string Get(int id)
+        public List<Order> Get(string e)
         {
-            return "value";
+            Order O = new Order();
+            List<Order> orders = O.FilterOrders(e);
+            return orders;
         }
 
         // POST: api/Order
-        public void Post([FromBody]Order O)
+        public void Post([FromBody]Order O, int address)
         {
-            O.insertO(O.Part,O.Quantity,O.Addressid);
+            O.insertO(O.Part, O.Quantity, address);
         }
 
         // PUT: api/Order/5

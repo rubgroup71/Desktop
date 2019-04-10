@@ -7,36 +7,49 @@ namespace WebApplication2.Models
 {
     public class Order
     {
-        
-        public string OrderDate { get; set; }= DateTime.Now.Date.ToShortDateString();
+
+        public string OrderDate { get; set; } = DateTime.Now.Date.ToShortDateString();
         public string Email { get; set; }
         public string Status { get; set; } = "Confirm";
-        public string [] Part { get; set; }
-        public string[] Quantity { get; set; }
-        public int Addressid { get; set; }
+        public List<string> Part { get; set; }
+        public List<string> Quantity { get; set; }
+        //public int Addressid { get; set; }
+        public int OrderId { get; set; }
+        public Address Address { get; set; }
 
-        public Order(string _email,string [] _part, string[] _qun,int _addressid)
+        public Order(string _email, List<string> _part, List<string> _qun)
         {
 
-            //OrderDate = 
             Email = _email;
-
-            Addressid = _addressid;
             Part = _part;
             Quantity = _qun;
+            Address = new Address();
         }
 
         public Order()
         {
+            Address = new Address();
+            Part = new List<string>();
+            Quantity = new List<string>();
         }
 
-        public int insertO(string [] parts, string[] quantity,int addressid)
+        public int insertO(List<string> parts, List<string> quantity, int addressid)
         {
             DBservices DBS = new DBservices();
-            int numAffected = DBS.insertO(this, parts, quantity,addressid);
+            int numAffected = DBS.insertO(this, parts, quantity, addressid);
             return numAffected;
         }
-
-       
+        public List<Order> GetOrders()
+        {
+            DBservices DBS = new DBservices();
+            List<Order> orders= DBS.GetOrders();
+            return orders;
+        }
+        public List<Order> FilterOrders(string e)
+        {
+            DBservices DBS = new DBservices();
+            List<Order> orders = DBS.FilterOrders(e);
+            return orders;
+        }
     }
 }
