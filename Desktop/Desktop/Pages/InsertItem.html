@@ -244,6 +244,7 @@
     </style>
     <script>
         //tree= data from FireBase
+        //docid= for delete all the collection
         var tree = [];
         var docids = []
         var standardtree = [];
@@ -322,7 +323,7 @@
                 console.log('emptytree')
             }
             //Go through the stages
-            //treetmp
+            //treetmp= return all the objects in each stage
             for (var s = 1; s < 11; s++) {
                 addnew = false
                 updateparent = false
@@ -342,7 +343,7 @@
                         var parent = new RegExp(treetmp[i].parent)
 
                         for (var v = 0; v < choosetmp[0].value.length; v++) {
-
+                           //value exist in each stage
                             if (value.test(choosetmp[0].value[v])) {
                                 for (var p = 0; p < choosetmp[0].parent.length; p++) {
                                     if (parent.test(choosetmp[0].parent[p])) {

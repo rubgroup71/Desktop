@@ -200,8 +200,8 @@
 
         $(document).ready(function () {
 
-        
-            ajaxCall("GET", "../api/Address", "", successGetAD, errorGetAD);
+
+            // ajaxCall("GET", "../api/Address", "", successGetAD, errorGetAD);
             ajaxCall("GET", "../api/Customer", "", successGetEmail, errorGetEmail);
             //new
             ajaxCall("GET", "../api/AllItem", "", successGetstage, errorGetstage);
@@ -254,8 +254,8 @@
 
             // Note that the name of the fields must be identical to the names of the properties of the object in the server
             stage1 = $("#stage1").val(),
-                stage2 = $("#stage2").val();
-            stage3 = $("#stage3").val(),
+                stage2 = $("#stage2").val(),
+                stage3 = $("#stage3").val(),
                 stage4 = $("#stage4").val(),
                 stage5 = $("#stage5").val(),
                 stage6 = $("#stage6").val(),
@@ -313,14 +313,14 @@
         function AddOrder(data) {
             var parts = []
             var quantity = []
-            var d = new Date();
-            $("td.part").map(function (x, y) { parts.push(y.textContent) });         
+            
+            $("td.part").map(function (x, y) { parts.push(y.textContent) });
             $("td.qu").map(function (x, y) { quantity.push(y.textContent) });
             var address = $("#address").val();
-           
-            
-         
-            
+
+
+
+
 
             Order = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
 
@@ -329,7 +329,7 @@
                 Part: parts,
                 Quantity: quantity,
                 Addressid: address
-                
+
 
 
             };
@@ -338,7 +338,7 @@
 
 
             ajaxCall("POST", "../api/Order", JSON.stringify(Order), successOrder, errorOrder)
-      
+
 
         }
         function successOrder() {
@@ -353,7 +353,7 @@
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
-       
+
 
 
 
@@ -416,7 +416,7 @@
         function successGetaddress(data) {
             for (var i = 0; i < data.length; i++) {
                 $("#address").append($("<option></option>").val(data[i].ID).html(data[i].Adress));
-               
+
 
             }
         }
@@ -426,7 +426,7 @@
             swal("Error!", err.ExceptionMessage, "error");
         }
 
-     
+
 
     </script>
 
@@ -534,7 +534,7 @@
 
                 <input type="button" value="Approve" onclick="address()" />
                 <br />
-            <br />
+                <br />
                 <select id="address">
                     <option id="aba" />Choose Address
                 </select>
