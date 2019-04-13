@@ -28,13 +28,24 @@ namespace WebApplication2.Models
             IsStandard = false;
             Email = email;
         }
+
+        public Items()
+        {
+        }
+
         public int InsertItem()
         {
             DBservices DBS = new DBservices();
             int numAffected = DBS.InsertItem(this);
             return numAffected;
         }
-        
 
+        
+            public List<Items> FilterItems(string email)
+        {
+            DBservices DBS = new DBservices();
+            List<Items> it = DBS.FilterItems(email);
+            return it;
+        }
     }
 }

@@ -1283,6 +1283,68 @@ public class DBservices
             throw (ex);
 
         }
+       
+
+    
+    }
+
+    
+     public List<Items> FilterItems(string email)
+    {
+
+        SqlConnection con;
+        List<Items> f = new List<Items>();
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+        }
+
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+        try
+        {
+            String selectSTR ="select Items.ItemID,Items.ItemName,Items.ItemSerial,Items.IsStandard,ItemsCustomer.Email"+
+               " from Items INNER JOIN ItemsCustomer ON Items.ItemID = ItemsCustomer.ItemID where ItemsCustomer.Email='"+email+"'";
+            
+
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dr.Read())
+            {
+                
+                Items S = new Items();
+               
+                    S.Email = Convert.ToString(dr["Email"]).TrimEnd();
+                    S.ItemID = Convert.ToInt32(dr["ItemID"]);
+                    S.ItemName = Convert.ToString(dr["ItemName"]).TrimEnd();
+                    S.ItemSerial = Convert.ToString(dr["ItemSerial"]).TrimEnd();
+                    S.IsStandard = Convert.ToBoolean(dr["IsStandard"]);
+
+                f.Add(S);
+
+            }
+            return f;
+
+        
+         
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+
 
     }
 }

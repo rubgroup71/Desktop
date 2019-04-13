@@ -17,9 +17,11 @@ namespace Desktop.Controllers
         }
 
         // GET: api/Items/5
-        public string Get(int id)
+        public List<Items> Get(string email)
         {
-            return "value";
+            Items i = new Items();
+            List<Items> item = i.FilterItems(email);
+            return item;
         }
 
         // POST: api/Items
