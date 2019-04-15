@@ -13,10 +13,10 @@ namespace WebApplication2.Models
         public bool IsStandard { get; set; }
         public string Email { get; set; }
 
-        public Items(string itemserial,bool isstandatd,string email)
+        public Items(string itemserial,bool isstandatd,string email,string itemname)
         {
             ItemSerial = itemserial;
-            ItemName = "part";
+            ItemName = itemname;
             IsStandard = isstandatd;          
             Email = email;
 
@@ -40,12 +40,17 @@ namespace WebApplication2.Models
             return numAffected;
         }
 
-        
-            public List<Items> FilterItems(string email)
+        public List<Items> FilterItems(string email)
         {
             DBservices DBS = new DBservices();
             List<Items> it = DBS.FilterItems(email);
             return it;
+        }
+        static public void delitem(string id)
+        {
+            DBservices DBS = new DBservices();
+            DBS.del(id, "ItemsCustomer", "ItemID");
+            
         }
     }
 }

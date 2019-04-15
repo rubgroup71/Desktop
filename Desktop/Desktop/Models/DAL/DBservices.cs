@@ -248,7 +248,7 @@ public class DBservices
         {
 
             int numEffected = (int)cmd.ExecuteScalar();
-            InsertItemCustomer(numEffected, email);
+            //InsertItemCustomer(numEffected, email);
             InsertIOC(numEffected, orderid, email, quantity, addressid);
             return numEffected;
         }
@@ -766,7 +766,7 @@ public class DBservices
             throw (ex);
         }
 
-        String cStr = BuildputCommand(UserName);      // helper method to build the insert string
+        String cStr = BuilddelCommand(UserName, "SalesPerson", "UserName");      // helper method to build the insert string
 
         cmd = CreateCommand(cStr, con);             // create the command
 
@@ -852,17 +852,11 @@ public class DBservices
     //--------------------------------------------------------------------
     // Build the Insert a movie command String
     //--------------------------------------------------------------------
-    private String BuildputCommand(string a)
+    private String BuilddelCommand(string id,string table,string filed)
     {
-
-
-
-
-
-
         // use a string builder to create the dynamic string
 
-        String prefix = "DELETE FROM SalesPerson where UserName=" + a;
+        String prefix = "DELETE FROM "+table+" where "+filed+"=" + id;
 
 
         return prefix;
@@ -1239,7 +1233,7 @@ public class DBservices
         try
         {
             String selectSTR = "select IOC.Email,Orders.OrderNum,Orders.OrderDate,Orders.[Status],Items.ItemSerial," +
-                "IOC.Quantity,Addresses.FirstName,Addresses.LastName,Addresses.CompanyName," +
+                "IOC.Quantity,Addresses.ID,Addresses.FirstName,Addresses.LastName,Addresses.CompanyName," +
                 "Addresses.City,Addresses.[Address],Addresses.PhoneNumber from IOC inner join Orders on " +
                 "IOC.OrderNum = Orders.OrderNum inner join Items on IOC.ItemID = Items.ItemID inner join Addresses on Addresses.ID = IOC.AdressID where IOC.Email='"+email+"'";
 ;
@@ -1268,6 +1262,9 @@ public class DBservices
                     S.Address.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
                     S.Address.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
                     S.Address.City = Convert.ToString(dr["City"]).TrimEnd();
+                    S.Address.Adress = Convert.ToString(dr["Address"]).TrimEnd();
+                    S.Address.Email = Convert.ToString(dr["Email"]).TrimEnd();
+                    S.Address.ID = Convert.ToInt32(dr["ID"]);
                     S.Status = Convert.ToString(dr["Status"]).TrimEnd();
                     S.Part.Add(Convert.ToString(dr["ItemSerial"]).TrimEnd());
                     S.Quantity.Add(Convert.ToString(dr["Quantity"]).TrimEnd());
@@ -1288,8 +1285,7 @@ public class DBservices
     
     }
 
-    
-     public List<Items> FilterItems(string email)
+    public List<Items> FilterItems(string email)
     {
 
         SqlConnection con;
@@ -1347,5 +1343,51 @@ public class DBservices
 
 
     }
+    public void del(string id,string table,string filed)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+
+        String cStr = BuilddelCommand(id,table,filed);      // helper method to build the insert string
+
+        cmd = CreateCommand(cStr, con);             // create the command
+
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+
+
+        }
+        catch (Exception ex)
+        {
+            ;
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+    }
+
 }
 

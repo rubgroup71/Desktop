@@ -36,8 +36,9 @@ namespace Desktop.Controllers
         }
 
         // DELETE: api/Items/5
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            Items.delitem(id);
         }
     }
 }

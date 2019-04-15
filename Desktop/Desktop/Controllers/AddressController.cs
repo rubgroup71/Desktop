@@ -48,8 +48,9 @@ namespace WebApplication2.Controllers
         }
 
         // DELETE: api/Address/5
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            Address.deladdress(id);
         }
     }
 }

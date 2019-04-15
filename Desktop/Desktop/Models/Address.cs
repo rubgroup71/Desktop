@@ -64,7 +64,11 @@ namespace WebApplication2.Models
             List<Address> h = dbs.FilterAddress("ConnectionStringName", "Addresses", email);
             return h;
         }
-
+        static public void deladdress(string id)
+        {
+            DBservices DBS = new DBservices();
+            DBS.del(id, "Addresses", "ID");
+        }
     
     }
 }
