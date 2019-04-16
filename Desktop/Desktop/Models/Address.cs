@@ -61,13 +61,13 @@ namespace WebApplication2.Models
         public List<Address> FilterAddress(string email) { 
         
             DBservices dbs = new DBservices();
-            List<Address> h = dbs.FilterAddress("ConnectionStringName", "Addresses", email);
+            List<Address> h = dbs.FilterAddress("ConnectionStringName", "AddressCutomer", email);
             return h;
         }
         static public void deladdress(string id)
         {
             DBservices DBS = new DBservices();
-            DBS.del(id, "Addresses", "ID");
+            DBS.del(id, "AddressCustomer", "AddressID");
         }
     
     }

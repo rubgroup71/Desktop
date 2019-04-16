@@ -399,9 +399,102 @@ public class DBservices
 
     }
 
+    public List<Categories> gettype()
+    {
+
+        SqlConnection con;
+        List<Categories> f = new List<Categories>();
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+        }
+
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+        try
+        {
+            String selectSTR = "SELECT * FROM Categories";
+
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dr.Read())
+            {
+                Categories c = new Categories();
+
+                c.Type = Convert.ToString(dr["Type"]).TrimEnd();
+                c.Stages= Convert.ToString(dr["Stages"]).TrimEnd();
 
 
-    public List<Questions> ShowQ(string conString, string tableName)
+                f.Add(c);
+            }
+            return f;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+    }
+
+    public Categories FilterType(string type)
+    {
+
+        SqlConnection con;
+       Categories f = new Categories();
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+        }
+
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+        try
+        {
+            String selectSTR = "SELECT * FROM Categories where [Type]='"+type+"'";
+
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dr.Read())
+            {
+
+                f.Type = Convert.ToString(dr["Type"]).TrimEnd();
+                f.Stages = Convert.ToString(dr["Stages"]).TrimEnd();
+                
+            }
+            return f;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+
+        }
+
+    }
+
+
+
+    public List<Questions> ShowQ(string type, string tableName)
     {
 
         SqlConnection con;
@@ -422,7 +515,7 @@ public class DBservices
 
         try
         {
-            String selectSTR = "SELECT * FROM " + tableName;
+            String selectSTR = "SELECT * FROM " + tableName+ " where Type='"+type+"'";
 
             SqlCommand cmd = new SqlCommand(selectSTR, con);
 
@@ -749,52 +842,8 @@ public class DBservices
     }
 
 
-    public void Delete(string conString, string tableName, string UserName)
-    {
 
-        SqlConnection con;
-        SqlCommand cmd;
-
-        try
-        {
-
-            con = connect("ConnectionStringName"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-        }
-
-        String cStr = BuilddelCommand(UserName, "SalesPerson", "UserName");      // helper method to build the insert string
-
-        cmd = CreateCommand(cStr, con);             // create the command
-
-        try
-        {
-            int numEffected = cmd.ExecuteNonQuery(); // execute the command
-
-
-        }
-        catch (Exception ex)
-        {
-            ;
-            // write to log
-            throw (ex);
-        }
-
-        finally
-        {
-            if (con != null)
-            {
-                // close the db connection
-                con.Close();
-            }
-        }
-
-    }
-
-    public Dictionary<int, List<Stage>> read1(string conString)
+    public Dictionary<int, List<Stage>> read1(string type,string stages)
     {
         Dictionary<int, List<Stage>> dic = new Dictionary<int, List<Stage>>();
 
@@ -804,11 +853,11 @@ public class DBservices
 
         try
         {
-            con = connect(conString); // create a connection to the database using the connection String defined in the web config file
-            for (int i = 1; i < 11; i++)
+            con = connect("ConnectionStringName"); // create a connection to the database using the connection String defined in the web config file
+            for (int i = 1; i <= int.Parse(stages); i++)
             {
                 List<Stage> tmp = new List<Stage>();
-                String selectSTR = "SELECT * FROM Stage" + i;
+                String selectSTR = "SELECT * FROM Stage" + i+" where Type='"+type+"'";
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
 
                 //get a reader
@@ -820,7 +869,7 @@ public class DBservices
 
                     p.ID = Convert.ToString(dr["ID"]);
                     p.Description = Convert.ToString(dr["Description"]);
-
+                    p.Type= Convert.ToString(dr["Type"]);
 
                     tmp.Add(p);
                 }
@@ -938,7 +987,7 @@ public class DBservices
         {
 
             int numEffected = (int)cmd.ExecuteScalar();
-
+            InsertAddressCustomer(numEffected,A.Email);
             return numEffected;
         }
         catch (Exception ex)
@@ -966,8 +1015,75 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', {2}, '{3}', '{4}', '{5}','{6}')", A.FirstName, A.LastName, A.PhoneNumber, A.CompanyName, A.Adress, A.City, A.Email);
+        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}','{6}')", A.FirstName, A.LastName, A.PhoneNumber, A.CompanyName, A.Adress, A.City, A.Email);
         String prefix = "INSERT INTO [Addresses] " + "(FirstName,LastName,PhoneNumber,CompanyName,[Address],City,Email)";
+        command = prefix + sb.ToString() + ";SELECT CAST(scope_identity() AS int)";
+
+        return command;
+    }
+
+
+
+    public int InsertAddressCustomer(int ID, string Email)
+    { 
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("ConnectionStringName"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        String cStr = BuildInsertCommandAddressCustomer(ID, Email);      // helper method to build the insert string
+
+        cmd = CreateCommand(cStr, con);             // create the command
+
+        try
+        {
+
+            int numEffected = cmd.ExecuteNonQuery();
+
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            //return 0;
+            // write to log
+            throw (ex);
+        }
+
+
+        finally
+        {
+
+            if (con != null)
+            {
+                // close the db connection
+
+                con.Close();
+
+            }
+
+
+        }
+
+
+
+    }
+    private String BuildInsertCommandAddressCustomer(int ID, string Email)
+    {
+        String command;
+
+        StringBuilder sb = new StringBuilder();
+        // use a string builder to create the dynamic string
+        sb.AppendFormat("Values({0}, '{1}')", ID, Email);
+        String prefix = "INSERT INTO AddressCustomer " + "(AddressID,Email)";
         command = prefix + sb.ToString();
 
         return command;
@@ -1053,7 +1169,7 @@ public class DBservices
 
         try
         {
-            String selectSTR = "SELECT * FROM " + tableName + " WHERE Email ='" + email + "'";
+            String selectSTR = "SELECT ID,Email,FirstName,LastName,PhoneNumber,CompanyName,[Address],City FROM AddressCustomer inner join Addresses on AddressCustomer.AddressID=Addresses.ID where Email='"+email+"'";
 
             SqlCommand cmd = new SqlCommand(selectSTR, con);
 

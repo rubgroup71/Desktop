@@ -6,35 +6,35 @@ using System.Net.Http;
 using System.Web.Http;
 using WebApplication2.Models;
 
-namespace Desktop.Controllers
+namespace WebApplication2.Controllers
 {
-    public class QuestionController : ApiController
+    public class CategoriesController : ApiController
     {
-        // GET: api/Question
-        public IEnumerable<Questions> Get(string type)
+        // GET: api/Categories
+        public IEnumerable<Categories> Get()
         {
-            Questions Q = new Questions();
-            List<Questions> QS = Q.ShowQ(type);
-            return QS;
+            Categories C = new Categories();
+            List<Categories> CUS = C.gettype();
+            return CUS;
         }
 
-        // GET: api/Question/5
+        // GET: api/Categories/5
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST: api/Question
+        // POST: api/Categories
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT: api/Question/5
+        // PUT: api/Categories/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Question/5
+        // DELETE: api/Categories/5
         public void Delete(int id)
         {
         }

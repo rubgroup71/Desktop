@@ -48,7 +48,7 @@ namespace WebApplication2.Models
         internal void delete(string UserName)
         {
             DBservices DBS = new DBservices();
-            DBS.Delete("ConnectionStringName", "SalesPerson", UserName);
+            DBS.del(UserName, "SalesPerson", "UserName");
         }
 
         public SalesPerson Test(string username)

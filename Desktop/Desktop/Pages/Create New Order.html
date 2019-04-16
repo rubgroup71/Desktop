@@ -204,7 +204,8 @@
             // ajaxCall("GET", "../api/Address", "", successGetAD, errorGetAD);
             ajaxCall("GET", "../api/Customer", "", successGetEmail, errorGetEmail);
             //new
-            ajaxCall("GET", "../api/AllItem", "", successGetstage, errorGetstage);
+
+            ajaxCall("GET", "../api/Categories", "", successGettype, errorGettype);
             ajaxCall("GET", "../api/City", "", successGetCity, errorGetCity);
 
             $("#OForm").submit(f1);
@@ -220,7 +221,19 @@
 
             };
         }
+        var categories = [];
+        function successGettype(data) {
+            categories = data;
+            for (var i = 0; i < data.length; i++) {
+                $("#type").append($("<option></option>").val(data[i].Type).html(data[i].Type));
 
+            }
+        }
+
+        function errorGettype(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
 
 
         function successGetCity(citydata) {
@@ -313,7 +326,7 @@
         function AddOrder(data) {
             var parts = []
             var quantity = []
-            
+
             $("td.part").map(function (x, y) { parts.push(y.textContent) });
             $("td.qu").map(function (x, y) { quantity.push(y.textContent) });
             var address = $("#address").val();
@@ -324,12 +337,12 @@
 
             Order = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
 
-                
+
                 Email: data,
                 Part: parts,
                 Quantity: quantity,
-                
-                
+
+
 
 
 
@@ -426,7 +439,32 @@
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
+        
+        function chooseType(data) {
+            var stage = categories.filter(t => data == t.Type)
 
+
+            ajaxCall("GET", "../api/Question?type=" + stage[0].Type, "", setselection, errorGetstage)
+                
+            //setTimeout(function () {
+                ajaxCall("GET", "../api/AllItem?type=" + stage[0].Type + "&stages=" + stage[0].Stages, "", successGetstage, errorGetstage)
+
+            //}, 3000);
+
+
+        }
+        function setselection(data) {
+            
+            data.map(stage => {
+                $("#selectstages").append(
+                    "<label><span class='fname'>" + stage.Name + "<span class='required'>*</span></span><select id='stage" + stage.QID + "' name='selection'><option class='required'></option></select>"
+                )
+            })
+            $("#selectstages").append(
+                "<label><span class= 'fname'>Quantity<span class='required'>*</span ></span ><input type='text' id='quantity' /> </label ><button type='button' onclick='additem()'>Add</button>"
+            )
+            
+        }
 
 
     </script>
@@ -442,84 +480,17 @@
     <div class="container">
         <div class="title">
             <h2>Create New Order</h2>
+            <select id="type" onchange="chooseType(this.value)"><option></option></select>
         </div>
         <div class="d-flex">
-            <form action="" method="">
+            <form id="selectstages" action="" method="">
 
-                <label>
-                    <span class="fname">Model <span class="required">*</span></span>
-                    <select id="stage1" name="selection">
-                        <option class="required"></option>
-                    </select>
-
-                </label>
-                <label>
-                    <span>Body<span class="required">*</span></span>
-                    <select id="stage2" name="selection">
-                        <option></option>
-
-
-                    </select>
-                </label>
-                <label>
-                    <span>Port<span class="required">*</span></span>
-                    <select id="stage3" name="selection">
-                        <option value="select"></option>
-                    </select>
-                </label>
-                <label>
-                    <span>Function<span class="required">*</span></span>
-                    <select id="stage4" name="selection">
-                        <option value="select"></option>
-
-                    </select>
-                </label>
-                <label>
-                    <span>Orifice<span class="required">*</span></span>
-                    <select id="stage5" name="selection">
-                        <option value="select"></option>
-
-                    </select>
-                </label>
-                <label>
-                    <span>Seals<span class="required">*</span></span>
-                    <select id="stage6" name="selection">
-                        <option value="select"></option>
-
-                    </select>
-                </label>
-                <label>
-                    <span>Manual OverRide<span class="required">*</span></span>
-                    <select id="stage7" name="selection">
-                        <option value="select"></option>
-                    </select>
-                </label>
-                <label>
-                    <span>Voltage<span class="required">*</span></span>
-                    <select id="stage8" name="selection">
-                        <option value="select"></option>
-                    </select>
-                </label>
-                <label>
-                    <span>Power<span class="required">*</span></span>
-                    <select id="stage9" name="selection">
-                        <option value="select"></option>
-
-                    </select>
-                </label>
-                <label>
-                    <span>Connector<span class="required">*</span></span>
-                    <select id="stage10" name="selection">
-                        <option value="select"></option>
-
-                    </select>
-                </label>
-                <label>
+                <!--<label>
                     <span class="fname">Quantity<span class="required">*</span></span>
                     <input type="text" id="quantity" />
 
                 </label>
-                <button type="button" onclick="additem()">Add</button>
+                <button type="button" onclick="additem()">Add</button>-->
             </form>
             <div class="Yorder">
                 <table id="table">

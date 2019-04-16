@@ -22,10 +22,10 @@ namespace WebApplication2.Models
         }
 
   
-        public List<Questions> ShowQ()
+        public List<Questions> ShowQ(string type)
         {
             DBservices DBS = new DBservices();
-            List<Questions> C = DBS.ShowQ("ConnectionStringName", "Question");
+            List<Questions> C = DBS.ShowQ(type, "Question");
             return C;
         }
 

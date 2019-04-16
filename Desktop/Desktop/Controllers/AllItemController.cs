@@ -6,23 +6,25 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApplication2.Models;
 
 namespace Desktop.Controllers
 {
     public class AllItemController : ApiController
     {
         // GET: api/AllItem
-        public Dictionary<int, List<Stage>> Get()
-        {
-            Stage s = new Stage();
-            return s.Read();
+        //public Dictionary<int, List<Stage>> Get()
+        //{
+        //    //Stage s = new Stage();
+        //    //return s.Read();
 
-        }
+        //}
 
         // GET: api/AllItem/5
-        public string Get(int id)
+        public Dictionary<int, List<Stage>> Get(string type,string stages)
         {
-            return "value";
+            Stage s = new Stage();
+            return s.Read(type,stages);
         }
 
         // POST: api/AllItem
