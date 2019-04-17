@@ -13,7 +13,8 @@ namespace Desktop.Controllers
         // GET: api/Order
         public IEnumerable<Order> Get()
         {
-            Order O = new Order();            List<Order> orders = O.GetOrders();
+            Order O = new Order();
+            List<Order> orders = O.GetOrders();
             return orders;
         }
 

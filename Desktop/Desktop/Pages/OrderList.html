@@ -36,13 +36,16 @@
                 li a:hover {
                     background-color: #5195A8;
                 }
+
         @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
+
         table.dataTable tbody th, table.dataTable tbody td {
             padding: 6px 70px 0px 10px;
             text-align: left;
             float: unset;
-            color:black;
+            color: black;
         }
+
         body {
             background: url('http://all4desktop.com/data_images/original/4236532-background-images.jpg');
             font-family: 'Roboto Condensed', sans-serif;
@@ -210,27 +213,66 @@
     </style>
     <script>
         $(document).ready(function () {
-            $('#example').DataTable();
-            columns: [
-                { data: "" },
-                { data: "" },
-                { data: "" },
-                { data: "" },
-                { data: "" },
-                {
-                    render: function (data, type, row, meta) {
-                        //let dataPerson = "data-personId='" + row.Id + "'";
+            ajaxCall("GET", "../api/Order", "", getSuccessOrder, errorOrder);
 
-
-                        View = "<button type='button' id='" + row.Id + "' " + dataPerson + "> View  </button>";
-                        Confirm = "<button type='button'  " + row.Id + ">Confirm  </button>";
-                        return View + Confirm;
-
-
-                    }
-                }
-            ]
         });
+        function getSuccessOrder(OrderData) {
+
+            Data = OrderData;
+            try {
+                tbl = $('#ordertable').DataTable({
+                    data: OrderData,
+                    pageLength: 5,
+                    columns: [
+                        { data: "Email" },
+                        //{ data: "OrderNum" },
+                        { data: "OrderDate" },
+                        { data: "Status" },
+                        //{
+                        //    data: "ItemSerial"
+                            //render: function (data, type, row, meta) {
+
+                            //    str = "";
+                            //    for (var i = 0; i < data.lenght; i++) {
+                            //        str += "<p>" + data[i] + "</p>";
+                            //    }
+                            //    return str;
+
+                            //}
+                        //},
+                        { data: "Quantity" },
+                        //{ data: "Addresses" },
+
+                        //{
+                        //    render: function (data, type, row, meta) {
+                        //        let DataU = "data-User='" + row.UserName + "'";
+
+
+                        //        edit = "<button type='button'  class='edit btn btn-danger' " + DataU + "> Edit </button>";
+                        //        deleteBtn = "<button type='button' class='deletebtn btn btn-danger' " + DataU + "> Delete </button>";
+
+                        //        return edit + deleteBtn;
+                        //    }
+                        //}
+
+
+
+
+                    ],
+                });
+                //buttonEvents();
+            }
+
+            catch (err) {
+                alert(err);
+            }
+
+        }
+
+        // this function is activated in case of a failure
+        function errorOrder(err) {
+            swal("Error: " + err);
+        }
     </script>
 </head>
 <body>
@@ -246,241 +288,31 @@
         </div>
         <div class="d-flex">
             <form>
-                <table id="example" class="hover" style="width:100%">
+                <table id="ordertable" class="hover" style="width:100%">
                     <thead>
                         <tr>
+                            <th>Email</th>
                             <th>Order Num</th>
-                            <th>Company Name</th>
-                            <th>Date Order</th>
+                            <th>Order Date</th>
                             <th>Status</th>
-                            <th>
-                                Responsible
-                            </th>
+                            <th>Item Serial</th>
+                            <th>Quantity</th>
+                            <th>Customer</th>
+                            <th>Addresses</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button>View</button>
-                                <button>Confirm</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>61</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Herrod Chandler</td>
-                            <td>Sales Assistant</td>
-                            <td>San Francisco</td>
-                            <td>59</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Rhona Davidson</td>
-                            <td>Integration Specialist</td>
-                            <td>Tokyo</td>
-                            <td>55</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Colleen Hurst</td>
-                            <td>Javascript Developer</td>
-                            <td>San Francisco</td>
-                            <td>39</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
-                            <td>Edinburgh</td>
-                            <td>23</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Jena Gaines</td>
-                            <td>Office Manager</td>
-                            <td>London</td>
-                            <td>30</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Charde Marshall</td>
-                            <td>Regional Director</td>
-                            <td>San Francisco</td>
-                            <td>36</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Haley Kennedy</td>
-                            <td>Senior Marketing Designer</td>
-                            <td>London</td>
-                            <td>43</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Tatyana Fitzpatrick</td>
-                            <td>Regional Director</td>
-                            <td>London</td>
-                            <td>19</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Michael Silva</td>
-                            <td>Marketing Designer</td>
-                            <td>London</td>
-                            <td>66</td>
-                            <td>
-                                <select name="selection">
-                                    <option value="select">Select a orifice...</option>
-                                    <option value="1">0.8-1</option>
-                                    <option value="2">1.2-2</option>
-                                </select>
-                            </td>
-                            <td></td>
-                        </tr>
-                    </tbody>
+
                     <tfoot>
                         <tr>
+                            <th>Email</th>
                             <th>Order Num</th>
-                            <th>Company Name</th>
-                            <th>Date Order</th>
+                            <th>Order Date</th>
                             <th>Status</th>
-                            <th>Responsible</th>
+                            <th>Item Serial</th>
+                            <th>Quantity</th>
+                            <th>Customer</th>
+                            <th>Addresses</th>
                             <th></th>
                         </tr>
                     </tfoot>

@@ -230,8 +230,24 @@
                 transform: scale(1.05);
             }
 
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+            grid-gap: 10px;
+            grid-template-rows: 20% 80%;
+            padding: 10px
+        }
+
         .wrapper {
             display: grid;
+            grid-template-columns: auto;
+            grid-template-rows: 2%;
+            grid-gap: 10px;
+            grid-row: 2;
+        }
+
+        .wrapper2 {
+            display: inline-grid;
             grid-template-columns: 9% 9% 9% 9% 9% 9% 9% 9% 9% 9%;
             grid-template-rows: 2%;
             grid-gap: 10px;
@@ -240,6 +256,10 @@
 
         .item {
             font-weight: bold;
+        }
+
+        #steptitle {
+            padding: 0px;
         }
     </style>
     <script>
@@ -250,8 +270,8 @@
         var standardtree = [];
         var db = firebase.firestore();
         $(document).ready(function () {
-
-            ajaxCall("GET", "../api/AllItem", "", successGetstage, errorGetstage);
+            ajaxCall("GET", "../api/Categories", "", successGettypes, errorGettypes);
+            // ajaxCall("GET", "../api/AllItem", "", successGetstage, errorGetstage);
             db.collection("tmp").orderBy('id', 'asc').get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
                     docids.push(doc.id)
@@ -274,34 +294,79 @@
 
 
         });
+        function successGettypes(data) {
+            categories = data;
+            for (var i = 0; i < data.length; i++) {
+                $("#type").append($("<option></option>").val(data[i].Type).html(data[i].Type));
 
+            }
+        }
+
+        function errorGettypes(err) {
+            err = JSON.parse(err.responseText);
+            swal("Error!", err.ExceptionMessage, "error");
+        }
         function add() {
             //tmp=A value selected at each stage
             //choose= Which stage you are
             var tmp = [];
             var choose = [];
-            for (var i = 1; i < 11; i++) {
-                tmp = [];
-                $.each($("input[name='stage" + i + "']:checked"), function () {
-                    tmp.push($(this).val());
-                   
-                });
+            if ($("#si").val() == "invalid") {
+                var type = $("#type").val()
+                var stage = $("#invalidstage").val()
+                var value = $("#invalidvalue").val()
+                for (var i = 1; i < stage; i++) {
+                    tmp = [];
 
+                    $("input:checkbox[name=stage" + i + "]:checked").each(function () {
+                        tmp.push($(this).val());
 
-                if (i == 1) {
-                    choose.push({ id: i.toString(), parent: '', value: tmp });
+                    });
+                    choose.push({name:q[i-1].Name, value:tmp })
                 }
-                else {
+                console.log(choose)
+                var objtoinsert=""
+                choose.map(s => {
+                    var str =""
+                    for (var a = 0; a < s.value.length; a++) {
+                        str += s.value[a] + '|'
+                    }
+                    s.value = str.substring(0, str.length - 1)
+                    
+                objtoinsert+=s.name+':'+s.value+','
+                })
+                db.collection(type + 'invalid' + stage).doc(value).set({
+                    objtoinsert
 
-                    choose.push({ id: i.toString(), parent: parent, value: tmp });
-                }
-                // Prepare Dad for the next stage
-                var parent = choose[i - 1].value
+                })
 
             }
 
+            else {
+                for (var i = 1; i < 11; i++) {
+                    tmp = [];
+                    $("input:checkbox[name=stage" + i + "]:checked").each(function () {
+                        tmp.push($(this).val());
 
-            fusion(choose)
+                    });
+
+
+                    if (i == 1) {
+                        choose.push({ id: i.toString(), parent: '', value: tmp });
+                    }
+                    else {
+
+                        choose.push({ id: i.toString(), parent: parent, value: tmp });
+                    }
+                    // Prepare Dad for the next stage
+                    var parent = choose[i - 1].value
+
+                }
+
+                console.log(choose)
+                //fusion(choose)
+            }
+
 
         };
 
@@ -343,7 +408,7 @@
                         var parent = new RegExp(treetmp[i].parent)
 
                         for (var v = 0; v < choosetmp[0].value.length; v++) {
-                           //value exist in each stage
+                            //value exist in each stage
                             if (value.test(choosetmp[0].value[v])) {
                                 for (var p = 0; p < choosetmp[0].parent.length; p++) {
                                     if (parent.test(choosetmp[0].parent[p])) {
@@ -441,28 +506,128 @@
 
 
         }
-        function successGetstage(data) {
+        //function successGetstage(data) {
 
-            console.log(data);
-            var result = Object.keys(data);
-            for (var i = 1; i <= result.length; i++) {
-                for (var j = 0; j < data[i].length; j++) {
+        //    if (true) {
 
-
-                    //$('#stage' + i).append($("<option></option>").val(data[i][j].Description).html(data[i][j].Description));
-                    document.getElementById('stage' + i).innerHTML += '<input type="checkbox" value="' + data[i][j].ID + '" />' + data[i][j].Description + '</br>';
+        //    }
+        //    var result = Object.keys(data);
+        //    for (var i = 1; i <= result.length; i++) {
+        //        for (var j = 0; j < data[i].length; j++) {
 
 
+        //            //$('#stage' + i).append($("<option></option>").val(data[i][j].Description).html(data[i][j].Description));
+        //            document.getElementById('stage' + i).innerHTML += '<input type="checkbox" value="' + data[i][j].ID + '" />' + data[i][j].Description + '</br>';
+
+
+        //        }
+
+
+        //    };
+        //}
+        function errorGetstage(err) {
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+        function stagesopen(data) {
+            stage = categories.filter(t => data == t.Type)
+            ajaxCall("GET", "../api/Question?type=" + stage[0].Type, "", title, errortitle)
+            ajaxCall("GET", "../api/AllItem?type=" + stage[0].Type + "&stages=" + stage[0].Stages, "", successGetstage, errorGetstage)
+            if ($("#si").val() == "standard") {
+
+
+                //setTimeout(function () {
+
+
+                //}, 3000);
+            }
+            else {
+                $("#invalidstage").prop("disabled", false)
+                $("#invalidstage").show()
+                ajaxCall("GET", "../api/Question?type=" + stage[0].Type, "", invalidstage, errorGetstage)
+            }
+
+
+        }
+        var q;
+        function title(data) {
+            q = data
+            console.log(q)
+            if ($("#si").val() == "standard") {
+                for (var i = 0; i < data.length; i++) {
+                    $("#stagegrid").append("<div class='item'>" + data[i].Name + "</div>")
                 }
 
+            }
+        }
+        function errortitle(err) {
+            swal("Error!", err.ExceptionMessage, "error");
+        }
+        function invalidstage(data) {
 
-            };
+            data.map(s => {
+                $("#invalidstage").append($("<option></option>").val(s.QID).html(s.Name))
+            })
+        }
+        var st;
+        function successGetstage(data) {
+
+            if ($("#si").val() == "standard") {
+                var result = Object.keys(data);
+                for (var i = 1; i <= result.length; i++) {
+                    $("#stagegrid").append("<div id='stage" + i + "'></div>")
+                    for (var j = 0; j < data[i].length; j++) {
+                        document.getElementById('stage' + i).innerHTML += '<input type="checkbox" name="stage' + i + '" value="' + data[i][j].ID + '" />' + data[i][j].Description + '</br>';
+                    }
+
+
+                };
+            }
+            else {
+                st = data
+
+
+            }
         }
         function errorGetstage(err) {
             swal("Error!", err.ExceptionMessage, "error");
         }
+        function SorV() {
+
+            $("#type").prop("disabled", false)
+            $("#type").show()
+        }
+        function valuesopen() {
+            var type = $("#type").val()
+            var stage = $("#invalidstage").val()
+            $("#invalidvalue").empty()
+            $("#invalidvalue").prop("disabled", false)
+            $("#invalidvalue").show()
+            $("#invalidvalue").append($("<option></option>").html('Choose Value'))
+            db.collection("invalid" + stage).get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    $("#invalidvalue").append($("<option></option>").val(doc.id).html(doc.id))
 
 
+                });
+            })
+
+        }
+        function optionview() {
+
+            var stage = $("#invalidstage").val()
+            q.map(s => {
+                $("#stagegrid").append("<div class='item'>" + s.Name + "</div>")
+            })
+            for (var i = 1; i < stage; i++) {
+                $("#stagegrid").append("<div id='stage" + i + "'></div>")
+                for (var j = 0; j < st[i].length; j++) {
+                    document.getElementById('stage' + i).innerHTML += '<input type="checkbox" name="stage' + i + '" value="' + st[i][j].ID + '" />' + st[i][j].Description + '</br>';
+                }
+
+
+            };
+
+        }
     </script>
 </head>
 <body>
@@ -472,72 +637,24 @@
         <li><a href="UserList.html">User List</a></li>
         <li><a class="active" href="InsertItem.html">Item List</a></li>
     </ul>
+
     <div class="container">
         <div class="title">
             <h2>Insert Standard/InValid</h2>
 
         </div>
-        //invalid/standard
+        <!--//invalid/standard
         //catagory
         //stage
-        //value
-        <select> <option value="invalid">InValid</option><option value="standard">Standard</option></select>
-        <select ></select>
-        <select></select>
+        //value-->
+        <select id="si" onchange="SorV(this.value)"><option></option> <option value="invalid">InValid</option><option value="standard">Standard</option></select>
+        <select id="type" onchange="stagesopen(this.value)" disabled="disabled" style="display:none"><option></option></select>
+        <select id="invalidstage" onchange="valuesopen(this.value)" disabled="disabled" style="display:none"><option></option></select>
+        <select id="invalidvalue" onchange="optionview(this.value)" disabled="disabled" style="display:none"><option></option></select>
+
         <div class="d-flex">
 
-            <div class="wrapper">
-                <div class="item"> Model</div>
-                <div class="item">Body</div>
-                <div class="item">Port</div>
-                <div class="item">Function</div>
-                <div class="item">Orifice</div>
-                <div class="item">Seals</div>
-                <div class="item">Override</div>
-                <div class="item">Voltage</div>
-                <div class="item">Power</div>
-                <div class="item">Connector</div>
-
-
-                <div id="stage1">
-
-                </div>
-                <div id="stage2">
-
-
-                </div>
-                <div id="stage3">
-
-                </div>
-                <div id="stage4">
-
-
-                </div>
-                <div id="stage5">
-
-
-                </div>
-                <div id="stage6">
-
-
-                </div>
-                <div id="stage7">
-
-
-                </div>
-                <div id="stage8">
-
-
-                </div>
-                <div id="stage9">
-
-
-                </div>
-                <div id="stage10">
-
-                </div>
-
-            </div>
+            <div id="stagegrid" class="grid-container"></div>
 
         </div><!-- Yorder -->
 

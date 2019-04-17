@@ -264,20 +264,13 @@
         }
 
         function additem() {
-
+           var str = "";
             // Note that the name of the fields must be identical to the names of the properties of the object in the server
-            stage1 = $("#stage1").val(),
-                stage2 = $("#stage2").val(),
-                stage3 = $("#stage3").val(),
-                stage4 = $("#stage4").val(),
-                stage5 = $("#stage5").val(),
-                stage6 = $("#stage6").val(),
-                stage7 = $("#stage7").val(),
-                stage8 = $("#stage8").val(),
-                stage9 = $("#stage9").val(),
-                stage10 = $("#stage10").val(),
-
-                item = stage1 + stage2 + stage3 + stage4 + stage5 + stage6 + stage7 + stage8 + stage9 + stage10;
+            for (var i = 1; i <= parseInt(stage[0].Stages); i++) {
+                str+=$('#stage' +i).val()
+            }
+           
+            item = str;
             quantity = $("#quantity").val();
 
             document.getElementById("table").innerHTML += '<tr><td class="part">' + item + '</td><td class="qu">' + quantity + '</td></tr>';
@@ -285,20 +278,13 @@
             clean();
         }
         function clean() {
-            $("#stage1").val("");
-            $("#stage2").val("");
-            $("#stage3").val("");
-            $("#stage4").val("");
-            $("#stage5").val("");
-            $("#stage6").val("");
-            $("#stage7").val("");
-            $("#stage8").val("");
-            $("#stage9").val("");
-            $("#stage10").val("");
+            for (var i = 1; i <= parseInt(stage[0].Stages); i++) {
+                $('#stage' + i).val("");
+            }
             $("#quantity").val("");
+            
         }
 
-        //var counter = 0;
         var click = false;
         //function moreFields() {
         //    if ($("#email").val() != null) {
@@ -439,9 +425,9 @@
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
-        
+        var stage;
         function chooseType(data) {
-            var stage = categories.filter(t => data == t.Type)
+            stage = categories.filter(t => data == t.Type)
 
 
             ajaxCall("GET", "../api/Question?type=" + stage[0].Type, "", setselection, errorGetstage)

@@ -1284,8 +1284,7 @@ public class DBservices
             String selectSTR = "select IOC.Email,Orders.OrderNum,Orders.OrderDate,Orders.[Status],Items.ItemSerial,"+
                 "IOC.Quantity,Addresses.FirstName,Addresses.LastName,Addresses.CompanyName,"+
                 "Addresses.City,Addresses.[Address],Addresses.PhoneNumber from IOC inner join Orders on "+
-                "IOC.OrderNum = Orders.OrderNum inner join Items on IOC.ItemID = Items.ItemID inner join Addresses on Addresses.ID = IOC.AdressID"
-;
+                "IOC.OrderNum = Orders.OrderNum inner join Items on IOC.ItemID = Items.ItemID inner join Addresses on Addresses.ID = IOC.AdressID";
 
             SqlCommand cmd = new SqlCommand(selectSTR, con);
 
