@@ -264,12 +264,12 @@
         }
 
         function additem() {
-           var str = "";
+            var str = "";
             // Note that the name of the fields must be identical to the names of the properties of the object in the server
             for (var i = 1; i <= parseInt(stage[0].Stages); i++) {
-                str+=$('#stage' +i).val()
+                str += $('#stage' + i).val()
             }
-           
+
             item = str;
             quantity = $("#quantity").val();
 
@@ -282,7 +282,7 @@
                 $('#stage' + i).val("");
             }
             $("#quantity").val("");
-            
+
         }
 
         var click = false;
@@ -379,41 +379,47 @@
         //    //ajaxCall("GET", uri, "", successGetcustomer, errorGetcustomer);
         //}
 
-        function successGetcustomer(data) {
-            console.log(data);
-            datauser = data;
+        //function successGetcustomer(data) {
+        //    console.log(data);
+        //    datauser = data;
 
-            if (click == false) {
-                UserName = datauser.Email,
-                    FirstName = datauser.FirstName;
-                LastName = datauser.LastName;
-                PhoneNumber = datauser.PhoneNumber;
-                CompanyName = datauser.CompanyName;
-                Adress = datauser.Adress;
-                City = datauser.City;
-                document.getElementById("table2").innerHTML += '<tr>Email : </tr>' + UserName + ' </br>' + '<tr>First Name : </tr>' + FirstName + ' </br>'
-                    + '<tr>Last Name : </tr>' + LastName + ' </br>' + '<tr>Phone : </tr>' + PhoneNumber + ' </br>' + '<tr>Company Name : </tr>' + CompanyName + ' </br>' +
-                    '<tr>Address : </tr>' + Adress + ' </br>' + '<tr>City : </tr>' + City + '<input type="button" onClick="Javacsript:AddOrder(UserName)" value="Send"/>';
+        //    if (click == false) {
+        //        UserName = datauser.Email,
+        //            FirstName = datauser.FirstName;
+        //        LastName = datauser.LastName;
+        //        PhoneNumber = datauser.PhoneNumber;
+        //        CompanyName = datauser.CompanyName;
+        //        Adress = datauser.Adress;
+        //        City = datauser.City;
+        //        document.getElementById("table2").innerHTML += '<tr>Email : </tr>' + UserName + ' </br>' + '<tr>First Name : </tr>' + FirstName + ' </br>'
+        //            + '<tr>Last Name : </tr>' + LastName + ' </br>' + '<tr>Phone : </tr>' + PhoneNumber + ' </br>' + '<tr>Company Name : </tr>' + CompanyName + ' </br>' +
+        //            '<tr>Address : </tr>' + Adress + ' </br>' + '<tr>City : </tr>' + City + '<input type="button" onClick="Javacsript:AddOrder(UserName)" value="Send"/>';
 
-            }
-            return false;
+        //    }
+        //    return false;
 
-        }
-        function errorGetcustomer(err) {
-            swal("error");
+        //}
+        //function errorGetcustomer(err) {
+        //    swal("error");
 
-        }
-        function ShowDetails() {
-
-            uri = "../api/Address?address=" + $("#address option:selected").text();
-            ajaxCall("GET", uri, "", successGetcustomer, errorGetcustomer);
+        //}
+        function ShowDetails(data) {
+            
+            var adr = addresses.filter(a => data = a.ID)
+           
+            Email = "'" + adr[0].Email + "'";
+            $("#table2").append("<div>First Name : " + adr[0].FirstName + " </div>" + "<div>Last Name : " + adr[0].LastName + " </div>" +
+                "<div>Phone : " + adr[0].PhoneNumber + " </div>" + "<div>Company Name : " + adr[0].CompanyName + " </div>" +
+                "<div>Adress : " + adr[0].Adress + " </div>" + "<div>City : " + adr[0].City + " </div>" + '<input type="button" onClick="Javacsript:AddOrder(' + Email + ')" value="Submit"/>');
+            
         }
         function address(data) {
             uri = "../api/Address/5?Email=" + data;
             ajaxCall("GET", uri, "", successGetaddress, errorGetaddress);
         }
-
+        var addresses
         function successGetaddress(data) {
+            addresses=data
             for (var i = 0; i < data.length; i++) {
                 $("#address").append($("<option></option>").val(data[i].ID).html(data[i].Adress));
 
@@ -431,16 +437,16 @@
 
 
             ajaxCall("GET", "../api/Question?type=" + stage[0].Type, "", setselection, errorGetstage)
-                
+
             //setTimeout(function () {
-                ajaxCall("GET", "../api/AllItem?type=" + stage[0].Type + "&stages=" + stage[0].Stages, "", successGetstage, errorGetstage)
+            ajaxCall("GET", "../api/AllItem?type=" + stage[0].Type + "&stages=" + stage[0].Stages, "", successGetstage, errorGetstage)
 
             //}, 3000);
 
 
         }
         function setselection(data) {
-            
+
             data.map(stage => {
                 $("#selectstages").append(
                     "<label><span class='fname'>" + stage.Name + "<span class='required'>*</span></span><select id='stage" + stage.QID + "' name='selection'><option class='required'></option></select>"
@@ -449,7 +455,7 @@
             $("#selectstages").append(
                 "<label><span class= 'fname'>Quantity<span class='required'>*</span ></span ><input type='text' id='quantity' /> </label ><button type='button' onclick='additem()'>Add</button>"
             )
-            
+
         }
 
 
@@ -489,12 +495,12 @@
                 <select id="email" onchange="address(this.value)">
                     <option id="email" />Choose Customer
                 </select>
-            
-                <select id="address">
+
+                <select id="address" onchange="ShowDetails(this.value)">
                     <option id="aba" />Choose Address
                 </select>
 
-                <input type="button" onclick="ShowDetails()" value="Show Details">
+              
                 <!--<input type="button" id="btn" onclick="moreFields()" value="Order as a New Customer" />-->
                 <div id="readroot" style="display: none">
                     <label>

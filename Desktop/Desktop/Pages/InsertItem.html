@@ -268,18 +268,11 @@
         var docids = []
         var standardtree = [];
         var db = firebase.firestore();
+        
         $(document).ready(function () {
             ajaxCall("GET", "../api/Categories", "", successGettypes, errorGettypes);
             // ajaxCall("GET", "../api/AllItem", "", successGetstage, errorGetstage);
-            db.collection("tmp").orderBy('id', 'asc').get().then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    docids.push(doc.id)
-                    tree.push(doc.data());
-                });
-
-                console.log(tree, tree.length)
-
-            });
+            
 
             db.collection("standard").orderBy('id', 'asc').get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
@@ -489,11 +482,12 @@
 
             }
             //delete old tree by id,add the new one and refresh the page
-            docids.map(id => { db.collection("tmp").doc(id).delete() })
-
+            var type = $("#type").val()
+            docids.map(id => { db.collection(type+"tmp").doc(id).delete() })
+            
             tree.map((stage) => {
                 console.log(stage)
-                db.collection("tmp").add(stage)
+                db.collection(type+"tmp").add(stage)
             })
 
             setTimeout(function () {
@@ -527,6 +521,15 @@
             swal("Error!", err.ExceptionMessage, "error");
         }
         function stagesopen(data) {
+            db.collection(data+"tmp").orderBy('id', 'asc').get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    docids.push(doc.id)
+                    tree.push(doc.data());
+                });
+
+                console.log(tree, tree.length)
+
+            });
             stage = categories.filter(t => data == t.Type)
             ajaxCall("GET", "../api/Question?type=" + stage[0].Type, "", title, errortitle)
             ajaxCall("GET", "../api/AllItem?type=" + stage[0].Type + "&stages=" + stage[0].Stages, "", successGetstage, errorGetstage)

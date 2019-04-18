@@ -947,7 +947,6 @@ public class DBservices
                 S.Adress = Convert.ToString(dr["Address"]).TrimEnd();
                 S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]);
                 S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
-                S.Email = Convert.ToString(dr["Email"]).TrimEnd();
                 S.ID = Convert.ToInt32(dr["ID"]);
                 f.Add(S);
             }
