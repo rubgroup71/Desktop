@@ -12,13 +12,15 @@ namespace WebApplication2.Models
         public string ItemSerial { get; set; }
         public bool IsStandard { get; set; }
         public string Email { get; set; }
+        public string Type { get; set; }
 
-        public Items(string itemserial,bool isstandatd,string email,string itemname)
+        public Items(string itemserial,bool isstandatd,string email,string itemname,string type)
         {
             ItemSerial = itemserial;
             ItemName = itemname;
             IsStandard = isstandatd;          
             Email = email;
+            Type = type;
 
         }
         public Items(string itemserial, string email)
@@ -27,6 +29,7 @@ namespace WebApplication2.Models
             ItemName = "part";
             IsStandard = false;
             Email = email;
+            
         }
 
         public Items()

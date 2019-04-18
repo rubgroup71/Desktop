@@ -1252,8 +1252,8 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}','{2}')", i.ItemSerial, i.IsStandard, i.ItemName);
-        String prefix = "INSERT INTO Items " + "(ItemSerial,IsStandard,ItemName)";
+        sb.AppendFormat("Values('{0}', '{1}','{2}','{3}')", i.ItemSerial, i.IsStandard, i.ItemName,i.Type);
+        String prefix = "INSERT INTO Items " + "(ItemSerial,IsStandard,ItemName,[Type])";
         command = prefix + sb.ToString() + ";SELECT CAST(scope_identity() AS int)";
 
         return command;
@@ -1420,7 +1420,7 @@ public class DBservices
 
         try
         {
-            String selectSTR ="select Items.ItemID,Items.ItemName,Items.ItemSerial,Items.IsStandard,ItemsCustomer.Email"+
+            String selectSTR ="select Items.ItemID,Items.ItemName,Items.ItemSerial,Items.IsStandard,Items.Type,ItemsCustomer.Email"+
                " from Items INNER JOIN ItemsCustomer ON Items.ItemID = ItemsCustomer.ItemID where ItemsCustomer.Email='"+email+"'";
             
 
@@ -1438,6 +1438,7 @@ public class DBservices
                     S.ItemName = Convert.ToString(dr["ItemName"]).TrimEnd();
                     S.ItemSerial = Convert.ToString(dr["ItemSerial"]).TrimEnd();
                     S.IsStandard = Convert.ToBoolean(dr["IsStandard"]);
+                S.Type = Convert.ToString(dr["Type"]).TrimEnd();
 
                 f.Add(S);
 
