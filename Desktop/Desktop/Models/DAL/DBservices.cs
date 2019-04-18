@@ -1015,8 +1015,8 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}','{6}')", A.FirstName, A.LastName, A.PhoneNumber, A.CompanyName, A.Adress, A.City, A.Email);
-        String prefix = "INSERT INTO [Addresses] " + "(FirstName,LastName,PhoneNumber,CompanyName,[Address],City,Email)";
+        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}','{6}')", A.FirstName, A.LastName, A.PhoneNumber, A.CompanyName, A.Adress, A.City);
+        String prefix = "INSERT INTO [Addresses] " + "(FirstName,LastName,PhoneNumber,CompanyName,[Address],City)";
         command = prefix + sb.ToString() + ";SELECT CAST(scope_identity() AS int)";
 
         return command;

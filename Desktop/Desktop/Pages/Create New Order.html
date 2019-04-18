@@ -408,8 +408,8 @@
             uri = "../api/Address?address=" + $("#address option:selected").text();
             ajaxCall("GET", uri, "", successGetcustomer, errorGetcustomer);
         }
-        function address() {
-            uri = "../api/Address/5?Email=" + $("#email").val();
+        function address(data) {
+            uri = "../api/Address/5?Email=" + data;
             ajaxCall("GET", uri, "", successGetaddress, errorGetaddress);
         }
 
@@ -486,13 +486,10 @@
                         <td>Quantity</td>
                     </tr>
                 </table>
-                <select id="email">
+                <select id="email" onchange="address(this.value)">
                     <option id="email" />Choose Customer
                 </select>
-
-                <input type="button" value="Approve" onclick="address()" />
-                <br />
-                <br />
+            
                 <select id="address">
                     <option id="aba" />Choose Address
                 </select>

@@ -321,7 +321,7 @@
                         tmp.push($(this).val());
 
                     });
-                    choose.push({ name: q[i - 1].Name, value: tmp })
+                    choose.push({ name: q[i - 1].Name.toLowerCase(), value: tmp })
                 }
                                 
                 choose.map(s => {
@@ -601,7 +601,7 @@
             $("#invalidvalue").prop("disabled", false)
             $("#invalidvalue").show()
             $("#invalidvalue").append($("<option></option>").html('Choose Value'))
-            db.collection("invalid" + stage).get().then(function (querySnapshot) {
+            db.collection(type+ "invalid" + stage).get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
                     $("#invalidvalue").append($("<option></option>").val(doc.id).html(doc.id))
 
