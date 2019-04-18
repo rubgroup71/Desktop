@@ -277,8 +277,8 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}','{2}')", i.ItemSerial, i.IsStandard, i.ItemName);
-        String prefix = "INSERT INTO Items " + "(ItemSerial,IsStandard,ItemName)";
+        sb.AppendFormat("Values('{0}', '{1}','{2}','{3}')", i.ItemSerial, i.IsStandard, i.ItemName,i.Type);
+        String prefix = "INSERT INTO Items " + "(ItemSerial,IsStandard,ItemName,Type)";
         command = prefix + sb.ToString() + ";SELECT CAST(scope_identity() AS int)";
 
         return command;

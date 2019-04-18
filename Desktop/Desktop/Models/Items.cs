@@ -29,6 +29,7 @@ namespace WebApplication2.Models
             ItemName = "part";
             IsStandard = false;
             Email = email;
+            Type = "type";
             
         }
 
