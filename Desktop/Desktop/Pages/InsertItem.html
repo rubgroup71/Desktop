@@ -262,8 +262,7 @@
             padding: 0px;
         }
     </style>
-    <script>
-        //tree= data from FireBase
+    <script>//tree= data from FireBase
         //docid= for delete all the collection
         var tree = [];
         var docids = []
@@ -322,21 +321,21 @@
                         tmp.push($(this).val());
 
                     });
-                    choose.push({name:q[i-1].Name, value:tmp })
+                    choose.push({ name: q[i - 1].Name, value: tmp })
                 }
                 console.log(choose)
-                var objtoinsert=""
+                var objtoinsert = ""
                 choose.map(s => {
-                    var str =""
+                    var str = ""
                     for (var a = 0; a < s.value.length; a++) {
                         str += s.value[a] + '|'
                     }
                     s.value = str.substring(0, str.length - 1)
-                    
-                objtoinsert+=s.name+':'+s.value+','
-                })
-                db.collection(type + 'invalid' + stage).doc(value).set({
-                    objtoinsert
+                    db.collection(type + 'invalid' + stage).doc(value).update({
+                        [s.name]: s.value
+
+                    })
+
 
                 })
 
@@ -627,8 +626,7 @@
 
             };
 
-        }
-    </script>
+        }</script>
 </head>
 <body>
     <ul id="head">
