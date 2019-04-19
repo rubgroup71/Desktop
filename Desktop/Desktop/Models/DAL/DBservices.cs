@@ -382,6 +382,14 @@ public class DBservices
             throw (ex);
 
         }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
 
     }
 
@@ -430,6 +438,14 @@ public class DBservices
             throw (ex);
 
         }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
 
     }
 
@@ -474,6 +490,14 @@ public class DBservices
             // write to log
             throw (ex);
 
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
         }
 
     }
@@ -524,7 +548,14 @@ public class DBservices
             throw (ex);
 
         }
-
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
     }
 
     public List<Customer> ShowEmail(string conString, string tableName)
@@ -568,6 +599,14 @@ public class DBservices
             // write to log
             throw (ex);
 
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
         }
 
     }
@@ -639,6 +678,14 @@ public class DBservices
             throw (ex);
 
         }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
 
     }
 
@@ -689,6 +736,14 @@ public class DBservices
             // write to log
             throw (ex);
 
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
         }
 
     }
@@ -742,6 +797,14 @@ public class DBservices
             // write to log
             throw (ex);
 
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
         }
 
     }
@@ -921,6 +984,14 @@ public class DBservices
             // write to log
             throw (ex);
 
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
         }
 
     }
@@ -1157,6 +1228,14 @@ public class DBservices
             throw (ex);
 
         }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
 
     }
 
@@ -1282,6 +1361,14 @@ public class DBservices
             throw (ex);
 
         }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
 
     }
 
@@ -1354,9 +1441,16 @@ public class DBservices
             throw (ex);
 
         }
-       
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
 
-    
+
     }
 
     public List<Items> FilterItems(string email)
@@ -1414,7 +1508,14 @@ public class DBservices
             throw (ex);
 
         }
-
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
 
 
     }
