@@ -9,9 +9,7 @@ using System.Text;
 using WebApplication2.Models;
 using Desktop.Models;
 
-/// <summary>
-/// DBServices is a class created by me to provides some DataBase Services
-/// </summary>
+
 public class DBservices
 {
     public SqlDataAdapter da;
@@ -19,14 +17,9 @@ public class DBservices
 
     public DBservices()
     {
-        //
-        // TODO: Add constructor logic here
-        //
+       
     }
-
-    //--------------------------------------------------------------------------------------------------
-    // This method creates a connection to the database according to the connectionString name in the web.config 
-    //--------------------------------------------------------------------------------------------------
+    
     public SqlConnection connect(String conString)
     {
 
@@ -37,10 +30,7 @@ public class DBservices
         return con;
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // This method inserts a car to the cars table 
-    //--------------------------------------------------------------------------------------------------
-    //הכנסת פרטי משתמש לתוך בסיס נתונים
+
     public int insertS(SalesPerson S)
     {
 
@@ -85,7 +75,6 @@ public class DBservices
 
     }
 
-
     private String BuildInsertCommandS(SalesPerson S)
     {
         String command;
@@ -98,7 +87,6 @@ public class DBservices
 
         return command;
     }
-
 
     public int insertO(Order O, List<string> parts, List<string> quantity, int addressid)
     {
@@ -128,7 +116,7 @@ public class DBservices
             int numEffected = (int)cmd.ExecuteScalar();
             for (int i = 0; i < parts.Count; i++)
             {
-                InsertOrderItem(parts[i], quantity[i], numEffected, O.Email, addressid);
+                InsertOrderItem(parts[i], quantity[i], numEffected, O.Email, addressid,cmd);
 
             }
             return numEffected;
@@ -150,7 +138,6 @@ public class DBservices
         }
 
     }
-
 
     private String BuildInsertCommandO(Order O)
     {
@@ -165,26 +152,25 @@ public class DBservices
         return command;
     }
 
-
-    public int InsertIOC(int itemid, int orderid, string email, string quantity, int addressid)
+    public int InsertIOC(int itemid, int orderid, string email, string quantity, int addressid,SqlCommand cmd)
     {
 
-        SqlConnection con;
-        SqlCommand cmd;
+        //SqlConnection con;
+        //SqlCommand cmd;
 
-        try
-        {
-            con = connect("ConnectionStringName"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-        }
+        //try
+        //{
+        //    con = connect2("ConnectionStringName"); // create the connection
+        //}
+        //catch (Exception ex)
+        //{
+        //    // write to log
+        //    throw (ex);
+        //}
 
         String cStr = BuildInsertCommandIOC(itemid, orderid, email, quantity, addressid);      // helper method to build the insert string
 
-        cmd = CreateCommand(cStr, con);             // create the command
+        cmd.CommandText=cStr;          // create the command
 
         try
         {
@@ -199,16 +185,17 @@ public class DBservices
             throw (ex);
         }
 
-        finally
-        {
-            if (con != null)
-            {
-                // close the db connection
-                con.Close();
-            }
-        }
+        //finally
+        //{
+        //    if (con != null)
+        //    {
+        //        // close the db connection
+        //        con.Close();
+        //    }
+        //}
 
     }
+
     private String BuildInsertCommandIOC(int itemid, int orderid, string email, string quantity, int addressid)
     {
         String command;
@@ -222,34 +209,33 @@ public class DBservices
         return command;
     }
 
-
-    public int InsertOrderItem(string item, string quantity, int orderid, string email, int addressid)
+    public int InsertOrderItem(string item, string quantity, int orderid, string email, int addressid,SqlCommand cmd)
     {
 
-        SqlConnection con;
-        SqlCommand cmd;
+        //SqlConnection con;
+        //SqlCommand cmd;
         Items i = new Items(item, email);
 
-        try
-        {
-            con = connect("ConnectionStringName"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-        }
+        //try
+        //{
+        //    con = connect2("ConnectionStringName"); // create the connection
+        //}
+        //catch (Exception ex)
+        //{
+        //    // write to log
+        //    throw (ex);
+        //}
 
         String cStr = BuildInsertCommandOrderItem(i);      // helper method to build the insert string
 
-        cmd = CreateCommand(cStr, con);             // create the command
+        cmd.CommandText=cStr;            // create the command
 
         try
         {
 
             int numEffected = (int)cmd.ExecuteScalar();
             //InsertItemCustomer(numEffected, email);
-            InsertIOC(numEffected, orderid, email, quantity, addressid);
+            InsertIOC(numEffected, orderid, email, quantity, addressid,cmd);
             return numEffected;
         }
         catch (Exception ex)
@@ -259,17 +245,16 @@ public class DBservices
             throw (ex);
         }
 
-        finally
-        {
-            if (con != null)
-            {
-                // close the db connection
-                con.Close();
-            }
-        }
+        //finally
+        //{
+        //    if (con != null)
+        //    {
+        //        // close the db connection
+        //        con.Close();
+        //    }
+        //}
 
     }
-
 
     private String BuildInsertCommandOrderItem(Items i)
     {
@@ -283,25 +268,26 @@ public class DBservices
 
         return command;
     }
-    public int InsertItemCustomer(int ItemID, string email)
+
+    public int InsertItemCustomer(int ItemID, string email,SqlCommand cmd)
     {
 
-        SqlConnection con;
-        SqlCommand cmd;
+        //SqlConnection con;
+        //SqlCommand cmd;
 
-        try
-        {
-            con = connect("ConnectionStringName"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-        }
+        //try
+        //{
+        //    con = connect2("ConnectionStringName"); // create the connection
+        //}
+        //catch (Exception ex)
+        //{
+        //    // write to log
+        //    throw (ex);
+        //}
 
         String cStr = BuildInsertCommandtemCustomer(ItemID, email);      // helper method to build the insert string
 
-        cmd = CreateCommand(cStr, con);             // create the command
+        cmd.CommandText=cStr;             // create the command
 
         try
         {
@@ -318,19 +304,19 @@ public class DBservices
         }
 
 
-        finally
-        {
+        //finally
+        //{
 
-            if (con != null)
-            {
-                // close the db connection
+        //    if (con != null)
+        //    {
+        //        // close the db connection
 
-                con.Close();
+        //        con.Close();
 
-            }
+        //    }
 
 
-        }
+        //}
 
 
 
@@ -338,6 +324,7 @@ public class DBservices
 
 
     }
+
     private String BuildInsertCommandtemCustomer(int ItemID, string email)
     {
         String command;
@@ -350,7 +337,6 @@ public class DBservices
 
         return command;
     }
-
 
     public List<City> Read(string conString, string tableName)
     {
@@ -492,8 +478,6 @@ public class DBservices
 
     }
 
-
-
     public List<Questions> ShowQ(string type, string tableName)
     {
 
@@ -542,7 +526,6 @@ public class DBservices
         }
 
     }
-    // לשלוח לדנה
 
     public List<Customer> ShowEmail(string conString, string tableName)
     {
@@ -588,13 +571,7 @@ public class DBservices
         }
 
     }
-    //--------------------------------------------------------------------
-    // Build the Insert command String
-    //--------------------------------------------------------------------
-
-    //---------------------------------------------------------------------------------
-    // Create the SqlCommand
-    //---------------------------------------------------------------------------------
+  
     private SqlCommand CreateCommand(String CommandSTR, SqlConnection con)
     {
 
@@ -611,10 +588,6 @@ public class DBservices
         return cmd;
     }
 
-    //---------------------------------------------------------------------------------
-    // Create the SqlCommand
-    //---------------------------------------------------------------------------------
-    //הצגת נתונים
     public List<SalesPerson> Show(string conString, string tableName)
     {
 
@@ -668,7 +641,7 @@ public class DBservices
         }
 
     }
-    ////אימות נתונים בכניסת משתמש התאמה של שם משתמש וסיסמא מהקלדה בHTML מול SQL
+
     public SalesPerson Login(string conString, string tableName, string username, string password)
     {
 
@@ -719,6 +692,7 @@ public class DBservices
         }
 
     }
+
     public Address getcustomer(string conString, string tableName, string address)
     {
 
@@ -771,14 +745,7 @@ public class DBservices
         }
 
     }
-
-
-
-
-
-
-
-
+    
     public SalesPerson Test(string conString, string tableName, string username)
     {
 
@@ -840,9 +807,7 @@ public class DBservices
 
 
     }
-
-
-
+    
     public Dictionary<int, List<Stage>> read1(string type,string stages)
     {
         Dictionary<int, List<Stage>> dic = new Dictionary<int, List<Stage>>();
@@ -898,9 +863,7 @@ public class DBservices
         }
 
     }
-    //--------------------------------------------------------------------
-    // Build the Insert a movie command String
-    //--------------------------------------------------------------------
+    
     private String BuilddelCommand(string id,string table,string filed)
     {
         // use a string builder to create the dynamic string
@@ -910,6 +873,7 @@ public class DBservices
 
         return prefix;
     }
+
     public List<Address> ShowA(string conString, string tableName)
     {
 
@@ -961,7 +925,6 @@ public class DBservices
 
     }
 
-
     public int insertA(Address A)
     {
 
@@ -986,7 +949,7 @@ public class DBservices
         {
 
             int numEffected = (int)cmd.ExecuteScalar();
-            InsertAddressCustomer(numEffected,A.Email);
+            InsertAddressCustomer(numEffected,A.Email,cmd);
             return numEffected;
         }
         catch (Exception ex)
@@ -1007,7 +970,6 @@ public class DBservices
 
     }
 
-
     private String BuildInsertCommandA(Address A)
     {
         String command;
@@ -1021,27 +983,25 @@ public class DBservices
         return command;
     }
 
-
-
-    public int InsertAddressCustomer(int ID, string Email)
+    public int InsertAddressCustomer(int ID, string Email,SqlCommand cmd)
     { 
 
-        SqlConnection con;
-        SqlCommand cmd;
+        //SqlConnection con;
+        //SqlCommand cmd;
 
-        try
-        {
-            con = connect("ConnectionStringName"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-        }
+        //try
+        //{
+        //    con = connect2("ConnectionStringName"); // create the connection
+        //}
+        //catch (Exception ex)
+        //{
+        //    // write to log
+        //    throw (ex);
+        //}
 
         String cStr = BuildInsertCommandAddressCustomer(ID, Email);      // helper method to build the insert string
 
-        cmd = CreateCommand(cStr, con);             // create the command
+        cmd.CommandText=cStr;             // create the command
 
         try
         {
@@ -1058,23 +1018,24 @@ public class DBservices
         }
 
 
-        finally
-        {
+        //finally
+        //{
 
-            if (con != null)
-            {
-                // close the db connection
+        //    if (con != null)
+        //    {
+        //        // close the db connection
 
-                con.Close();
+        //        con.Close();
 
-            }
+        //    }
 
 
-        }
+        //}
 
 
 
     }
+
     private String BuildInsertCommandAddressCustomer(int ID, string Email)
     {
         String command;
@@ -1087,7 +1048,6 @@ public class DBservices
 
         return command;
     }
-
 
     public int insertC(Customer C)
     {
@@ -1132,7 +1092,6 @@ public class DBservices
         }
 
     }
-
 
     private String BuildInsertCommandC(Customer C)
     {
@@ -1201,7 +1160,6 @@ public class DBservices
 
     }
 
-
     public int InsertItem(Items item)
     {
 
@@ -1226,7 +1184,7 @@ public class DBservices
         {
 
             int numEffected = (int)cmd.ExecuteScalar();
-            InsertItemCustomer(numEffected, item.Email);
+            InsertItemCustomer(numEffected, item.Email,cmd);
             return numEffected;
         }
         catch (Exception ex)
@@ -1246,6 +1204,7 @@ public class DBservices
         }
 
     }
+
     private String BuildInsertCommandItem(Items i)
     {
         String command;
@@ -1325,6 +1284,7 @@ public class DBservices
         }
 
     }
+
     public List<Order> FilterOrders(string email)
     {
 
@@ -1458,6 +1418,7 @@ public class DBservices
 
 
     }
+
     public void del(string id,string table,string filed)
     {
 
