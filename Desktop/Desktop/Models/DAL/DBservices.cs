@@ -116,7 +116,7 @@ public class DBservices
             int numEffected = (int)cmd.ExecuteScalar();
             for (int i = 0; i < parts.Count; i++)
             {
-                InsertOrderItem(parts[i], quantity[i], numEffected, O.Email, O.Address.ID,cmd);
+                InsertOrderItem(parts[i], quantity[i], numEffected, O.Address.Email, O.Address.ID,cmd);
 
             }
             return numEffected;
@@ -145,8 +145,8 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', '{2}')", O.Email, O.OrderDate, O.Status);
-        String prefix = "INSERT INTO Orders " + "(Email,OrderDate,Status)";
+        sb.AppendFormat("Values('{0}', '{1}')", O.OrderDate, O.Status);
+        String prefix = "INSERT INTO Orders " + "(OrderDate,Status)";
         command = prefix + sb.ToString() + ";SELECT CAST(scope_identity() AS int)";
 
         return command;
@@ -1338,7 +1338,7 @@ public class DBservices
                     tmp.Quantity.Add(Convert.ToString(dr["Quantity"]).TrimEnd());
                 }
                 else {
-                    S.Email = Convert.ToString(dr["Email"]).TrimEnd();
+
                     S.OrderId = Convert.ToInt32(dr["OrderNum"]);
                     S.OrderDate = Convert.ToString(dr["OrderDate"]).TrimEnd();
                     S.Address.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
@@ -1415,7 +1415,7 @@ public class DBservices
                 }
                 else
                 {
-                    S.Email = Convert.ToString(dr["Email"]).TrimEnd();
+
                     S.OrderId = Convert.ToInt32(dr["OrderNum"]);
                     S.OrderDate = Convert.ToString(dr["OrderDate"]).TrimEnd();
                     S.Address.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();

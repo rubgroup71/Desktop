@@ -315,30 +315,19 @@
             $("td.qu").map(function (x, y) { quantity.push(y.textContent) });
             
             var address = addresses.filter(a => a.ID == $("#address").val())
-            
-
-
-
+         
             Order = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
 
-
-                Email: data,
                 Part: parts,
                 Quantity: quantity,
                 Address:address[0]
 
-
-
-
             };
 
-
-
-
-            
             ajaxCall("POST", "../api/Order", JSON.stringify(Order), successOrder, errorOrder)
 
         }
+
         function successOrder() {
             swal("Added Successfuly!", "Order created", "success")
 

@@ -9,7 +9,7 @@ namespace WebApplication2.Models
     {
 
         public string OrderDate { get; set; } = DateTime.Now.Date.ToShortDateString();
-        public string Email { get; set; }
+
         public string Status { get; set; } = "Confirm";
         public List<string> Part { get; set; }
         public List<string> Quantity { get; set; }
@@ -17,13 +17,11 @@ namespace WebApplication2.Models
         public int OrderId { get; set; }
         public Address Address { get; set; }
 
-        public Order(string _email, List<string> _part, List<string> _qun)
+        public Order(List<string> _part, List<string> _qun,Address _address)
         {
-
-            Email = _email;
             Part = _part;
             Quantity = _qun;
-            Address = new Address();
+            Address = _address;
         }
 
         public Order()
