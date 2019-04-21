@@ -33,10 +33,10 @@ namespace WebApplication2.Models
             Quantity = new List<string>();
         }
 
-        public int insertO(List<string> parts, List<string> quantity, int addressid)
+        public int insertO(List<string> parts, List<string> quantity)
         {
             DBservices DBS = new DBservices();
-            int numAffected = DBS.insertO(this, parts, quantity, addressid);
+            int numAffected = DBS.insertO(this, parts, quantity);
             return numAffected;
         }
         public List<Order> GetOrders()

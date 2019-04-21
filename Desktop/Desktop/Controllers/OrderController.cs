@@ -28,10 +28,11 @@ namespace Desktop.Controllers
         }
 
         // POST: api/Order
-        public void Post([FromBody]Order O, int address)
+        public void Post([FromBody]Order O)
         {
-            O.insertO(O.Part, O.Quantity, address);
+            O.insertO(O.Part, O.Quantity);
         }
+        
 
         // PUT: api/Order/5
         public void Put(int id, [FromBody]string value)

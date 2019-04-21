@@ -313,8 +313,8 @@
 
             $("td.part").map(function (x, y) { parts.push(y.textContent) });
             $("td.qu").map(function (x, y) { quantity.push(y.textContent) });
-            var address = $("#address").val();
-            //var Address = addresses.filter(a => a.ID == $("#address").val())
+            
+            var address = addresses.filter(a => a.ID == $("#address").val())
 
 
 
@@ -325,7 +325,7 @@
                 Email: data,
                 Part: parts,
                 Quantity: quantity,
-                //Address=Address[0]
+                Address:address[0]
 
 
 
@@ -335,8 +335,8 @@
 
 
 
-            ajaxCall("POST", "../api/Order?address=" + address, JSON.stringify(Order), successOrder, errorOrder)
-
+            
+            ajaxCall("POST", "../api/Order", JSON.stringify(Order), successOrder, errorOrder)
 
         }
         function successOrder() {

@@ -88,7 +88,7 @@ public class DBservices
         return command;
     }
 
-    public int insertO(Order O, List<string> parts, List<string> quantity, int addressid)
+    public int insertO(Order O, List<string> parts, List<string> quantity)
     {
 
         SqlConnection con;
@@ -116,7 +116,7 @@ public class DBservices
             int numEffected = (int)cmd.ExecuteScalar();
             for (int i = 0; i < parts.Count; i++)
             {
-                InsertOrderItem(parts[i], quantity[i], numEffected, O.Email, addressid,cmd);
+                InsertOrderItem(parts[i], quantity[i], numEffected, O.Email, O.Address.ID,cmd);
 
             }
             return numEffected;
