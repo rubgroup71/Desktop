@@ -112,11 +112,16 @@ public class DBservices
 
         try
         {
-
+            int addressid;
             int numEffected = (int)cmd.ExecuteScalar();
+            if (O.Address.ID == 0)
+            {
+                addressid = insertGuestA(O.Address, cmd);
+            }
+            else addressid = O.Address.ID;
             for (int i = 0; i < parts.Count; i++)
             {
-                InsertOrderItem(parts[i], quantity[i], numEffected, O.Address.Email, O.Address.ID,cmd);
+                InsertOrderItem(parts[i], quantity[i], numEffected, O.Address.Email, addressid, cmd);
 
             }
             return numEffected;
@@ -995,7 +1000,25 @@ public class DBservices
         }
 
     }
+    public int insertGuestA(Address A, SqlCommand cmd)
+    {
+        String cStr = BuildInsertCommandA(A);      // helper method to build the insert string
 
+        cmd.CommandText=cStr;             // create the command
+
+        try
+        {
+            int numEffected = (int)cmd.ExecuteScalar();
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            throw (ex);
+        }
+
+
+
+    }
     public int insertA(Address A)
     {
 
