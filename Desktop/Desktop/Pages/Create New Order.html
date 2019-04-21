@@ -196,9 +196,7 @@
                 background: #428a7d;
             }
     </style>
-    <script>
-
-        $(document).ready(function () {
+    <script>$(document).ready(function () {
 
 
             // ajaxCall("GET", "../api/Address", "", successGetAD, errorGetAD);
@@ -316,7 +314,7 @@
             $("td.part").map(function (x, y) { parts.push(y.textContent) });
             $("td.qu").map(function (x, y) { quantity.push(y.textContent) });
             var address = $("#address").val();
-
+            //var Address = addresses.filter(a => a.ID == $("#address").val())
 
 
 
@@ -327,7 +325,7 @@
                 Email: data,
                 Part: parts,
                 Quantity: quantity,
-
+                //Address=Address[0]
 
 
 
@@ -404,14 +402,14 @@
 
         //}
         function ShowDetails(data) {
-            
+
             var adr = addresses.filter(a => data = a.ID)
-           
+
             Email = "'" + adr[0].Email + "'";
             $("#table2").append("<div>First Name : " + adr[0].FirstName + " </div>" + "<div>Last Name : " + adr[0].LastName + " </div>" +
                 "<div>Phone : " + adr[0].PhoneNumber + " </div>" + "<div>Company Name : " + adr[0].CompanyName + " </div>" +
                 "<div>Adress : " + adr[0].Adress + " </div>" + "<div>City : " + adr[0].City + " </div>" + '<input type="button" onClick="Javacsript:AddOrder(' + Email + ')" value="Submit"/>');
-            
+
         }
         function address(data) {
             uri = "../api/Address/5?Email=" + data;
@@ -419,7 +417,7 @@
         }
         var addresses
         function successGetaddress(data) {
-            addresses=data
+            addresses = data
             for (var i = 0; i < data.length; i++) {
                 $("#address").append($("<option></option>").val(data[i].ID).html(data[i].Adress));
 
@@ -456,10 +454,7 @@
                 "<label><span class= 'fname'>Quantity<span class='required'>*</span ></span ><input type='text' id='quantity' /> </label ><button type='button' onclick='additem()'>Add</button>"
             )
 
-        }
-
-
-    </script>
+        }</script>
 
 </head>
 <body>

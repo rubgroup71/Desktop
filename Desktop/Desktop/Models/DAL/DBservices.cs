@@ -1564,6 +1564,63 @@ public class DBservices
             }
         }
 
+
+    }
+    public int updateA(Address A, string id)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+
+        String cStr = BuildUpdateCommandA(A,id);      // helper method to build the insert string
+
+        cmd = CreateCommand(cStr, con);             // create the command
+
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+
+        }
+        catch (Exception ex)
+        {
+            ;
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+    }
+    private String BuildUpdateCommandA(Address A,string id)
+    {
+        String command;
+
+
+        command = "UPDATE [Addresses] SET FirstName='" + A.FirstName + "', LastName='" + A.LastName + "' , PhoneNumber ='" + A.PhoneNumber + "' , CompanyName='" + A.CompanyName + "' ,[Address]='" + A.Adress + "' , City='" + A.City + "'WHERE ID =" + id;
+
+
+        return command;
+
     }
 
 }

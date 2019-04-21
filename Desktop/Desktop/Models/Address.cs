@@ -69,6 +69,12 @@ namespace WebApplication2.Models
             DBservices DBS = new DBservices();
             DBS.del(id, "AddressCustomer", "AddressID");
         }
-    
+        public int updateA(string id)
+        {
+            DBservices DBS = new DBservices();
+            int numAffected = DBS.updateA(this,id);
+            return numAffected;
+        }
+
     }
 }
