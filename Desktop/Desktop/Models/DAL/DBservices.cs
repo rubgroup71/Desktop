@@ -1639,7 +1639,7 @@ public class DBservices
         String command;
 
 
-        command = "UPDATE [Addresses] SET FirstName='" + A.FirstName + "', LastName='" + A.LastName + "' , PhoneNumber ='" + A.PhoneNumber + "' , CompanyName='" + A.CompanyName + "' ,[Address]='" + A.Adress + "' , City='" + A.City + "'WHERE ID =" + id;
+        command = "UPDATE [Addresses] SET FirstName='" + A.FirstName + "', LastName='" + A.LastName + "' , PhoneNumber ='" + A.PhoneNumber + "' , CompanyName='" + A.CompanyName + "' ,[Address]='" + A.Adress + "' , City='" + A.City + "' WHERE ID =" + id;
 
 
         return command;
