@@ -1369,6 +1369,7 @@ public class DBservices
                     S.Address.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
                     S.Address.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
                     S.Address.City = Convert.ToString(dr["City"]).TrimEnd();
+                    S.Address.Adress = Convert.ToString(dr["Address"]).TrimEnd();
                     S.Status = Convert.ToString(dr["Status"]).TrimEnd();
                     S.Part.Add(Convert.ToString(dr["ItemSerial"]).TrimEnd());
                     S.Quantity.Add(Convert.ToString(dr["Quantity"]).TrimEnd());

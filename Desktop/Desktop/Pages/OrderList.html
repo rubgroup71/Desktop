@@ -172,7 +172,7 @@
         }
 
         button {
-            width: 40%;
+            width: 90%;
             margin-top: 10px;
             padding: 10px;
             border: none;
@@ -210,6 +210,15 @@
                 box-shadow: 0 6px 14px 0 #666;
                 transform: scale(1.05);
             }
+        .viewbtn {
+            background-color: #52ad9c
+        }
+
+        .btn-danger {
+            color: #fff;
+            /*//  background-color: #52ad9c;*/
+            border-color: #52ad9c;
+        }
     </style>
     <script>
         $(document).ready(function () {
@@ -218,42 +227,43 @@
         });
         function getSuccessOrder(OrderData) {
 
-            Data = OrderData;
+            OrderdD = OrderData;
             try {
                 tbl = $('#ordertable').DataTable({
                     data: OrderData,
                     pageLength: 5,
                     columns: [
-                        { data: "Email" },
-                        //{ data: "OrderNum" },
+                        //{ data: "Email" },
+                        { data: "OrderId" },
                         { data: "OrderDate" },
                         { data: "Status" },
-                        //{
-                        //    data: "ItemSerial"
-                            //render: function (data, type, row, meta) {
+                        {
+                            //data: "Part"
+                            render: function (data, type, row, meta) {
 
-                            //    str = "";
-                            //    for (var i = 0; i < data.lenght; i++) {
-                            //        str += "<p>" + data[i] + "</p>";
-                            //    }
-                            //    return str;
+                                let DataU = "data-User='" + row.UserName + "'";
 
-                            //}
-                        //},
+
+                                view = "<button type='button'  class='viewbtn btn btn-danger' " + DataU + "> Veiw </button>";
+
+                                return view;
+
+                            }
+                        },
                         { data: "Quantity" },
-                        //{ data: "Addresses" },
+                        { data: "Address.Adress" },
 
-                        //{
-                        //    render: function (data, type, row, meta) {
-                        //        let DataU = "data-User='" + row.UserName + "'";
+                        {
+                            render: function (data, type, row, meta) {
+                                let DataU = "data-User='" + row.UserName + "'";
 
 
-                        //        edit = "<button type='button'  class='edit btn btn-danger' " + DataU + "> Edit </button>";
-                        //        deleteBtn = "<button type='button' class='deletebtn btn btn-danger' " + DataU + "> Delete </button>";
+                                edit = "<button type='button'  class='edit btn btn-danger' " + DataU + "> Edit </button>";
+                                deleteBtn = "<button type='button' class='deletebtn btn btn-danger' " + DataU + "> Delete </button>";
 
-                        //        return edit + deleteBtn;
-                        //    }
-                        //}
+                                return edit + deleteBtn;
+                            }
+                        }
 
 
 
@@ -291,13 +301,13 @@
                 <table id="ordertable" class="hover" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Email</th>
+                            <!--<th>Email</th>-->
                             <th>Order Num</th>
                             <th>Order Date</th>
                             <th>Status</th>
                             <th>Item Serial</th>
                             <th>Quantity</th>
-                            <th>Customer</th>
+                            <!--<th>Customer</th>-->
                             <th>Addresses</th>
                             <th></th>
                         </tr>
@@ -305,13 +315,13 @@
 
                     <tfoot>
                         <tr>
-                            <th>Email</th>
+                            <!--<th>Email</th>-->
                             <th>Order Num</th>
                             <th>Order Date</th>
                             <th>Status</th>
                             <th>Item Serial</th>
                             <th>Quantity</th>
-                            <th>Customer</th>
+                            <!--<th>Customer</th>-->
                             <th>Addresses</th>
                             <th></th>
                         </tr>
