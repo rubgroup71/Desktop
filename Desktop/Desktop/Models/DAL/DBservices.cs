@@ -128,7 +128,7 @@ public class DBservices
         }
         catch (Exception ex)
         {
-            return 0;
+            
             // write to log
             throw (ex);
         }
@@ -180,12 +180,12 @@ public class DBservices
         try
         {
 
-            int numEffected = (int)cmd.ExecuteScalar();
+            int numEffected = cmd.ExecuteNonQuery();
             return numEffected;
         }
         catch (Exception ex)
         {
-            return 0;
+
             // write to log
             throw (ex);
         }
@@ -219,7 +219,7 @@ public class DBservices
 
         //SqlConnection con;
         //SqlCommand cmd;
-        Items i = new Items(item, email);
+        Items i = new Items(item);
 
         //try
         //{
@@ -245,7 +245,7 @@ public class DBservices
         }
         catch (Exception ex)
         {
-            return 0;
+            
             // write to log
             throw (ex);
         }
@@ -1417,7 +1417,7 @@ public class DBservices
 
         try
         {
-            String selectSTR = "select IOC.Email,Orders.OrderNum,Orders.OrderDate,Orders.[Status],Items.ItemSerial," +
+            String selectSTR = "select IOC.Email,IOC.OrderNum,Orders.OrderDate,Orders.[Status],Items.ItemSerial," +
                 "IOC.Quantity,Addresses.ID,Addresses.FirstName,Addresses.LastName,Addresses.CompanyName," +
                 "Addresses.City,Addresses.[Address],Addresses.PhoneNumber from IOC inner join Orders on " +
                 "IOC.OrderNum = Orders.OrderNum inner join Items on IOC.ItemID = Items.ItemID inner join Addresses on Addresses.ID = IOC.AdressID where IOC.Email='"+email+"'";
@@ -1437,6 +1437,7 @@ public class DBservices
                     tmp.Part.Add(Convert.ToString(dr["ItemSerial"]).TrimEnd());
                     tmp.Quantity.Add(Convert.ToString(dr["Quantity"]).TrimEnd());
                 }
+
                 else
                 {
 

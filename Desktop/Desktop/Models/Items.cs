@@ -32,7 +32,14 @@ namespace WebApplication2.Models
             Type = "type";
             
         }
+        public Items(string itemserial)
+        {
+            ItemSerial = itemserial;
+            ItemName = "part";
+            IsStandard = false;
+            Type = "type";
 
+        }
         public Items()
         {
         }
