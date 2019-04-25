@@ -1430,7 +1430,7 @@ public class DBservices
             while (dr.Read())
             {
                 int id = Convert.ToInt32(dr["OrderNum"]);
-                Order S = new Order();
+
                 if (f.Exists(x => x.OrderId == id))
                 {
                     Order tmp = f.Find(x => x.OrderId.Equals(id));
@@ -1440,7 +1440,7 @@ public class DBservices
 
                 else
                 {
-
+                    Order S = new Order();
                     S.OrderId = Convert.ToInt32(dr["OrderNum"]);
                     S.OrderDate = Convert.ToString(dr["OrderDate"]).TrimEnd();
                     S.Address.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
@@ -1454,9 +1454,10 @@ public class DBservices
                     S.Status = Convert.ToString(dr["Status"]).TrimEnd();
                     S.Part.Add(Convert.ToString(dr["ItemSerial"]).TrimEnd());
                     S.Quantity.Add(Convert.ToString(dr["Quantity"]).TrimEnd());
+                    f.Add(S);
                 }
 
-                f.Add(S);
+
             }
             return f;
         }
