@@ -128,7 +128,7 @@ public class DBservices
         }
         catch (Exception ex)
         {
-            return 0;
+            
             // write to log
             throw (ex);
         }
@@ -180,12 +180,12 @@ public class DBservices
         try
         {
 
-            int numEffected = (int)cmd.ExecuteScalar();
+            int numEffected = cmd.ExecuteNonQuery();
             return numEffected;
         }
         catch (Exception ex)
         {
-            return 0;
+
             // write to log
             throw (ex);
         }
@@ -219,7 +219,7 @@ public class DBservices
 
         //SqlConnection con;
         //SqlCommand cmd;
-        Items i = new Items(item, email);
+        Items i = new Items(item);
 
         //try
         //{
@@ -245,7 +245,7 @@ public class DBservices
         }
         catch (Exception ex)
         {
-            return 0;
+            
             // write to log
             throw (ex);
         }
@@ -1370,6 +1370,7 @@ public class DBservices
                     S.Address.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
                     S.Address.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
                     S.Address.City = Convert.ToString(dr["City"]).TrimEnd();
+                    S.Address.Adress = Convert.ToString(dr["Address"]).TrimEnd();
                     S.Status = Convert.ToString(dr["Status"]).TrimEnd();
                     S.Part.Add(Convert.ToString(dr["ItemSerial"]).TrimEnd());
                     S.Quantity.Add(Convert.ToString(dr["Quantity"]).TrimEnd());
@@ -1417,7 +1418,7 @@ public class DBservices
 
         try
         {
-            String selectSTR = "select IOC.Email,Orders.OrderNum,Orders.OrderDate,Orders.[Status],Items.ItemSerial," +
+            String selectSTR = "select IOC.Email,IOC.OrderNum,Orders.OrderDate,Orders.[Status],Items.ItemSerial," +
                 "IOC.Quantity,Addresses.ID,Addresses.FirstName,Addresses.LastName,Addresses.CompanyName," +
                 "Addresses.City,Addresses.[Address],Addresses.PhoneNumber from IOC inner join Orders on " +
                 "IOC.OrderNum = Orders.OrderNum inner join Items on IOC.ItemID = Items.ItemID inner join Addresses on Addresses.ID = IOC.AdressID where IOC.Email='"+email+"'";
@@ -1430,16 +1431,17 @@ public class DBservices
             while (dr.Read())
             {
                 int id = Convert.ToInt32(dr["OrderNum"]);
-                Order S = new Order();
+
                 if (f.Exists(x => x.OrderId == id))
                 {
                     Order tmp = f.Find(x => x.OrderId.Equals(id));
                     tmp.Part.Add(Convert.ToString(dr["ItemSerial"]).TrimEnd());
                     tmp.Quantity.Add(Convert.ToString(dr["Quantity"]).TrimEnd());
                 }
+
                 else
                 {
-
+                    Order S = new Order();
                     S.OrderId = Convert.ToInt32(dr["OrderNum"]);
                     S.OrderDate = Convert.ToString(dr["OrderDate"]).TrimEnd();
                     S.Address.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
@@ -1453,9 +1455,10 @@ public class DBservices
                     S.Status = Convert.ToString(dr["Status"]).TrimEnd();
                     S.Part.Add(Convert.ToString(dr["ItemSerial"]).TrimEnd());
                     S.Quantity.Add(Convert.ToString(dr["Quantity"]).TrimEnd());
+                    f.Add(S);
                 }
 
-                f.Add(S);
+
             }
             return f;
         }
@@ -1640,7 +1643,7 @@ public class DBservices
         String command;
 
 
-        command = "UPDATE [Addresses] SET FirstName='" + A.FirstName + "', LastName='" + A.LastName + "' , PhoneNumber ='" + A.PhoneNumber + "' , CompanyName='" + A.CompanyName + "' ,[Address]='" + A.Adress + "' , City='" + A.City + "'WHERE ID =" + id;
+        command = "UPDATE [Addresses] SET FirstName='" + A.FirstName + "', LastName='" + A.LastName + "' , PhoneNumber ='" + A.PhoneNumber + "' , CompanyName='" + A.CompanyName + "' ,[Address]='" + A.Adress + "' , City='" + A.City + "' WHERE ID =" + id;
 
 
         return command;
