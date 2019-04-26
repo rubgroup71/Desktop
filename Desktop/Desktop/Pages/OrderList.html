@@ -72,7 +72,7 @@
             flex-direction: row;
             background: #f6f6f6;
             border-radius: 0 0 5px 5px;
-            padding: 25px;
+            padding: 15px;
         }
 
         form {
@@ -166,13 +166,16 @@
             margin: 0;
             padding-left: 25px;
         }
-
+       .gem{
+           width:200px;
+        }
+      
         .Yorder > div {
             padding: 15px 0;
         }
-
+    
         button {
-            width: 40%;
+            width: 90%;
             margin-top: 10px;
             padding: 10px;
             border: none;
@@ -210,77 +213,153 @@
                 box-shadow: 0 6px 14px 0 #666;
                 transform: scale(1.05);
             }
+
+        .navshow {
+            display: none;
+        }
+
+        .viewbtn {
+            background-color: #52ad9c
+        }
+
+        .btn-danger {
+            color: #fff;
+            /*//  background-color: #52ad9c;*/
+            border-color: #52ad9c;
+        }
     </style>
     <script>
         $(document).ready(function () {
             ajaxCall("GET", "../api/Order", "", getSuccessOrder, errorOrder);
-
+            Navbar();
         });
-        function getSuccessOrder(OrderData) {
+        function Navbar() {
+            var user = JSON.parse(localStorage.getItem('data'));
+            if (user.ISAdmin == 1) {
+                $("#navbaritem").prop("disabled", false);
+                $("#navbaritem").show();
+            }
+        }
+        function buttonEvents() {
+            $(document).on("click", ".viewbtn", function () {
+                markSelected(this);
+                var SalseUser = this.getAttribute('data-User');
+                //for (var i = 0; i < data.length; i++) {
+                //    items[i] = data;
+                //}
+                console.log(items);
+                swal({ // this will open a dialouge
+                    title: part,
 
-            Data = OrderData;
+                    text: "test",
+                    icon: "",
+                    buttons: true,
+                    dangerMode: true
+
+                })
+            });
+        }
+
+
+        function markSelected(btn) {
+            $("#ordertable tr").removeClass("selected"); // remove seleced class from rows that were selected before
+            row = (btn.parentNode).parentNode; // button is in TD which is in Row
+            row.className = 'selected'; // mark as selected
+        }
+        function getSuccessOrder(OrderData) {
+            OrderdD = OrderData;
             try {
                 tbl = $('#ordertable').DataTable({
                     data: OrderData,
                     pageLength: 5,
                     columns: [
-                        { data: "Email" },
-                        //{ data: "OrderNum" },
+                        //{ data: "Email" },
+                        { data: "OrderId" },
                         { data: "OrderDate" },
                         { data: "Status" },
-                        //{
-                        //    data: "ItemSerial"
-                            //render: function (data, type, row, meta) {
+                        {
+                            data: "Part",
+                            render: function (data, type, row, meta) {
+                                str = "";
+                            for(var i = 0; i<data.length; i++) {
+                                str += "<p class='gem'>" + data[i] + "</p>";
+                                }
+                                return str;
+                            }
+                        },
+                        {
+            data: "Quantity",
+                            render: function (data, type, row, meta) {
+                                str = "";
+                                for (var i = 0; i < data.length; i++) {
+                                    str += "<p>" + data[i] + "</p>";
+                                }
+                                return str;
+                            }
+                            //        let DataU = "data-User='" + row.OrderId + "'";
+                            //     Quantity=data
+                            //        view = "<button type='button'  class='viewbtn btn btn-danger' href='#popup1' " + DataU + "> Veiw </button>";
 
-                            //    str = "";
-                            //    for (var i = 0; i < data.lenght; i++) {
-                            //        str += "<p>" + data[i] + "</p>";
+                            //        return view;
+
                             //    }
-                            //    return str;
+                            },
+                        {
+                            data: "Address.CompanyName"
 
-                            //}
-                        //},
-                        { data: "Quantity" },
-                        //{ data: "Addresses" },
+                        },
 
-                        //{
-                        //    render: function (data, type, row, meta) {
-                        //        let DataU = "data-User='" + row.UserName + "'";
-
-
-                        //        edit = "<button type='button'  class='edit btn btn-danger' " + DataU + "> Edit </button>";
-                        //        deleteBtn = "<button type='button' class='deletebtn btn btn-danger' " + DataU + "> Delete </button>";
-
-                        //        return edit + deleteBtn;
-                        //    }
-                        //}
+        {
+            render: function (data, type, row, meta) {
+                let DataU = "data-User='" + row.UserName + "'";
 
 
+                edit = "<button type='button'  class='edit btn btn-danger' " + DataU + "> Edit </button>";
+                deleteBtn = "<button type='button' class='deletebtn btn btn-danger' " + DataU + "> Delete </button>";
 
-
-                    ],
-                });
-                //buttonEvents();
+                return edit + deleteBtn;
             }
-
-            catch (err) {
-                alert(err);
-            }
-
         }
+
+
+
+
+                        ],
+                    });
+        buttonEvents();
+                }
+
+                catch (err) {
+            alert(err);
+        }
+
+            }
 
         // this function is activated in case of a failure
         function errorOrder(err) {
             swal("Error: " + err);
         }
+        //function navbar() {
+        //    uri = "../api/SalesPerson?ISAdmin=" + 1;
+        //    ajaxCall("GET", uri, "", successNavbar, errorNavbar);
+        //}
+        //function successNavbar() {
+        //    $("#navuser").append(
+        //        "<a href='UserList.html'>'User List'</a>")
+        //    $("#navbaritem").append(
+        //        "<a href='InsertItem.html'>'Item List'</a>")
+        //}
+        //function errorNavbar(err) {
+        //    swal("Error: " + err);
+        //}
     </script>
 </head>
 <body>
     <ul id="head">
         <li><a class="active" href="OrderList.html">Order List</a></li>
         <li><a href="CustomerList.html">Customer List</a></li>
-        <li><a href="UserList.html">User List</a></li>
-        <li><a href="InsertItem.html">Item List</a></li>
+        <li id="navuser" ><!--<a href="UserList.html">User List</a>--></li>
+        <li id="navbaritem" disabled="disabled" style="display:none"><!--<a href="InsertItem.html">Item List</a>--></li>
     </ul>
     <div class="container">
         <div class="title">
@@ -291,28 +370,28 @@
                 <table id="ordertable" class="hover" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Email</th>
+
                             <th>Order Num</th>
                             <th>Order Date</th>
                             <th>Status</th>
-                            <th>Item Serial</th>
+                            <th class="gem">Item Serial</th>
                             <th>Quantity</th>
                             <th>Customer</th>
-                            <th>Addresses</th>
+                            <!--<th>Addresses</th>-->
                             <th></th>
                         </tr>
                     </thead>
 
                     <tfoot>
                         <tr>
-                            <th>Email</th>
+
                             <th>Order Num</th>
                             <th>Order Date</th>
                             <th>Status</th>
                             <th>Item Serial</th>
                             <th>Quantity</th>
                             <th>Customer</th>
-                            <th>Addresses</th>
+                            <!--<th>Addresses</th>-->
                             <th></th>
                         </tr>
                     </tfoot>

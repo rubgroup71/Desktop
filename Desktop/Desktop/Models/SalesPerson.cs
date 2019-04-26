@@ -15,6 +15,7 @@ namespace WebApplication2.Models
         public int PhoneNumber { get; set; }
         public string Area { get; set; }
         public string Email { get; set; }
+        public int ISAdmin { get; set; } =0;
 
 
         public SalesPerson(string _username,string _password, string _firstname, string _lastname, int _phonenumber, string _area, string _email)

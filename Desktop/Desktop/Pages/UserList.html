@@ -226,10 +226,17 @@
             .edit{
                float:left;
             }
+        .navshow {
+            display: none;
+        }
     </style>
     <script>
         $(document).ready(function () {
             ajaxCall("GET", "../api/SalesPerson", "", getSuccess, error);
+            var user = JSON.parse(localStorage.getItem('data'));
+            if (user.ISAdmin ==1) {
+                $(".navshow").display = true;
+            }
 
         });
         function buttonEvents() {
@@ -262,8 +269,9 @@
                     });
             });
         }
+       
         function update(data){
-            localStorage.setItem('data', JSON.stringify(data));
+           user= localStorage.setItem('data', JSON.stringify(data));
             window.location.href = 'Create New User.html';
             
         }
@@ -299,8 +307,8 @@
         }
 
         function getSuccess(SalesPersonData) {
-
             SalesData = SalesPersonData;
+            
             try {
                 tbl = $('#salestable').DataTable({
                     data: SalesPersonData,
@@ -344,17 +352,19 @@
         function error(err) {
             swal("Error: " + err);
         }
-
+        function navbar() {
+            
+        }
 
     </script>
 </head>
 
 <body>
     <ul id="head">
-        <li><a  href="OrderList.html">Order List</a></li>
+        <li ><a href="OrderList.html">Order List</a></li>
         <li><a href="CustomerList.html">Customer List</a></li>
-        <li><a class="active" href="UserList.html">User List</a></li>
-        <li><a href="InsertItem.html">Item List</a></li>
+        <li class="navshow"><a class="active" href="UserList.html">User List</a></li>
+        <li class="navshow"><a href="InsertItem.html">Item List</a></li>
     </ul>
     <div class="container">
         <div class="title">
