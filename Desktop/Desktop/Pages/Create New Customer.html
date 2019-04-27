@@ -289,7 +289,13 @@
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
-
+        function validateForm() {
+            var x = document.forms["myForm"]["fname"].value;
+            if (x == "") {
+                alert("All field must be filled out");
+                return false;
+            }
+        }
 
     </script>
 
@@ -307,34 +313,34 @@
             <h2>Create New Customer</h2>
         </div>
         <div class="d-flex">
-            <form action="" method="" id="CForm">
+            <form id="CForm" name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
                 <label>
                     <span class="lname">User Name  <span class="required">*</span></span>
-                    <input type="text" name="lname" id="username">
+                    <input type="email" name="lname" id="username" placeholder="Enter user name" required>
                 </label>
                 <label>
                     <span class="lname">Password <span class="required">*</span></span>
-                    <input type="text" name="lname" id="password">
+                    <input type="text" name="lname" id="password" placeholder="Enter your Password" required>
                 </label>
                 <label>
                     <span class="lname">Company Name  <span class="required">*</span></span>
-                    <input type="text" name="lname" id="companyname">
+                    <input type="text" name="fname" id="companyname" placeholder="Enter Company Name" required>
                 </label>
                 <label>
                     <span class="lname">First Name  <span class="required">*</span></span>
-                    <input type="text" name="lname" id="firstname">
+                    <input type="text" name="lname" id="firstname" placeholder="Enter your First Name" required>
                 </label>
                 <label>
                     <span class="lname">Last Name  <span class="required">*</span></span>
-                    <input type="text" name="lname" id="lastname">
+                    <input type="text" name="lname" id="lastname" placeholder="Enter your Last Name" required>
                 </label>
                 <label>
                     <span>Address<span class="required">*</span></span>
-                    <input type="text" name="lname" id="address">
+                    <input type="text" name="lname" id="address" placeholder="Enter your Address" required>
                 </label>
                 <label>
                     <span>Phone Number<span class="required">*</span></span>
-                    <input type="tel" name="lname" id="phonenumber">
+                    <input type="tel" name="lname" id="phonenumber" placeholder="Enter your Phone Number" required>
                 </label>
                 <!--<label>
                     <span>Country<span class="required">*</span></span>
@@ -343,7 +349,7 @@
                 <label>
                     <span>City<span class="required">*</span></span>
                     <select id="city">
-                        <option id="city" />
+                        <option id="city" placeholder="Select your City" required/>
                     </select>
                 </label>
                 <!--<label>

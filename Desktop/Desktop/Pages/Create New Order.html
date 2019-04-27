@@ -201,9 +201,8 @@
     </style>
     <script>$(document).ready(function () {
 
-
-            // ajaxCall("GET", "../api/Address", "", successGetAD, errorGetAD);
-            ajaxCall("GET", "../api/Customer", "", successGetEmail, errorGetEmail);
+    // ajaxCall("GET", "../api/Address", "", successGetAD, errorGetAD);
+    ajaxCall("GET", "../api/Customer", "", successGetEmail, errorGetEmail);
             //new
 
             ajaxCall("GET", "../api/Categories", "", successGettype, errorGettype);
@@ -422,31 +421,108 @@
             swal("Error!", err.ExceptionMessage, "error");
         }
         var stage;
+        var count=0;
         function chooseType(data) {
             stage = categories.filter(t => data == t.Type)
-
+            count++
+            if (count != 1) {
+                return false;
+            }
 
             ajaxCall("GET", "../api/Question?type=" + stage[0].Type, "", setselection, errorGetstage)
-
-            //setTimeout(function () {
             ajaxCall("GET", "../api/AllItem?type=" + stage[0].Type + "&stages=" + stage[0].Stages, "", successGetstage, errorGetstage)
 
-            //}, 3000);
 
 
         }
         function setselection(data) {
 
             data.map(stage => {
+              
                 $("#selectstages").append(
-                    "<label><span class='fname'>" + stage.Name + "<span class='required'>*</span></span><select id='stage" + stage.QID + "' name='selection'><option class='required'></option></select>"
+                    "<label><span class='fname'>" + stage.Name + "<span class='required'>*</span></span><select id='stage" + stage.QID + "' name='selection" + stage.QID + "' required><option class='required'></option></select>"
                 )
             })
             $("#selectstages").append(
-                "<label><span class= 'fname'>Quantity<span class='required'>*</span ></span ><input type='text' id='quantity' /> </label ><button type='button' onclick='additem()'>Add</button>"
+                "<label><span class= 'fname'>Quantity<span class='required'>*</span ></span ><input type='text' id='quantity' name='qun' /> </label ><button type='button' onclick='additem();validateForm();'>Add</button>"
             )
+            
+        }
+        function validateForm() {
+            var model = document.forms["RegForm"]["selection1"];
+             var body = document.forms["RegForm"]["selection2"];
+             var port = document.forms["RegForm"]["selection3"];
+             var func = document.forms["RegForm"]["selection4"];
+             var Orifice = document.forms["RegForm"]["selection5"];
+             var sales = document.forms["RegForm"]["selection6"]; 
+             var override = document.forms["RegForm"]["selection7"];
+             var voltage = document.forms["RegForm"]["selection8"];
+             var power = document.forms["RegForm"]["selection9"];
+             var connector = document.forms["RegForm"]["selection10"];
+             var quantity = document.forms["RegForm"]["qun"];
 
-        }</script>
+            if (model.value == "") {
+                window.alert("Please select one option");
+                 //model.focus();
+                //return false;
+            }
+
+            if (body.value == "") {
+                window.alert("Please enter your Last Name.");
+                body.focus();
+                return false;
+            }
+
+            if (port.value == "") {
+                window.alert("Please enter a valid e-mail address.");
+                port.focus();
+                return false;
+            }
+
+            if (func.value == "") {
+                window.alert("Please enter your telephone number.");
+                func.focus();
+                return false;
+            }
+
+            if (Orifice.value == "") {
+                window.alert("Please enter your password");
+                Orifice.focus();
+                return false;
+            }
+            if (sales.value == "") {
+                window.alert("Please enter your password");
+                sales.focus();
+                return false;
+            }
+            if (override.value == "") {
+                window.alert("Please enter your password");
+                override.focus();
+                return false;
+            }
+            if (voltage.value == "") {
+                window.alert("Please enter your password");
+                voltage.focus();
+                return false;
+            }
+            if (power.value == "") {
+                window.alert("Please enter your password");
+                power.focus();
+                return false;
+            }
+            if (connector.value == "") {
+                window.alert("Please enter your password");
+                connector.focus();
+                return false;
+            }
+            if (quantity.value == "") {
+                window.alert("Please enter your password");
+                quantity.focus();
+                return false;
+            }
+            //return true; 
+        }
+    </script>
 
 </head>
 <body>
@@ -462,7 +538,7 @@
             <select id="type" onchange="chooseType(this.value)"><option></option></select>
         </div>
         <div class="d-flex">
-            <form id="selectstages" action="" method="">
+            <form id="selectstages" name="RegForm" action="" method="">
 
                 <!--<label>
                     <span class="fname">Quantity<span class="required">*</span></span>
@@ -486,43 +562,43 @@
                 <select id="address" onchange="ShowDetails(this.value)">
                     <option id="aba" />Choose Address
                 </select>
-
+            
               
                 <!--<input type="button" id="btn" onclick="moreFields()" value="Order as a New Customer" />-->
                 <div id="readroot" style="display: none">
                     <label>
-                        <span class="lname">User Name  <span class="required">*</span></span>
-                        <input type="text" name="lname" id="username">
+                        <!--<span class="lname">User Name  <span class="required">*</span></span>
+                        <input type="text" name="lname" id="username" required>
                     </label>
                     <label>
                         <span class="lname">Password <span class="required">*</span></span>
-                        <input type="text" name="lname" id="password">
+                        <input type="text" name="lname" id="password" required>
                     </label>
                     <label>
                         <span class="lname">Company Name  <span class="required">*</span></span>
-                        <input type="text" name="lname" id="companyname">
+                        <input type="text" name="lname" id="companyname" required>
                     </label>
                     <label>
                         <span class="lname">First Name  <span class="required">*</span></span>
-                        <input type="text" name="lname" id="firstname">
+                        <input type="text" name="lname" id="firstname" required>
                     </label>
                     <label>
                         <span class="lname">Last Name  <span class="required">*</span></span>
-                        <input type="text" name="lname" id="lastname">
+                        <input type="text" name="lname" id="lastname" required>
                     </label>
                     <label>
                         <span>Address<span class="required">*</span></span>
-                        <input type="text" name="lname" id="address">
+                        <input type="text" name="lname" id="address" required>
                     </label>
                     <label>
                         <span>Phone Number<span class="required">*</span></span>
-                        <input type="tel" name="lname" id="phonenumber">
+                        <input type="tel" name="lname" id="phonenumber" required>
                     </label>
                     <label>
                         <span>City<span class="required">*</span></span>
                         <select id="city">
-                            <option id="city" />
-                        </select>
+                            <option id="city" required />
+                        </select>-->
                     </label>
                     <input type="submit" id="btn" value="Send" />
                 </div>
