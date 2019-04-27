@@ -205,11 +205,22 @@
         //console.log(new RegExp(str))
 
         $(document).ready(function () {
+            Navbar();
             ajaxCall("GET", "../api/City", "", successGetCity, errorGetCity);
 
 
             $("#CForm").submit(f1);
         });
+        function Navbar() {
+            var user = JSON.parse(localStorage.getItem('data'));
+
+
+            if (user.ISAdmin == 1) {
+
+                $("#navbaritem").show();
+                $("#navuser").show();
+            }
+        }
 
 
         function Addfirebase() {
@@ -304,8 +315,8 @@
     <ul id="head">
         <li><a href="OrderList.html">Order List</a></li>
         <li><a class="active" href="CustomerList.html">Customer List</a></li>
-        <li class="navshow"><a href="UserList.html">User List</a></li>
-        <li class="navshow"><a href="InsertItem.html">Item List</a></li>
+        <li><a id="navuser" style="display:none" href="UserList.html">User List</a></li>
+        <li><a id="navbaritem" style="display:none"  href="InsertItem.html">Insert Item</a></li>
     </ul>
 
     <div class="container">

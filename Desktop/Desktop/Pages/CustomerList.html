@@ -241,16 +241,23 @@
                 box-shadow: 0 6px 14px 0 #666;
                 transform: scale(1.05);
             }
-        .navshow {
-            display: none;
-        }
+       
     </style>
     <script>
         $(document).ready(function () {
-            
+            Navbar();
             ajaxCall("GET", "../api/Address", "", getSuccess, error);
         });
+        function Navbar() {
+            var user = JSON.parse(localStorage.getItem('data'));
 
+
+            if (user.ISAdmin == 1) {
+
+                $("#navbaritem").show();
+                $("#navuser").show();
+            }
+        }
         function getSuccess(CustomerData) {
 
            Data = CustomerData;
@@ -303,8 +310,8 @@
     <ul id="head">
         <li><a href="OrderList.html">Order List</a></li>
         <li><a class="active" href="CustomerList.html">Customer List</a></li>
-        <li class="navshow"><a href="UserList.html">User List</a></li>
-        <li class="navshow"><a href="InsertItem.html">Item List</a></li>
+        <li><a id="navuser" style="display:none" href="UserList.html">User List</a></li>
+        <li><a id="navbaritem" style="display:none" href="InsertItem.html">Insert Item</a></li>
     </ul>
     <div class="container">
         <div class="title">

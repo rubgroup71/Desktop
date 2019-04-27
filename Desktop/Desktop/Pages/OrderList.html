@@ -230,14 +230,19 @@
     </style>
     <script>
         $(document).ready(function () {
-            ajaxCall("GET", "../api/Order", "", getSuccessOrder, errorOrder);
             Navbar();
+            ajaxCall("GET", "../api/Order", "", getSuccessOrder, errorOrder);
+           
+            
         });
         function Navbar() {
             var user = JSON.parse(localStorage.getItem('data'));
+            
+            
             if (user.ISAdmin == 1) {
-                $("#navbaritem").prop("disabled", false);
+               
                 $("#navbaritem").show();
+                $("#navuser").show();
             }
         }
         function buttonEvents() {
@@ -352,14 +357,16 @@
         //function errorNavbar(err) {
         //    swal("Error: " + err);
         //}
+        //disabled = "disabled" style = "display:none"
     </script>
 </head>
 <body>
     <ul id="head">
         <li><a class="active" href="OrderList.html">Order List</a></li>
         <li><a href="CustomerList.html">Customer List</a></li>
-        <li id="navuser" ><!--<a href="UserList.html">User List</a>--></li>
-        <li id="navbaritem" disabled="disabled" style="display:none"><!--<a href="InsertItem.html">Item List</a>--></li>
+        <li ><a id="navuser" style="display:none" href="UserList.html">User List</a></li>
+        <li><a id="navbaritem" style="display:none" href="InsertItem.html">Insert Item</a></li>
+      
     </ul>
     <div class="container">
         <div class="title">

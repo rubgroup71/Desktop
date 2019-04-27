@@ -200,7 +200,7 @@
         }
     </style>
     <script>$(document).ready(function () {
-
+    Navbar();
     // ajaxCall("GET", "../api/Address", "", successGetAD, errorGetAD);
     ajaxCall("GET", "../api/Customer", "", successGetEmail, errorGetEmail);
             //new
@@ -210,6 +210,16 @@
 
             $("#OForm").submit(f1);
         });
+        function Navbar() {
+            var user = JSON.parse(localStorage.getItem('data'));
+
+
+            if (user.ISAdmin == 1) {
+
+                $("#navbaritem").show();
+                $("#navuser").show();
+            }
+        }
         function successGetstage(data) {
             var result = Object.keys(data);
             for (var i = 1; i <= result.length; i++) {
@@ -529,8 +539,8 @@
     <ul id="head">
         <li><a class="active" href="OrderList.html">Order List</a></li>
         <li><a href="CustomerList.html">Customer List</a></li>
-        <li class="navshow"><a href="UserList.html">User List</a></li>
-        <li class="navshow"><a href="InsertItem.html">Item List</a></li>
+        <li><a id="navuser" style="display:none" href="UserList.html">User List</a></li>
+        <li><a id="navbaritem" style="display:none" href="InsertItem.html">Insert Item</a></li>
     </ul>
     <div class="container">
         <div class="title">

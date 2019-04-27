@@ -732,6 +732,7 @@ public class DBservices
                 S.PhoneNumber = Convert.ToInt32(dr["PhoneNumber"]);
                 S.Area = Convert.ToString(dr["Area"]).TrimEnd();
                 S.Email = Convert.ToString(dr["Email"]).TrimEnd();
+                S.ISAdmin = Convert.ToInt32(dr["ISAdmin"]);
 
 
             }
