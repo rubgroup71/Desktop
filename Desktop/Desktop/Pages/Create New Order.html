@@ -208,7 +208,8 @@
             ajaxCall("GET", "../api/Categories", "", successGettype, errorGettype);
             ajaxCall("GET", "../api/City", "", successGetCity, errorGetCity);
 
-            $("#OForm").submit(f1);
+    $("#OForm").submit(f1);
+    $("#selectstages").submit(f2);
         });
         function Navbar() {
             var user = JSON.parse(localStorage.getItem('data'));
@@ -274,18 +275,25 @@
         }
 
         function additem() {
+            alert('dana');
             var str = "";
+           // var count = 0;
             // Note that the name of the fields must be identical to the names of the properties of the object in the server
             for (var i = 1; i <= parseInt(stage[0].Stages); i++) {
-                str += $('#stage' + i).val()
+                str += $('#stage' + i).val();
+                //count++;
+               
+            
             }
-
+            //if (count == parseInt(stage[0].Stages)) {
+            //    clean();
+            //}
             item = str;
             quantity = $("#quantity").val();
 
             document.getElementById("table").innerHTML += '<tr><td class="part">' + item + '</td><td class="qu">' + quantity + '</td></tr>';
-
-            clean();
+          
+            //clean();
         }
         function clean() {
             for (var i = 1; i <= parseInt(stage[0].Stages); i++) {
@@ -354,7 +362,11 @@
         }
 
 
-
+        function f2() {
+            additem();
+            //validateForm();
+            return false;
+        }
 
         function f1() {
             AddOrder();
@@ -454,84 +466,84 @@
                 )
             })
             $("#selectstages").append(
-                "<label><span class= 'fname'>Quantity<span class='required'>*</span ></span ><input type='text' id='quantity' name='qun' /> </label ><button type='button' onclick='additem();validateForm();'>Add</button>"
+                "<label><span class= 'fname'>Quantity<span class='required'>*</span ></span ><input type='text' id='quantity' name='qun' /> </label ><input type='submit' value='Add'/>"
             )
             
         }
-        function validateForm() {
-            var model = document.forms["RegForm"]["selection1"];
-             var body = document.forms["RegForm"]["selection2"];
-             var port = document.forms["RegForm"]["selection3"];
-             var func = document.forms["RegForm"]["selection4"];
-             var Orifice = document.forms["RegForm"]["selection5"];
-             var sales = document.forms["RegForm"]["selection6"]; 
-             var override = document.forms["RegForm"]["selection7"];
-             var voltage = document.forms["RegForm"]["selection8"];
-             var power = document.forms["RegForm"]["selection9"];
-             var connector = document.forms["RegForm"]["selection10"];
-             var quantity = document.forms["RegForm"]["qun"];
+        //function validateForm() {
+        //    var model = document.forms["RegForm"]["selection1"];
+        //     var body = document.forms["RegForm"]["selection2"];
+        //     var port = document.forms["RegForm"]["selection3"];
+        //     var func = document.forms["RegForm"]["selection4"];
+        //     var Orifice = document.forms["RegForm"]["selection5"];
+        //     var sales = document.forms["RegForm"]["selection6"]; 
+        //     var override = document.forms["RegForm"]["selection7"];
+        //     var voltage = document.forms["RegForm"]["selection8"];
+        //     var power = document.forms["RegForm"]["selection9"];
+        //     var connector = document.forms["RegForm"]["selection10"];
+        //     var quantity = document.forms["RegForm"]["qun"];
 
-            if (model.value == "") {
-                window.alert("Please select one option");
-                 //model.focus();
-                //return false;
-            }
+        //    if (model.value == "") {
+        //        window.alert("Please select one option");
+        //         //model.focus();
+        //        //return false;
+        //    }
 
-            if (body.value == "") {
-                window.alert("Please enter your Last Name.");
-                body.focus();
-                return false;
-            }
+        //    if (body.value == "") {
+        //        window.alert("Please enter your Last Name.");
+        //        body.focus();
+        //        return false;
+        //    }
 
-            if (port.value == "") {
-                window.alert("Please enter a valid e-mail address.");
-                port.focus();
-                return false;
-            }
+        //    if (port.value == "") {
+        //        window.alert("Please enter a valid e-mail address.");
+        //        port.focus();
+        //        return false;
+        //    }
 
-            if (func.value == "") {
-                window.alert("Please enter your telephone number.");
-                func.focus();
-                return false;
-            }
+        //    if (func.value == "") {
+        //        window.alert("Please enter your telephone number.");
+        //        func.focus();
+        //        return false;
+        //    }
 
-            if (Orifice.value == "") {
-                window.alert("Please enter your password");
-                Orifice.focus();
-                return false;
-            }
-            if (sales.value == "") {
-                window.alert("Please enter your password");
-                sales.focus();
-                return false;
-            }
-            if (override.value == "") {
-                window.alert("Please enter your password");
-                override.focus();
-                return false;
-            }
-            if (voltage.value == "") {
-                window.alert("Please enter your password");
-                voltage.focus();
-                return false;
-            }
-            if (power.value == "") {
-                window.alert("Please enter your password");
-                power.focus();
-                return false;
-            }
-            if (connector.value == "") {
-                window.alert("Please enter your password");
-                connector.focus();
-                return false;
-            }
-            if (quantity.value == "") {
-                window.alert("Please enter your password");
-                quantity.focus();
-                return false;
-            }
-            //return true; 
-        }
+        //    if (Orifice.value == "") {
+        //        window.alert("Please enter your password");
+        //        Orifice.focus();
+        //        return false;
+        //    }
+        //    if (sales.value == "") {
+        //        window.alert("Please enter your password");
+        //        sales.focus();
+        //        return false;
+        //    }
+        //    if (override.value == "") {
+        //        window.alert("Please enter your password");
+        //        override.focus();
+        //        return false;
+        //    }
+        //    if (voltage.value == "") {
+        //        window.alert("Please enter your password");
+        //        voltage.focus();
+        //        return false;
+        //    }
+        //    if (power.value == "") {
+        //        window.alert("Please enter your password");
+        //        power.focus();
+        //        return false;
+        //    }
+        //    if (connector.value == "") {
+        //        window.alert("Please enter your password");
+        //        connector.focus();
+        //        return false;
+        //    }
+        //    if (quantity.value == "") {
+        //        window.alert("Please enter your password");
+        //        quantity.focus();
+        //        return false;
+        //    }
+        //    //return true; 
+        //}
     </script>
 
 </head>
