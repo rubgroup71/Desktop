@@ -10,18 +10,22 @@ namespace WebApplication2.Models
 
         public string OrderDate { get; set; } = DateTime.Now.Date.ToShortDateString();
 
-        public string Status { get; set; } = "Confirm";
+        public string Status { get; set; } = "wait for confirm";
         public List<string> Part { get; set; }
         public List<string> Quantity { get; set; }
         //public int Addressid { get; set; }
         public int OrderId { get; set; }
         public Address Address { get; set; }
+        public Items item { get; set; }
 
-        public Order(List<string> _part, List<string> _qun,Address _address)
+
+        public Order(List<string> _part, List<string> _qun,Address _address,Items _item,string _status)
         {
             Part = _part;
             Quantity = _qun;
             Address = _address;
+            item = _item;
+            Status = _status;
         }
 
         public Order()
@@ -29,6 +33,7 @@ namespace WebApplication2.Models
             Address = new Address();
             Part = new List<string>();
             Quantity = new List<string>();
+            item = new Items();
         }
 
         public int insertO(List<string> parts, List<string> quantity)
@@ -48,6 +53,11 @@ namespace WebApplication2.Models
             DBservices DBS = new DBservices();
             List<Order> orders = DBS.FilterOrders(e);
             return orders;
+        }
+        public static void Update(int id,string status)
+        {
+            DBservices DBS = new DBservices();
+            DBS.UpdateS(id,status);
         }
     }
 }

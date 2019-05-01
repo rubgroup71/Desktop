@@ -59,7 +59,7 @@ public class DBservices
         }
         catch (Exception ex)
         {
-            return 0;
+            
             // write to log
             throw (ex);
         }
@@ -1050,7 +1050,7 @@ public class DBservices
         }
         catch (Exception ex)
         {
-            return 0;
+            //return 0;
             // write to log
             throw (ex);
         }
@@ -1173,7 +1173,7 @@ public class DBservices
         }
         catch (Exception ex)
         {
-            return 0;
+            
             // write to log
             throw (ex);
         }
@@ -1293,7 +1293,7 @@ public class DBservices
         }
         catch (Exception ex)
         {
-            return 0;
+            
             // write to log
             throw (ex);
         }
@@ -1355,7 +1355,7 @@ public class DBservices
             while (dr.Read())
             {
                 int id = Convert.ToInt32(dr["OrderNum"]);
-                Order S = new Order();
+                
                 if (f.Exists(x=>x.OrderId == id))
                 {
                     Order tmp =f.Find(x => x.OrderId.Equals(id));
@@ -1363,7 +1363,7 @@ public class DBservices
                     tmp.Quantity.Add(Convert.ToString(dr["Quantity"]).TrimEnd());
                 }
                 else {
-
+                    Order S = new Order();
                     S.OrderId = Convert.ToInt32(dr["OrderNum"]);
                     S.OrderDate = Convert.ToString(dr["OrderDate"]).TrimEnd();
                     S.Address.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
@@ -1372,12 +1372,14 @@ public class DBservices
                     S.Address.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
                     S.Address.City = Convert.ToString(dr["City"]).TrimEnd();
                     S.Address.Adress = Convert.ToString(dr["Address"]).TrimEnd();
+                    S.item.Email=Convert.ToString(dr["Email"]).TrimEnd();
                     S.Status = Convert.ToString(dr["Status"]).TrimEnd();
                     S.Part.Add(Convert.ToString(dr["ItemSerial"]).TrimEnd());
                     S.Quantity.Add(Convert.ToString(dr["Quantity"]).TrimEnd());
+                    f.Add(S);
                 }
 
-                f.Add(S);
+               
             }
             return f;
         }
@@ -1650,6 +1652,61 @@ public class DBservices
         return command;
 
     }
+    public int UpdateS(int id, string status)
+    {
 
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+
+            con = connect("ConnectionStringName"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+
+        String cStr = BuildUpdateCommandS(id, status);      // helper method to build the insert string
+
+        cmd = CreateCommand(cStr, con);             // create the command
+
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+
+        }
+        catch (Exception ex)
+        {
+            ;
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+    }
+    private String BuildUpdateCommandS(int id, string status)
+    {
+        String command;
+
+
+        command = "UPDATE [Orders] SET Status='" + status + "' WHERE OrderNum =" + id;
+
+
+        return command;
+
+    }
 }
 

@@ -35,8 +35,9 @@ namespace Desktop.Controllers
         
 
         // PUT: api/Order/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]string status)
         {
+            Order.Update(id, status);
         }
 
         // DELETE: api/Order/5
