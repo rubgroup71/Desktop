@@ -25,9 +25,10 @@ namespace Desktop.Controllers
         }
 
         // POST: api/Items
-        public void Post([FromBody]Items item)
+        public int Post([FromBody]Items item)
         {
-            item.InsertItem();
+            int itemid=item.InsertItem();
+            return itemid;
         }
 
         // PUT: api/Items/5
