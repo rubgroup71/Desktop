@@ -65,5 +65,12 @@ namespace WebApplication2.Models
             List<SalesPerson> S = DBS.Show("ConnectionStringName", "SalesPerson");
             return S;
         }
+        public void edit()
+        {
+            DBservices dbs = new DBservices();
+            int numAffected = dbs.edit(this);
+
+
+        }
     }
 }

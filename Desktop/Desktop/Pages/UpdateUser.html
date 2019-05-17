@@ -1,0 +1,382 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../Scripts/ajaxCalls.js"></script>
+
+    <style>
+        #head {
+            list-style-type: none;
+            overflow: hidden;
+            background-color: LightGray;
+            border-style: solid;
+            border-color: #92a8d1;
+            margin-top: 0px;
+        }
+
+        li {
+            float: left;
+        }
+
+            li a {
+                display: block;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                li a:hover {
+                    background-color: #5195A8;
+                }
+
+        @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
+
+        body {
+            background: url('http://all4desktop.com/data_images/original/4236532-background-images.jpg');
+            font-family: 'Roboto Condensed', sans-serif;
+            color: #262626;
+            margin: 5% 0;
+        }
+
+        .container {
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+        }
+
+        .d-flex {
+            display: flex;
+            flex-direction: row;
+            background: #f6f6f6;
+            border-radius: 0 0 5px 5px;
+            padding: 25px;
+        }
+
+        form {
+            flex: 4;
+        }
+
+        .Yorder {
+            flex: 2;
+        }
+
+        .title {
+            background: -webkit-gradient(linear, left top, right bottom, color-stop(0, #5195A8), color-stop(100, #70EAFF));
+            background: -moz-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
+            background: -ms-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
+            background: -o-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
+            background: linear-gradient(to bottom right, #5195A8 0%, #70EAFF 100%);
+            border-radius: 5px 5px 0 0;
+            padding: 20px;
+            color: #f6f6f6;
+        }
+
+        h2 {
+            margin: 0;
+            padding-left: 15px;
+        }
+
+        .required {
+            color: red;
+        }
+
+        label, table {
+            display: block;
+            margin: 15px;
+        }
+
+            label > span {
+                float: left;
+                width: 25%;
+                margin-top: 12px;
+                padding-right: 10px;
+            }
+
+        input[type="text"], input[type="submit"], input[type="tel"], input[type="email"], select {
+            width: 70%;
+            height: 30px;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            border: 1px solid #dadada;
+            color: #888;
+        }
+
+        select {
+            width: 72%;
+            height: 45px;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+        }
+
+        .Yorder {
+            margin-top: 15px;
+            height: 600px;
+            padding: 20px;
+            border: 1px solid #dadada;
+        }
+
+        table {
+            margin: 0;
+            padding: 0;
+        }
+
+        th {
+            border-bottom: 1px solid #dadada;
+            padding: 10px 0;
+        }
+
+        tr > td:nth-child(1) {
+            text-align: left;
+            color: #2d2d2a;
+        }
+
+        tr > td:nth-child(2) {
+            text-align: right;
+            color: #52ad9c;
+        }
+
+        td {
+            border-bottom: 1px solid #dadada;
+            padding: 25px 25px 25px 0;
+        }
+
+        p {
+            display: block;
+            color: #888;
+            margin: 0;
+            padding-left: 25px;
+        }
+
+        .Yorder > div {
+            padding: 15px 0;
+        }
+
+        button, input[type="submit"] {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 30px;
+            background: #52ad9c;
+            color: #fff;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+            button:hover {
+                cursor: pointer;
+                background: #428a7d;
+            }
+
+        .navshow {
+            display: none;
+        }
+    </style>
+
+    <script>
+        //var str = '/2|3/';
+        //str = str.substring(1, str.length - 1)
+        //str += '|' + '1'
+        //console.log(str)
+        //console.log(new RegExp(str))
+
+        $(document).ready(function () {
+            User();
+            $("#Sform").submit(f1);
+            
+        });
+
+        function AddSalesPerson() {
+
+
+
+            SalesPerson = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
+                UserName: $("#UserName").val(),
+                Password: $("#Password").val(),
+                FirstName: $("#FirstName").val(),
+                LastName: $("#LastName").val(),
+                PhoneNumber: parseFloat($("#Phone").val()),
+                Area: $("#Area").val(),
+                Email: $("#Email").val()
+
+            };
+
+            ajaxCall("PUT", "../api/SalesPerson", JSON.stringify(SalesPerson), success, error);
+
+        }
+
+
+        function success(data) {
+            swal("Added Successfuly!", "User created", "success")
+        }
+
+        //function getSuccessexist(datatest) {
+        //    test = $("#UserName").val();
+        //    if (datatest.UserName == test) {
+        //        swal("This user alerady exist", "Please try agin", "success")
+        //    }
+        //    else {
+        //        AddSalesPerson();
+        //    }
+        //}
+        //function errorexist() {
+        //    alert("connection problem")
+        //}
+        function error(err) {
+            alert("error");
+        }
+
+        function f1() {
+            //uri = "../api/SalesPerson?UserName=" + $("#UserName").val();
+            //ajaxCall("GET", uri, "", getSuccessexist, errorexist);
+
+            AddSalesPerson();
+
+            return false; // the return false will prevent the form from being submitted
+            // hence the page will not reload
+        }
+
+        function User() {
+            user = JSON.parse(localStorage.getItem('data'));
+            $("#UserName").val(user.UserName),
+                $("#Password").val(user.Password),
+                $("#FirstName").val(user.FirstName),
+                $("#LastName").val(user.LastName),
+                $("#Phone").val(user.PhoneNumber),
+                $("#Area").val(user.Area),
+                $("#Email").val(user.Email)
+
+
+        }
+            //function validateForm() {
+            //    var firstname = document.forms["RegForm"]["firstname"];
+            //    var lastname = document.forms["RegForm"]["lastname"];
+            //    var email = document.forms["RegForm"]["email"];
+            //    var phone = document.forms["RegForm"]["phone"];
+            //    var area = document.forms["RegForm"]["area"];
+            //    var username = document.forms["RegForm"]["username"];
+            //    var password = document.forms["RegForm"]["password"];
+
+            //    if (firstname.value == "") {
+            //        window.alert("Please enter your First Name.");
+            //        firstname.focus();
+            //        return false;
+            //    }
+
+            //    if (lastname.value == "") {
+            //        window.alert("Please enter your Last Name.");
+            //        firstname.focus();
+            //        return false;
+            //    }
+
+            //    if (email.value == "") {
+            //        window.alert("Please enter a valid e-mail address.");
+            //        email.focus();
+            //        return false;
+            //    }
+
+            //    if (email.value.indexOf("@", 0) < 0) {
+            //        window.alert("Please enter a valid e-mail address.");
+            //        email.focus();
+            //        return false;
+            //    }
+
+            //    if (email.value.indexOf(".", 0) < 0) {
+            //        window.alert("Please enter a valid e-mail address.");
+            //        email.focus();
+            //        return false;
+            //    }
+
+            //    if (phone.value == "") {
+            //        window.alert("Please enter your telephone number.");
+            //        phone.focus();
+            //        return false;
+            //    }
+
+            //    if (area.value == "") {
+            //        window.alert("Please enter your password");
+            //        area.focus();
+            //        return false;
+            //    }
+            //    if (username.value == "") {
+            //        window.alert("Please enter your password");
+            //        username.focus();
+            //        return false;
+            //    }
+            //    if (password.value == "") {
+            //        window.alert("Please enter your password");
+            //        password.focus();
+            //        return false;
+            //    }
+
+
+            //    return true;
+            //}
+    </script>
+
+
+</head>
+<body>
+    <ul id="head">
+        <li><a href="OrderList.html">Order List</a></li>
+        <li><a href="CustomerList.html">Customer List</a></li>
+        <li><a class="active" href="UserList.html">User List</a></li>
+        <li><a href="InsertItem.html">Insert Item</a></li>
+    </ul>
+    <div class="container">
+        <div class="title">
+            <h2>Update User</h2>
+        </div>
+        <div class="d-flex">
+            <form name="RegForm" id="Sform">
+                <!--action="/action_page.php" onsubmit="return validateForm()" method="post"-->
+                <label>
+                    <span class="lname">First Name<span class="required">*</span></span>
+                    <input type="text" name="firstname" id="FirstName" required>
+                </label>
+                <label>
+                    <span class="lname">Last Name<span class="required">*</span></span>
+                    <input type="text" name="lastname" id="LastName" required>
+                </label>
+                <label>
+                    <span>Email<span class="required">*</span></span>
+                    <input type="email" name="email" id="Email" required>
+                </label>
+                <label>
+                    <span>Phone Number<span class="required">*</span></span>
+                    <input type="tel" pattern="^\d{10}$" name="phone" id="Phone" required>
+                </label>
+                <label>
+                    <span>Area<span class="required">*</span></span>
+                    <input type="text" name="area" id="Area" required>
+                </label>
+                <label>
+                    <span>User Name<span class="required">*</span></span>
+                    <input type="text" name="username" id="UserName" required>
+                </label>
+                <label>
+                    <span>Password<span class="required">*</span></span>
+                    <input type="text" name="password" id="Password" required>
+                </label>
+                <input type="submit" value="Update" />
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>

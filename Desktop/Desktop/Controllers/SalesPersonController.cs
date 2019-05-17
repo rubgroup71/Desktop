@@ -41,8 +41,9 @@ namespace WebApplication2.Controllers
         }
 
         // PUT: api/SalesPerson/5
-        public void Put(int id, [FromBody]string value)
+        public void Put([FromBody]SalesPerson S)
         {
+            S.edit();
         }
 
         // DELETE: api/SalesPerson/5

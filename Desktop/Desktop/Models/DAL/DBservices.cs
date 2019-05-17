@@ -1708,5 +1708,56 @@ public class DBservices
         return command;
 
     }
+
+    public int edit(SalesPerson S)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("ConnectionStringName"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        String cStr = BuildInsertCommandSa(S);      // helper method to build the insert string
+
+        cmd = CreateCommand(cStr, con);             // create the command
+
+        try
+        {
+
+            int numEffected = (int)cmd.ExecuteScalar();
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+    }
+
+    private String BuildInsertCommandSa(SalesPerson S)
+    {
+        String prefix = "UPDATE SalesPerson SET UserName='" + S.UserName + "',Password='" + S.Password + "',FirstName='" + S.FirstName + "',LastName='" + S.LastName + "',PhoneNumber='" + S.PhoneNumber + "',Area='" + S.Area + "',Email='" + S.Email + "' WHERE UserName='" + S.UserName + "'";
+        
+        return prefix;
+    }
 }
 

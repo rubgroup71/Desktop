@@ -240,17 +240,7 @@
 
         });
         function buttonEvents() {
-            $(document).on("click", ".edit", function () {
-                markSelected(this);
 
-                $("#editDiv").show();
-                $("#editDiv :input").prop("disabled", false);
-                var Salse = this.getAttribute('data-User');// edit mode: enable all controls in the form
-                //populateFields(this.getAttribute('data-User')); // fill the form fields according to the selected row
-
-                console.log('data-User')
-                update(Salse);
-            });
             //delete
             $(document).on("click", ".deletebtn", function () {
               
@@ -270,10 +260,12 @@
             });
         }
        
-        function update(data){
-           user= localStorage.setItem('data', JSON.stringify(data));
-            window.location.href = 'Create New User.html';
-            
+        function update(data) {
+            console.log(data)
+          localStorage.setItem('data', JSON.stringify(data));
+            window.location.href = 'UpdateUser.html';
+
+          
         }
         function markSelected(btn) {
             $("#salestable tr").removeClass("selected"); // remove seleced class from rows that were selected before
@@ -327,7 +319,7 @@
                                 let DataU = "data-User='" + row.UserName + "'";
 
                              
-                                edit = "<button type='button'  class='edit btn btn-danger' " + DataU + "> Edit </button>";
+                                edit = "<button type='button'  class='edit btn btn-danger' onclick ='update(" + JSON.stringify(row) + ")'> Edit </button>";
                                 deleteBtn = "<button type='button' class='deletebtn btn btn-danger' " + DataU + "> Delete </button>";
 
                                 return edit+deleteBtn;
