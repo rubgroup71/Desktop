@@ -48,7 +48,7 @@ namespace WebApplication2.Models
         public List<Address> Show()
         {
             DBservices DBS = new DBservices();
-            List<Address> C = DBS.ShowA("ConnectionStringName", "Addresses");
+            List<Address> C = DBS.ShowA("ConnectionStringName");
             return C;
         }
         public Address getcustomer(string address)
@@ -74,6 +74,12 @@ namespace WebApplication2.Models
             DBservices DBS = new DBservices();
             int numAffected = DBS.updateA(this,id);
             return numAffected;
+        }
+        public void delete(int id)
+        {
+            DBservices DBS = new DBservices();
+            DBS.deletecust( id);
+
         }
 
     }

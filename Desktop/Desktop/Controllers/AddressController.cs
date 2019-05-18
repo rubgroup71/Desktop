@@ -53,5 +53,10 @@ namespace WebApplication2.Controllers
         {
             Address.deladdress(id);
         }
+        public void DeleteCUST(int ID)
+        {
+            Address a = new Address();
+            a.delete(ID);
+        }
     }
 }

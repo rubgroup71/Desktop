@@ -944,7 +944,7 @@ public class DBservices
         return prefix;
     }
 
-    public List<Address> ShowA(string conString, string tableName)
+    public List<Address> ShowA(string conString)
     {
 
         SqlConnection con;
@@ -965,7 +965,8 @@ public class DBservices
 
         try
         {
-            String selectSTR = "SELECT * FROM " + tableName;
+            String selectSTR = "select Addresses.ID,Addresses.FirstName,Addresses.LastName,Addresses.PhoneNumber,Addresses.CompanyName,Addresses.Address,Addresses.City,AddressCustomer.Email"+
+                               " from Addresses inner join AddressCustomer on Addresses.ID = AddressCustomer.AddressID " ;
 
             SqlCommand cmd = new SqlCommand(selectSTR, con);
 
@@ -982,6 +983,7 @@ public class DBservices
                 S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]);
                 S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
                 S.ID = Convert.ToInt32(dr["ID"]);
+                S.Email = Convert.ToString(dr["Email"]).TrimEnd();
                 f.Add(S);
             }
             return f;
@@ -1596,6 +1598,8 @@ public class DBservices
 
 
     }
+ 
+
     public int updateA(Address A, string id)
     {
 

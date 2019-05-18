@@ -203,7 +203,7 @@
         }
 
         button {
-            width: 40%;
+            width: 85%;
             margin-top: 10px;
             padding: 10px;
             border: none;
@@ -258,6 +258,51 @@
                 $("#navuser").show();
             }
         }
+        function buttonEvents() {
+
+            //delete
+            $(document).on("click", ".deletebtn", function () {
+
+                markSelected(this);
+                var customer = this.getAttribute('data-cust');
+                
+                swal({ // this will open a dialouge
+                    title: "Are you sure ??",
+                    text: "",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                })
+                    .then(function (willDelete) {
+                        if (willDelete) DeleteUser(customer);
+                        else swal("Not Deleted!");
+                    });
+            });
+        }
+        function markSelected(btn) {
+            $("#customertable tr").removeClass("selected"); // remove seleced class from rows that were selected before
+            row = (btn.parentNode).parentNode; // button is in TD which is in Row
+            row.className = 'selected'; // mark as selected
+        }
+        function DeleteUser(customer) {
+            console.log(customer);
+            ajaxCall("Delete", "../api/Address?ID=" + customer, "", deleteSuccess, deleteerror);
+        }
+        function deleteSuccess(CustomerData) {
+
+            tbl.clear();
+            location.reload();
+            redrawTable(tbl, CustomerData);
+            console.log(Userdata);
+            buttonEvents(); // after redrawing the table, we must wire the new buttons
+            //$("#editDiv").hide();
+            swal("Deleted Successfuly!", "Great Job", "success");
+
+        }
+        function deleteerror(err) {
+            swal("Error: " + err);
+        }
+
         function getSuccess(CustomerData) {
 
            Data = CustomerData;
@@ -266,21 +311,22 @@
                     data: CustomerData,
                     pageLength: 5,
                     columns: [
+                        {data:"Email"},
                         { data: "FirstName" },
                         { data: "LastName" },
                         { data: "City" },
-                        { data: "[Address]" },
+                        { data: "Adress" },
                         { data: "PhoneNumber" },
                         { data: "CompanyName" },
 
                         {
                             render: function (data, type, row, meta) {
-                                let dataPerson = "data-personId='" + row.ID + "'";
+                                let cust = "data-cust='" + row.ID + "'";
 
 
-                                editBtn = "<button type='button' id='" + row.ID + "' class = 'editBtn btn btn-info' " + dataPerson + "> Edit      </button>";
+                                deletebtn = "<button type='button' id='" + row.ID + "' class = 'deletebtn btn btn-info'" + cust + " > Delete </button>";
                                
-                                return editBtn; + viewBtn + deleteBtn;
+                                return deletebtn;
                             }
                         }
 
@@ -289,7 +335,7 @@
 
                     ],
                 });
-                //buttonEvents();
+               buttonEvents();
             }
 
             catch (err) {
@@ -323,6 +369,7 @@
                 <table id="customertable" class="hover" style="width:100%">
                     <thead>
                         <tr>
+                            <th>Email</th>
                             <th>First Name</th>
                             <th style="text-align:center">Last Name</th>
                             <th>City</th>
@@ -333,18 +380,7 @@
                         </tr>
                     </thead>
 
-                    <tfoot>
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>City</th>
-                            <th>Address</th>
-                            <th>Phone Number</th>
-                            <th>Company Name</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                </table>
+                 </table>
             </form>
         </div><!-- Yorder -->
 

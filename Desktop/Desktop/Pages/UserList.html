@@ -3,6 +3,7 @@
 <head>
     <title></title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
@@ -178,7 +179,7 @@
 
         button {
             width: 100%;
-            margin-top:10px;
+            margin-top: 10px;
             padding: 10px;
             border: none;
             border-radius: 30px;
@@ -186,7 +187,6 @@
             color: #fff;
             font-size: 15px;
             font-weight: bold;
-            
         }
 
             button:hover {
@@ -216,6 +216,7 @@
                 box-shadow: 0 6px 14px 0 #666;
                 transform: scale(1.05);
             }
+
         .deletebtn {
             float: left;
             background-color: red;
@@ -223,18 +224,21 @@
             font-size: 15px;
             font-weight: bold;
         }
-            .edit{
-               float:left;
-            }
+
+        .edit {
+            float: left;
+        }
+
         .navshow {
             display: none;
         }
+        
     </style>
     <script>
         $(document).ready(function () {
             ajaxCall("GET", "../api/SalesPerson", "", getSuccess, error);
             var user = JSON.parse(localStorage.getItem('data'));
-            if (user.ISAdmin ==1) {
+            if (user.ISAdmin == 1) {
                 $(".navshow").display = true;
             }
 
@@ -243,10 +247,10 @@
 
             //delete
             $(document).on("click", ".deletebtn", function () {
-              
+
                 markSelected(this);
                 var SalseUser = this.getAttribute('data-User');
-                swal({ // this will open a dialouge 
+                swal({ // this will open a dialouge
                     title: "Are you sure ??",
                     text: "",
                     icon: "warning",
@@ -259,13 +263,13 @@
                     });
             });
         }
-       
+
         function update(data) {
             console.log(data)
-          localStorage.setItem('data', JSON.stringify(data));
+            localStorage.setItem('data', JSON.stringify(data));
             window.location.href = 'UpdateUser.html';
 
-          
+
         }
         function markSelected(btn) {
             $("#salestable tr").removeClass("selected"); // remove seleced class from rows that were selected before
@@ -277,7 +281,7 @@
             ajaxCall("DELETE", "../api/SalesPerson?UserName='" + user + "'", "", deleteSuccess, deleteerror);
         }
         function deleteSuccess(SalesPersonData) {
-           
+
             tbl.clear();
             location.reload();
             redrawTable(tbl, SalesPersonData);
@@ -285,7 +289,7 @@
             buttonEvents(); // after redrawing the table, we must wire the new buttons
             //$("#editDiv").hide();
             swal("Deleted Successfuly!", "Great Job", "success");
-             
+
         }
         function redrawTable(tbl, data) {
             tbl.clear();
@@ -300,7 +304,7 @@
 
         function getSuccess(SalesPersonData) {
             SalesData = SalesPersonData;
-            
+
             try {
                 tbl = $('#salestable').DataTable({
                     data: SalesPersonData,
@@ -318,11 +322,11 @@
                             render: function (data, type, row, meta) {
                                 let DataU = "data-User='" + row.UserName + "'";
 
-                             
-                                edit = "<button type='button'  class='edit btn btn-danger' onclick ='update(" + JSON.stringify(row) + ")'> Edit </button>";
-                                deleteBtn = "<button type='button' class='deletebtn btn btn-danger' " + DataU + "> Delete </button>";
 
-                                return edit+deleteBtn;
+                                edit = "<button type='button'  class='edit btn btn-danger' onclick ='update(" + JSON.stringify(row) + ")'> Edit </button>" ;
+                                deleteBtn = "<button type='button' class='deletebtn btn btn-danger' " + DataU + ">Delete<i class='fa fa - trash></i> </button>" ;
+
+                                return edit + deleteBtn;
                             }
                         }
 
@@ -345,7 +349,7 @@
             swal("Error: " + err);
         }
         function navbar() {
-            
+
         }
 
     </script>
@@ -353,10 +357,10 @@
 
 <body>
     <ul id="head">
-        <li ><a href="OrderList.html">Order List</a></li>
+        <li><a href="OrderList.html">Order List</a></li>
         <li><a href="CustomerList.html">Customer List</a></li>
-        <li ><a class="active" href="UserList.html">User List</a></li>
-        <li ><a href="InsertItem.html">Insert Item</a></li>
+        <li><a class="active" href="UserList.html">User List</a></li>
+        <li><a href="InsertItem.html">Insert Item</a></li>
     </ul>
     <div class="container">
         <div class="title">
@@ -396,8 +400,10 @@
                     </tfoot>
                 </table>
             </form>
+
         </div><!-- Yorder -->
         <div class="fab" onclick="location.href='Create New User.html'"> + </div>
     </div>
+
 </body>
 </html>
