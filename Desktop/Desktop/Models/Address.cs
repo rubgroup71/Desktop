@@ -75,12 +75,7 @@ namespace WebApplication2.Models
             int numAffected = DBS.updateA(this,id);
             return numAffected;
         }
-        public void delete(int id)
-        {
-            DBservices DBS = new DBservices();
-            DBS.deletecust( id);
-
-        }
+       
 
     }
 }

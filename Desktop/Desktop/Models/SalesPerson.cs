@@ -12,13 +12,13 @@ namespace WebApplication2.Models
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public string Area { get; set; }
         public string Email { get; set; }
-        public int ISAdmin { get; set; }
+        public int ISAdmin { get; set; } = 0;
 
 
-        public SalesPerson(string _username,string _password, string _firstname, string _lastname, int _phonenumber, string _area, string _email)
+        public SalesPerson(string _username,string _password, string _firstname, string _lastname, string _phonenumber, string _area, string _email,int _ISAdmin)
         {
             UserName = _username;
             Password = _password;
@@ -27,7 +27,7 @@ namespace WebApplication2.Models
             PhoneNumber = _phonenumber;
             Area = _area;
             Email = _email;
-            ISAdmin = 0;
+            ISAdmin = _ISAdmin;
                 }
 
         public SalesPerson()

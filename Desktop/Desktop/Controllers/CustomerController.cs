@@ -11,10 +11,10 @@ namespace WebApplication2.Controllers
     public class CustomerController : ApiController
     {
         //GET: api/Customer
-        public IEnumerable<Customer> Get()
+        public IEnumerable<string> Get()
         {
            Customer C = new Customer();
-            List<Customer> CUS = C.ShowEmail();
+            List<string> CUS = C.ShowEmail();
             return CUS;
         }
 
@@ -37,8 +37,9 @@ namespace WebApplication2.Controllers
         }
 
         // DELETE: api/Customer/5
-        public void Delete(int id)
+        public void Delete(string email)
         {
+            Customer.deleteCustomer(email);
         }
     }
 }

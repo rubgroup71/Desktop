@@ -209,7 +209,7 @@
                 Password: $("#Password").val(),
                 FirstName: $("#FirstName").val(),
                 LastName: $("#LastName").val(),
-                PhoneNumber: parseFloat($("#Phone").val()),
+                PhoneNumber:$("#Phone").val(),
                 Area: $("#Area").val(),
                 Email: $("#Email").val()
                
@@ -320,7 +320,8 @@
 <body>
     <ul id="head">
         <li><a href="OrderList.html">Order List</a></li>
-        <li><a href="CustomerList.html">Customer List</a></li>
+        <li><a onclick="window.open('../api/customer')">Get Customers List</a></li>
+        <li><a href='Create New Customer.html'>Create New Customer </a></li>
         <li><a class="active" href="UserList.html">User List</a></li>
         <li><a href="InsertItem.html">Insert Item</a></li>
     </ul>
@@ -340,11 +341,11 @@
                 </label>
                 <label>
                     <span>Email<span class="required">*</span></span>
-                    <input type="email" name="email" id="Email" required>
+                    <input type="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}"  name="email" id="Email" required>
                 </label>
                 <label>
                     <span>Phone Number<span class="required">*</span></span>
-                    <input type="tel" pattern="^\d{10}$" name="phone" id="Phone" required>
+                    <input type="tel" pattern="^05\d{8}$" name="phone" id="Phone" required>
                 </label>
                 <label>
                     <span>Area<span class="required">*</span></span>

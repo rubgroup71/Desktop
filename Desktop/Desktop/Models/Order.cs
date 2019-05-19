@@ -10,7 +10,7 @@ namespace WebApplication2.Models
 
         public string OrderDate { get; set; } = DateTime.Now.Date.ToShortDateString();
 
-        public string Status { get; set; } = "wait for confirm";
+        public string Status { get; set; } = "wait to confirm";
         public List<string> Part { get; set; }
         public List<string> Quantity { get; set; }
         //public int Addressid { get; set; }

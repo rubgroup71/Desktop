@@ -289,6 +289,7 @@
         });
         function successGettypes(data) {
             categories = data;
+            console.log(categories)
             for (var i = 0; i < data.length; i++) {
                 $("#type").append($("<option></option>").val(data[i].Type).html(data[i].Type));
 
@@ -300,6 +301,19 @@
             swal("Error!", err.ExceptionMessage, "error");
         }
         function add() {
+            
+            for (var i = 1; i <= tree.length; i++) {
+                checked = $("input:checkbox[name=stage" + i + "]:checked").length;
+
+                if (!checked) {
+                    swal('',"You must check at least one checkbox in each stage.",'warning');
+                    return false;
+                }
+            }
+            
+
+            
+            
             //tmp=A value selected at each stage
             //choose= Which stage you are
             var tmp = [];
@@ -522,6 +536,7 @@
             swal("Error!", err.ExceptionMessage, "error");
         }
         function stagesopen(data) {
+            
             db.collection(data+"tmp").orderBy('id', 'asc').get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
                     docids.push(doc.id)
@@ -634,9 +649,10 @@
 <body>
     <ul id="head">
         <li><a href="OrderList.html">Order List</a></li>
-        <li><a href="CustomerList.html">Customer List</a></li>
-        <li ><a href="UserList.html">User List</a></li>
-        <li ><a class="active" href="InsertItem.html">Insert Item</a></li>
+        <li><a onclick="window.open('../api/customer')">Get Customers List</a></li>
+        <li><a href='Create New Customer.html'>Create New Customer </a></li>
+        <li><a href="UserList.html">User List</a></li>
+        <li><a class="active" href="InsertItem.html">Insert Item</a></li>
     </ul>
 
     <div class="container">

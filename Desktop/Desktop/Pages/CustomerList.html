@@ -286,7 +286,7 @@
         }
         function DeleteUser(customer) {
             console.log(customer);
-            ajaxCall("Delete", "../api/Address?ID=" + customer, "", deleteSuccess, deleteerror);
+            ajaxCall("Delete", "../api/Customer?email=" + customer, "", deleteSuccess, deleteerror);
         }
         function deleteSuccess(CustomerData) {
 
@@ -321,10 +321,10 @@
 
                         {
                             render: function (data, type, row, meta) {
-                                let cust = "data-cust='" + row.ID + "'";
+                                let cust = "data-cust='" + row.Email + "'";
 
 
-                                deletebtn = "<button type='button' id='" + row.ID + "' class = 'deletebtn btn btn-info'" + cust + " > Delete </button>";
+                                deletebtn = "<button type='button'  class = 'deletebtn btn btn-info'" + cust + " > Delete </button>";
                                
                                 return deletebtn;
                             }

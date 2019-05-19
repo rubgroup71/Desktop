@@ -275,7 +275,7 @@
         }
 
         function f1() {
-            AddCustomer();
+            Addfirebase();
             return false; // the return false will prevent the form from being submitted
             // hence the page will not reload
         }
@@ -313,10 +313,12 @@
 </head>
 <body>
     <ul id="head">
+        
         <li><a href="OrderList.html">Order List</a></li>
-        <li><a class="active" href="CustomerList.html">Customer List</a></li>
+        <li><a class="active" onclick="window.open('../api/customer')">Get Customers List</a></li>
+        <li><a href='Create New Customer.html'>Create New Customer </a></li>
         <li><a id="navuser" style="display:none" href="UserList.html">User List</a></li>
-        <li><a id="navbaritem" style="display:none"  href="InsertItem.html">Insert Item</a></li>
+        <li><a id="navbaritem" style="display:none" href="InsertItem.html">Insert Item</a></li>
     </ul>
 
     <div class="container">
@@ -359,8 +361,8 @@
                 </label>-->
                 <label>
                     <span>City<span class="required">*</span></span>
-                    <select id="city">
-                        <option id="city" placeholder="Select your City" required/>
+                    <select id="city" required>
+                        <option id="city" placeholder="Select your City" />
                     </select>
                 </label>
                 <!--<label>
@@ -368,7 +370,7 @@
                     <input type="text" name="lname" id="city">
                 </label>-->
                 <!--<input type="submit" value="Insert" />-->
-                <input type="button" onclick=" Addfirebase(); " value="Insert" />
+                <input type="submit" value="Insert" />
             </form>
 
         </div>

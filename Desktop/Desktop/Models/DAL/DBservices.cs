@@ -54,7 +54,7 @@ public class DBservices
         try
         {
 
-            int numEffected = (int)cmd.ExecuteScalar();
+            int numEffected = cmd.ExecuteNonQuery();
             return numEffected;
         }
         catch (Exception ex)
@@ -81,8 +81,8 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', {4}, '{5}','{6}' )", S.UserName, S.Password, S.FirstName, S.LastName, S.PhoneNumber, S.Area, S.Email);
-        String prefix = "INSERT INTO SalesPerson " + "(UserName,Password,FirstName,LastName,PhoneNumber,Area,Email)";
+        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', {4}, '{5}','{6}',{7} )", S.UserName, S.Password, S.FirstName, S.LastName, S.PhoneNumber, S.Area, S.Email,S.ISAdmin);
+        String prefix = "INSERT INTO SalesPerson " + "(UserName,Password,FirstName,LastName,PhoneNumber,Area,Email,ISAdmin)";
         command = prefix + sb.ToString();
 
         return command;
@@ -563,11 +563,11 @@ public class DBservices
         }
     }
 
-    public List<Customer> ShowEmail(string conString, string tableName)
+    public List<string> ShowEmail(string conString, string tableName)
     {
 
         SqlConnection con;
-        List<Customer> f = new List<Customer>();
+        List<string> f = new List<string>();
 
         try
         {
@@ -592,10 +592,10 @@ public class DBservices
 
             while (dr.Read())
             {
-                Customer c = new Customer();
+               
 
-                c.Email = Convert.ToString(dr["Email"]).TrimEnd();
-                f.Add(c);
+                f.Add(Convert.ToString(dr["Email"]).TrimEnd());
+               
             }
             return f;
         }
@@ -667,7 +667,7 @@ public class DBservices
                 S.Password = Convert.ToString(dr["Password"]).TrimEnd();
                 S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
                 S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
-                S.PhoneNumber = Convert.ToInt32(dr["PhoneNumber"]);
+                S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]);
                 S.Area = Convert.ToString(dr["Area"]).TrimEnd();
                 S.Email = Convert.ToString(dr["Email"]).TrimEnd();
                 //S.ISAdmin=Convert.ToInt32(dr["ISAdmin"]);
@@ -729,7 +729,7 @@ public class DBservices
                 S.Password = Convert.ToString(dr["Password"]).TrimEnd();
                 S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
                 S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
-                S.PhoneNumber = Convert.ToInt32(dr["PhoneNumber"]);
+                S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]);
                 S.Area = Convert.ToString(dr["Area"]).TrimEnd();
                 S.Email = Convert.ToString(dr["Email"]).TrimEnd();
                 S.ISAdmin = Convert.ToInt32(dr["ISAdmin"]);
@@ -850,7 +850,7 @@ public class DBservices
                 S.Password = Convert.ToString(dr["Password"]).TrimEnd();
                 S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
                 S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
-                S.PhoneNumber = Convert.ToInt32(dr["PhoneNumber"]);
+                S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]);
                 S.Area = Convert.ToString(dr["Area"]).TrimEnd();
                 S.Email = Convert.ToString(dr["Email"]).TrimEnd();
 
@@ -1170,7 +1170,7 @@ public class DBservices
         try
         {
 
-            int numEffected = (int)cmd.ExecuteScalar();
+            int numEffected = cmd.ExecuteNonQuery();
             return numEffected;
         }
         catch (Exception ex)
