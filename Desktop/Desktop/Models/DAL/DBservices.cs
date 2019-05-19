@@ -944,11 +944,11 @@ public class DBservices
         return prefix;
     }
 
-    public List<Address> ShowA(string conString)
+    public List<string> ShowA(string conString)
     {
 
         SqlConnection con;
-        List<Address> f = new List<Address>();
+        List<string> f = new List<string>();
 
         try
         {
@@ -965,26 +965,19 @@ public class DBservices
 
         try
         {
-            String selectSTR = "select Addresses.ID,Addresses.FirstName,Addresses.LastName,Addresses.PhoneNumber,Addresses.CompanyName,Addresses.Address,Addresses.City,AddressCustomer.Email"+
-                               " from Addresses inner join AddressCustomer on Addresses.ID = AddressCustomer.AddressID " ;
+            String selectSTR = "select AddressCustomer.Email from AddressCustomer group by AddressCustomer.Email";
 
-            SqlCommand cmd = new SqlCommand(selectSTR, con);
+          SqlCommand cmd = new SqlCommand(selectSTR, con);
 
             SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
             while (dr.Read())
             {
-                Address S = new Address();
 
-                S.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
-                S.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
-                S.City = Convert.ToString(dr["City"]).TrimEnd();
-                S.Adress = Convert.ToString(dr["Address"]).TrimEnd();
-                S.PhoneNumber = Convert.ToString(dr["PhoneNumber"]);
-                S.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
-                S.ID = Convert.ToInt32(dr["ID"]);
-                S.Email = Convert.ToString(dr["Email"]).TrimEnd();
-                f.Add(S);
+
+
+                f.Add( Convert.ToString(dr["Email"]).TrimEnd());
+               
             }
             return f;
         }

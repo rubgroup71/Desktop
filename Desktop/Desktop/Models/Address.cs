@@ -45,10 +45,10 @@ namespace WebApplication2.Models
             int numAffected = DBS.insertA(this);
             return numAffected;
         }
-        public List<Address> Show()
+        public List<string> Show()
         {
             DBservices DBS = new DBservices();
-            List<Address> C = DBS.ShowA("ConnectionStringName");
+            List<string> C = DBS.ShowA("ConnectionStringName");
             return C;
         }
         public Address getcustomer(string address)

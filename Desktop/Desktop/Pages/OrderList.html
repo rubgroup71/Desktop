@@ -11,6 +11,8 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
     <style>
 
         #head {
@@ -35,7 +37,7 @@
             }
 
                 li a:hover {
-                    background-color: #5195A8;
+                    background-color: #dadada;
                 }
 
         @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
@@ -183,14 +185,14 @@
             border: none;
             border-radius: 30px;
             background: #52ad9c;
-            color: #fff;
+            color: #52ad9c;
             font-size: 10px;
             font-weight: bold;
         }
 
             button:hover {
                 cursor: pointer;
-                background: #428a7d;
+                background: #dadada;
             }
 
 
@@ -221,13 +223,30 @@
         }
 
         .viewbtn {
-            background-color: #52ad9c
+            background-color: #52ad9c;
+          
+            
+        }
+
+    
+        #status {
+            width: 140px
         }
 
         .btn-danger {
             color: #fff;
-            /*//  background-color: #52ad9c;*/
+            background-color: #52ad9c;
             border-color: #52ad9c;
+            width: 40px;
+            font-size:small;
+            padding-left:5px;
+          
+            
+        }
+        .btn-danger:hover {
+            border-color:#dadada;
+            background-color: #dadada;
+            
         }
     </style>
     <script>
@@ -248,8 +267,6 @@
             }
         }
         function viewItems(data) {
-            //data = data.settings.aoData[0]._aData
-            console.log(data)
             var items = data.Part.map((p, i) => {
                 return '<tr><td>' + p + '</td><td>' + data.Quantity[i] + '</td></tr>'
             })
@@ -259,21 +276,21 @@
 
         }
         function viewAdress(data) {
-            
-            var adr=[]
+
+            var adr = []
             for (var key in data.Address) {
-                if (key=='ID' || key=='Email') {
+                if (key == 'ID' || key == 'Email') {
 
                 }
                 else adr.push('<tr><td>' + key + '</td><td>' + data.Address[key] + '</td></tr>')
             }
-          
-            var swal_html ="<table>"+ adr+"</table>";
+
+            var swal_html = "<table>" + adr + "</table>";
 
             Swal.fire({ title: "Shipping Details", html: swal_html });
         }
 
-        
+
         function getSuccessOrder(OrderData) {
             console.log(OrderData);
             OrderdD = OrderData;
@@ -282,13 +299,12 @@
                     data: OrderData,
                     pageLength: 5,
                     columns: [
-                        //{ data: "Email" },
                         { data: "OrderId" },
                         { data: "OrderDate" },
                         {
                             data: "Status",
                             render: function (data, type, row, meta) {
-                                var slctconf ='';
+                                var slctconf = '';
                                 var slctwait = '';
                                 if (data == 'Confirm') {
                                     slctconf = 'selected'
@@ -296,45 +312,27 @@
                                 else if (data == 'wait to confirm') {
                                     slctwait = 'selected'
                                 }
-                                edit = "<select id=" + row.OrderId + " class='edit btn btn-danger' > <option " + slctwait + " value='wait to confirm'>wait to confirm</option> <option " + slctconf + " value='Confirm'>Confirm</option></select > ";
+                                edit = "<select id='status' class='edit btn btn-danger' > <option " + slctwait + " value='wait to confirm'>wait to confirm</option> <option " + slctconf + " value='Confirm'>Confirm</option></select > ";
 
                                 return edit;
                             }
 
                         },
                         {
-                            //data: data,
                             render: function (data, type, row, meta) {
-                                //let DataU = "data-User='" + row + "'";
-                                view = "<button type='button' class='viewitem btn btn-danger' onclick ='viewItems(" + JSON.stringify(row) + ")'> View </button>";
+                                view = "<button type='button' class='viewitem btn btn-danger' onclick ='viewItems(" + JSON.stringify(row) + ")'> View</button>";
                                 return view
 
                             }
                         },
-                        //            {
-                        //data: "Quantity",
-                        //                render: function (data, type, row, meta) {
-                        //                    str = "";
-                        //                    for (var i = 0; i < data.length; i++) {
-                        //                        str += "<p>" + data[i] + "</p>";
-                        //                    }
-                        //                    return str;
-                        //                }
-                        //        let DataU = "data-User='" + row.OrderId + "'";
-                        //     Quantity=data
-                        //        view = "<button type='button'  class='viewbtn btn btn-danger' href='#popup1' " + DataU + "> Veiw </button>";
 
-                        //        return view;
-
-                        //    }
-                        //},
                         {
                             data: "item.Email"
                         },
                         {
                             render: function (data, type, row, meta) {
-                                //let DataU = "data-User='" + row + "'";
-                                view = "<button type='button' class='viewitem btn btn-danger' onclick ='viewAdress(" + JSON.stringify(row) + ")'> View </button>";
+
+                                view = "<button type='button' class='viewitem btn btn-danger' onclick ='viewAdress(" + JSON.stringify(row) + ")'>View</button>";
                                 return view
 
                             }
@@ -344,10 +342,10 @@
 
                         {
                             render: function (data, type, row, meta) {
-                                //let DataU = "data-User='" + row.UserName + "'";
 
 
-                                edit = "<button type='button'  class='edit btn btn-danger'  onclick='updatestatus("+row.OrderId+")'> Update </button>";
+
+                                edit = "<button type='button'id='update'  class='edit btn btn-danger' onclick='updatestatus(" + row.OrderId + ")'><i class='fas fa-pencil-alt'></i> </button>";
 
 
                                 return edit
@@ -359,21 +357,21 @@
 
                     ],
                 });
-                //buttonEvents();
+
             }
 
             catch (err) {
                 alert(err);
             }
-            
+
         }
         function updatestatus(data) {
-            
+
             status = $("#" + data).val();
             ajaxCall("PUT", "../api/Order?id=" + data, JSON.stringify(status), successStatus, errorStatus);
-            
+
         }
-        // this function is activated in case of a failure
+
         function errorOrder(err) {
             swal("Error: " + err);
         }
@@ -381,22 +379,8 @@
             swal("Error: " + err);
         }
         function successStatus() {
-            swal.fire({type:"success",title:"Updated"});
+            swal.fire({ type: "success", title: "Updated" });
         }
-        //function navbar() {
-        //    uri = "../api/SalesPerson?ISAdmin=" + 1;
-        //    ajaxCall("GET", uri, "", successNavbar, errorNavbar);
-        //}
-        //function successNavbar() {
-        //    $("#navuser").append(
-        //        "<a href='UserList.html'>'User List'</a>")
-        //    $("#navbaritem").append(
-        //        "<a href='InsertItem.html'>'Item List'</a>")
-        //}
-        //function errorNavbar(err) {
-        //    swal("Error: " + err);
-        //}
-        //disabled = "disabled" style = "display:none"
     </script>
 </head>
 <body>
@@ -436,5 +420,6 @@
         <div class="fab" onclick="location.href='Create New Order.html'">+</div>
        
     </div>
+   
 </body>
 </html>

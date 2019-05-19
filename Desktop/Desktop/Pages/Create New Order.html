@@ -10,8 +10,6 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
-
-    <!-- Add additional services that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
@@ -140,7 +138,6 @@
             margin-top: 15px;
             height: 600px;
             padding: 20px;
-            /*border: 1px solid #dadada;*/
         }
 
         table {
@@ -195,22 +192,27 @@
                 cursor: pointer;
                 background: #428a7d;
             }
+
         .navshow {
             display: none;
         }
     </style>
-    <script>$(document).ready(function () {
-    Navbar();
-    // ajaxCall("GET", "../api/Address", "", successGetAD, errorGetAD);
-    ajaxCall("GET", "../api/Address", "", successGetEmail, errorGetEmail);
-            //new
-
+    <script>
+    $(document).ready(function () {
+            Navbar();
+          
             ajaxCall("GET", "../api/Categories", "", successGettype, errorGettype);
             ajaxCall("GET", "../api/City", "", successGetCity, errorGetCity);
-
-    $("#OForm").submit(f1);
-    $("#selectstages").submit(f2);
+       
+            $("#OForm").submit(f1);
+        $("#selectstages").submit(f2);
+       
+       
+           
         });
+
+
+        
         function Navbar() {
             var user = JSON.parse(localStorage.getItem('data'));
 
@@ -273,27 +275,30 @@
         function errorGetstage(err) {
             swal("Error!", err.ExceptionMessage, "error");
         }
-
+      
         function additem() {
-            alert('dana');
+
+            $("#email").prop("disabled", false)
+            $("#email").show()
+            $("#address").prop("disabled", false)
+            $("#address").show()
+            $("#table").prop("disabled", false)
+            $("#table").show()
+     
             var str = "";
-           // var count = 0;
-            // Note that the name of the fields must be identical to the names of the properties of the object in the server
+
             for (var i = 1; i <= parseInt(stage[0].Stages); i++) {
                 str += $('#stage' + i).val();
                 //count++;
-               
-            
+
+
             }
-            //if (count == parseInt(stage[0].Stages)) {
-            //    clean();
-            //}
             item = str;
             quantity = $("#quantity").val();
 
             document.getElementById("table").innerHTML += '<tr><td class="part">' + item + '</td><td class="qu">' + quantity + '</td></tr>';
-          
-            //clean();
+            ajaxCall("GET", "../api/Address", "", successGetEmail, errorGetEmail);
+
         }
         function clean() {
             for (var i = 1; i <= parseInt(stage[0].Stages); i++) {
@@ -304,43 +309,20 @@
         }
 
         var click = false;
-        //function moreFields() {
-        //    if ($("#email").val() != null) {
-
-
-        //    }
-        //    if (click == false) {
-        //        counter++;
-        //        var newFields = document.getElementById('readroot').cloneNode(true);
-        //        newFields.id = '';
-        //        newFields.style.display = 'block';
-        //        var newField = newFields.childNodes;
-        //        for (var i = 0; i < newField.length; i++) {
-        //            var theName = newField[i].name
-        //            if (theName)
-        //                newField[i].name = theName + counter;
-        //        }
-        //        var insertHere = document.getElementById('writeroot');
-        //        insertHere.parentNode.insertBefore(newFields, insertHere);
-        //        $('#username').val(data.UserName);
-        //        click = true;
-        //    }
-        //    return false;
-        //}
         function AddOrder(data) {
             var parts = []
             var quantity = []
 
             $("td.part").map(function (x, y) { parts.push(y.textContent) });
             $("td.qu").map(function (x, y) { quantity.push(y.textContent) });
-            
+
             var address = addresses.filter(a => a.ID == $("#address").val())
-         
+
             Order = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
 
                 Part: parts,
                 Quantity: quantity,
-                Address:address[0]
+                Address: address[0]
 
             };
 
@@ -355,7 +337,7 @@
         }
 
 
-        // this function is activated in case of a failure
+
         function errorOrder(err) {
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
@@ -364,7 +346,6 @@
 
         function f2() {
             additem();
-            //validateForm();
             return false;
         }
 
@@ -376,7 +357,7 @@
 
         function successGetEmail(email) {
             for (var i = 0; i < email.length; i++) {
-                $("#email").append($("<option></option>").val(email[i].Email).html(email[i].Email));
+                $("#email").append($("<option></option>").val(email[i]).html(email[i]));
 
             }
         }
@@ -385,35 +366,6 @@
             err = JSON.parse(err.responseText);
             swal("Error!", err.ExceptionMessage, "error");
         }
-        //function ShowCustomer() {
-        //    //uri = "../api/Address?Email=" + $("#email").val();
-        //    //ajaxCall("GET", uri, "", successGetcustomer, errorGetcustomer);
-        //}
-
-        //function successGetcustomer(data) {
-        //    console.log(data);
-        //    datauser = data;
-
-        //    if (click == false) {
-        //        UserName = datauser.Email,
-        //            FirstName = datauser.FirstName;
-        //        LastName = datauser.LastName;
-        //        PhoneNumber = datauser.PhoneNumber;
-        //        CompanyName = datauser.CompanyName;
-        //        Adress = datauser.Adress;
-        //        City = datauser.City;
-        //        document.getElementById("table2").innerHTML += '<tr>Email : </tr>' + UserName + ' </br>' + '<tr>First Name : </tr>' + FirstName + ' </br>'
-        //            + '<tr>Last Name : </tr>' + LastName + ' </br>' + '<tr>Phone : </tr>' + PhoneNumber + ' </br>' + '<tr>Company Name : </tr>' + CompanyName + ' </br>' +
-        //            '<tr>Address : </tr>' + Adress + ' </br>' + '<tr>City : </tr>' + City + '<input type="button" onClick="Javacsript:AddOrder(UserName)" value="Send"/>';
-
-        //    }
-        //    return false;
-
-        //}
-        //function errorGetcustomer(err) {
-        //    swal("error");
-
-        //}
         function ShowDetails(data) {
 
             var adr = addresses.filter(a => data = a.ID)
@@ -427,15 +379,19 @@
         function address(data) {
             uri = "../api/Address/5?Email=" + data;
             ajaxCall("GET", uri, "", successGetaddress, errorGetaddress);
+
         }
         var addresses
         function successGetaddress(data) {
+            $("#address").empty();
+            $("#address").append($("<option></option>").val('').html('Choose Address'));
             addresses = data
             for (var i = 0; i < data.length; i++) {
                 $("#address").append($("<option></option>").val(data[i].ID).html(data[i].Adress));
 
 
             }
+            $("#table2").empty();
         }
 
         function errorGetaddress(err) {
@@ -443,7 +399,7 @@
             swal("Error!", err.ExceptionMessage, "error");
         }
         var stage;
-        var count=0;
+        var count = 0;
         function chooseType(data) {
             stage = categories.filter(t => data == t.Type)
             count++
@@ -460,7 +416,7 @@
         function setselection(data) {
 
             data.map(stage => {
-              
+
                 $("#selectstages").append(
                     "<label><span class='fname'>" + stage.Name + "<span class='required'>*</span></span><select id='stage" + stage.QID + "' name='selection" + stage.QID + "' required><option class='required'></option></select>"
                 )
@@ -468,82 +424,9 @@
             $("#selectstages").append(
                 "<label><span class= 'fname'>Quantity<span class='required'>*</span ></span ><input type='text' id='quantity' name='qun' /> </label ><input type='submit' value='Add'/>"
             )
-            
+
         }
-        //function validateForm() {
-        //    var model = document.forms["RegForm"]["selection1"];
-        //     var body = document.forms["RegForm"]["selection2"];
-        //     var port = document.forms["RegForm"]["selection3"];
-        //     var func = document.forms["RegForm"]["selection4"];
-        //     var Orifice = document.forms["RegForm"]["selection5"];
-        //     var sales = document.forms["RegForm"]["selection6"]; 
-        //     var override = document.forms["RegForm"]["selection7"];
-        //     var voltage = document.forms["RegForm"]["selection8"];
-        //     var power = document.forms["RegForm"]["selection9"];
-        //     var connector = document.forms["RegForm"]["selection10"];
-        //     var quantity = document.forms["RegForm"]["qun"];
 
-        //    if (model.value == "") {
-        //        window.alert("Please select one option");
-        //         //model.focus();
-        //        //return false;
-        //    }
-
-        //    if (body.value == "") {
-        //        window.alert("Please enter your Last Name.");
-        //        body.focus();
-        //        return false;
-        //    }
-
-        //    if (port.value == "") {
-        //        window.alert("Please enter a valid e-mail address.");
-        //        port.focus();
-        //        return false;
-        //    }
-
-        //    if (func.value == "") {
-        //        window.alert("Please enter your telephone number.");
-        //        func.focus();
-        //        return false;
-        //    }
-
-        //    if (Orifice.value == "") {
-        //        window.alert("Please enter your password");
-        //        Orifice.focus();
-        //        return false;
-        //    }
-        //    if (sales.value == "") {
-        //        window.alert("Please enter your password");
-        //        sales.focus();
-        //        return false;
-        //    }
-        //    if (override.value == "") {
-        //        window.alert("Please enter your password");
-        //        override.focus();
-        //        return false;
-        //    }
-        //    if (voltage.value == "") {
-        //        window.alert("Please enter your password");
-        //        voltage.focus();
-        //        return false;
-        //    }
-        //    if (power.value == "") {
-        //        window.alert("Please enter your password");
-        //        power.focus();
-        //        return false;
-        //    }
-        //    if (connector.value == "") {
-        //        window.alert("Please enter your password");
-        //        connector.focus();
-        //        return false;
-        //    }
-        //    if (quantity.value == "") {
-        //        window.alert("Please enter your password");
-        //        quantity.focus();
-        //        return false;
-        //    }
-        //    //return true; 
-        //}
     </script>
 
 </head>
@@ -561,67 +444,24 @@
             <select id="type" onchange="chooseType(this.value)"><option></option></select>
         </div>
         <div class="d-flex">
-            <form id="selectstages" name="RegForm" action="" method="">
-
-                <!--<label>
-                    <span class="fname">Quantity<span class="required">*</span></span>
-                    <input type="text" id="quantity" />
-
-                </label>
-                <button type="button" onclick="additem()">Add</button>-->
-            </form>
+            <form id="selectstages" name="RegForm" action="" method=""></form>
             <div class="Yorder">
-                <table id="table">
+                <table id="table" disabled="disabled"  style="display:none">
                     <tr> <th colspan="2">Your Order</th></tr>
                     <tr>
                         <td>Items</td>
                         <td>Quantity</td>
                     </tr>
                 </table>
-                <select id="email" onchange="address(this.value)">
+                <select id="email" onchange="address(this.value)" disabled="disabled"  style="display:none">
                     <option id="email" />Choose Customer
                 </select>
 
-                <select id="address" onchange="ShowDetails(this.value)">
+                <select id="address" onchange="ShowDetails(this.value)" disabled="disabled"  style="display:none">
                     <option id="aba" />Choose Address
                 </select>
-            
-              
-                <!--<input type="button" id="btn" onclick="moreFields()" value="Order as a New Customer" />-->
                 <div id="readroot" style="display: none">
                     <label>
-                        <!--<span class="lname">User Name  <span class="required">*</span></span>
-                        <input type="text" name="lname" id="username" required>
-                    </label>
-                    <label>
-                        <span class="lname">Password <span class="required">*</span></span>
-                        <input type="text" name="lname" id="password" required>
-                    </label>
-                    <label>
-                        <span class="lname">Company Name  <span class="required">*</span></span>
-                        <input type="text" name="lname" id="companyname" required>
-                    </label>
-                    <label>
-                        <span class="lname">First Name  <span class="required">*</span></span>
-                        <input type="text" name="lname" id="firstname" required>
-                    </label>
-                    <label>
-                        <span class="lname">Last Name  <span class="required">*</span></span>
-                        <input type="text" name="lname" id="lastname" required>
-                    </label>
-                    <label>
-                        <span>Address<span class="required">*</span></span>
-                        <input type="text" name="lname" id="address" required>
-                    </label>
-                    <label>
-                        <span>Phone Number<span class="required">*</span></span>
-                        <input type="tel" name="lname" id="phonenumber" required>
-                    </label>
-                    <label>
-                        <span>City<span class="required">*</span></span>
-                        <select id="city">
-                            <option id="city" required />
-                        </select>-->
                     </label>
                     <input type="submit" id="btn" value="Send" />
                 </div>

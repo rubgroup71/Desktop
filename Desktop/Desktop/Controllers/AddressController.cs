@@ -11,10 +11,10 @@ namespace WebApplication2.Controllers
     public class AddressController : ApiController
     {
         // GET: api/Address
-        public IEnumerable<Address> Get()
+        public IEnumerable<string> Get()
         {
             Address C = new Address();
-            List<Address> CUS = C.Show();
+            List<string> CUS = C.Show();
             return CUS;
         }
         [HttpGet]

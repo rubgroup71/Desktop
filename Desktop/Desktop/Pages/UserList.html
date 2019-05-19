@@ -3,7 +3,7 @@
 <head>
     <title></title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
@@ -16,6 +16,9 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+   
     <style>
 
         #head {
@@ -194,7 +197,11 @@
                 background: #428a7d;
             }
 
-
+        .icon {
+            width: 45px;
+            background-color: #5195A8;
+            border-color: #5195A8;
+        }
 
         .fab {
             width: 70px;
@@ -219,20 +226,26 @@
 
         .deletebtn {
             float: left;
-            background-color: red;
-            border-radius: 30px;
+            background-color: crimson;
+            border-color: crimson;
             font-size: 15px;
             font-weight: bold;
         }
 
         .edit {
             float: left;
+            background-color: #5195A8;
+            border-color: #5195A8;
         }
 
         .navshow {
             display: none;
         }
-        
+
+        .btn-danger:hover {
+            border-color: #dadada;
+            background-color: #dadada;
+        }
     </style>
     <script>
         $(document).ready(function () {
@@ -323,8 +336,8 @@
                                 let DataU = "data-User='" + row.UserName + "'";
 
 
-                                edit = "<button type='button'  class='edit btn btn-danger' onclick ='update(" + JSON.stringify(row) + ")'> Edit </button>" ;
-                                deleteBtn = "<button type='button' class='deletebtn btn btn-danger' " + DataU + ">Delete<i class='fa fa - trash></i> </button>" ;
+                                edit = "<button type='button'  class='edit btn btn-danger icon' onclick ='update(" + JSON.stringify(row) + ")'><i class='fas fa-pencil-alt'></i> </button>";
+                                deleteBtn = "<button type='button' class='deletebtn btn btn-danger icon' " + DataU + "><i class='far fa-trash-alt'></i> </button>";
 
                                 return edit + deleteBtn;
                             }
@@ -384,21 +397,6 @@
                             <th></th>
                         </tr>
                     </thead>
-
-                    <tfoot>
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>User Name</th>
-                            <th>
-                                Password
-                            </th>
-                            <th>Area</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
                 </table>
             </form>
 
