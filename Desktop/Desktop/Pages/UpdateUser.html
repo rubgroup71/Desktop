@@ -189,11 +189,6 @@
     </style>
 
     <script>
-        //var str = '/2|3/';
-        //str = str.substring(1, str.length - 1)
-        //str += '|' + '1'
-        //console.log(str)
-        //console.log(new RegExp(str))
 
         $(document).ready(function () {
             User();
@@ -225,28 +220,12 @@
             swal("Added Successfuly!", "User created", "success")
         }
 
-        //function getSuccessexist(datatest) {
-        //    test = $("#UserName").val();
-        //    if (datatest.UserName == test) {
-        //        swal("This user alerady exist", "Please try agin", "success")
-        //    }
-        //    else {
-        //        AddSalesPerson();
-        //    }
-        //}
-        //function errorexist() {
-        //    alert("connection problem")
-        //}
         function error(err) {
             alert("error");
         }
 
         function f1() {
-            //uri = "../api/SalesPerson?UserName=" + $("#UserName").val();
-            //ajaxCall("GET", uri, "", getSuccessexist, errorexist);
-
             AddSalesPerson();
-
             return false; // the return false will prevent the form from being submitted
             // hence the page will not reload
         }
@@ -263,70 +242,6 @@
 
 
         }
-            //function validateForm() {
-            //    var firstname = document.forms["RegForm"]["firstname"];
-            //    var lastname = document.forms["RegForm"]["lastname"];
-            //    var email = document.forms["RegForm"]["email"];
-            //    var phone = document.forms["RegForm"]["phone"];
-            //    var area = document.forms["RegForm"]["area"];
-            //    var username = document.forms["RegForm"]["username"];
-            //    var password = document.forms["RegForm"]["password"];
-
-            //    if (firstname.value == "") {
-            //        window.alert("Please enter your First Name.");
-            //        firstname.focus();
-            //        return false;
-            //    }
-
-            //    if (lastname.value == "") {
-            //        window.alert("Please enter your Last Name.");
-            //        firstname.focus();
-            //        return false;
-            //    }
-
-            //    if (email.value == "") {
-            //        window.alert("Please enter a valid e-mail address.");
-            //        email.focus();
-            //        return false;
-            //    }
-
-            //    if (email.value.indexOf("@", 0) < 0) {
-            //        window.alert("Please enter a valid e-mail address.");
-            //        email.focus();
-            //        return false;
-            //    }
-
-            //    if (email.value.indexOf(".", 0) < 0) {
-            //        window.alert("Please enter a valid e-mail address.");
-            //        email.focus();
-            //        return false;
-            //    }
-
-            //    if (phone.value == "") {
-            //        window.alert("Please enter your telephone number.");
-            //        phone.focus();
-            //        return false;
-            //    }
-
-            //    if (area.value == "") {
-            //        window.alert("Please enter your password");
-            //        area.focus();
-            //        return false;
-            //    }
-            //    if (username.value == "") {
-            //        window.alert("Please enter your password");
-            //        username.focus();
-            //        return false;
-            //    }
-            //    if (password.value == "") {
-            //        window.alert("Please enter your password");
-            //        password.focus();
-            //        return false;
-            //    }
-
-
-            //    return true;
-            //}
     </script>
 
 
@@ -345,7 +260,6 @@
         </div>
         <div class="d-flex">
             <form name="RegForm" id="Sform">
-                <!--action="/action_page.php" onsubmit="return validateForm()" method="post"-->
                 <label>
                     <span class="lname">First Name<span class="required">*</span></span>
                     <input type="text" name="firstname" id="FirstName" required>

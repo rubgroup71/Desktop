@@ -17,7 +17,6 @@ namespace Desktop.Models
 
             DBservices dbs = new DBservices();
             return dbs.read1(type,stages);
-            //return lc;
         }
     }
 }
