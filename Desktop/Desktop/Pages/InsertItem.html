@@ -229,15 +229,17 @@
                 box-shadow: 0 6px 14px 0 #666;
                 transform: scale(1.05);
             }
-
+            
         .grid-container {
             display: grid;
-            grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+            /*grid-template-columns: repeat(4, 1fr);*/
             grid-gap: 10px;
-            grid-template-rows: 20% 80%;
+            /*grid-template-rows: 20% 80%;*/
             padding: 10px
         }
-
+            .grid-container >div {
+                border: 2px solid #9545b5
+            }
         .wrapper {
             display: grid;
             grid-template-columns: auto;
@@ -256,6 +258,7 @@
 
         .item {
             font-weight: bold;
+            
         }
 
         #steptitle {
@@ -281,7 +284,7 @@
                     standardtree.push(doc.data());
                 });
 
-                console.log(standardtree)
+                
 
             });
 
@@ -289,11 +292,8 @@
         });
         function successGettypes(data) {
             categories = data;
-            console.log(categories)
-            for (var i = 0; i < data.length; i++) {
-                $("#type").append($("<option></option>").val(data[i].Type).html(data[i].Type));
-
-            }
+            
+            
         }
 
         function errorGettypes(err) {
@@ -301,19 +301,7 @@
             swal("Error!", err.ExceptionMessage, "error");
         }
         function add() {
-            
-            for (var i = 1; i <= tree.length; i++) {
-                checked = $("input:checkbox[name=stage" + i + "]:checked").length;
 
-                if (!checked) {
-                    swal('',"You must check at least one checkbox in each stage.",'warning');
-                    return false;
-                }
-            }
-            
-
-            
-            
             //tmp=A value selected at each stage
             //choose= Which stage you are
             var tmp = [];
@@ -341,14 +329,22 @@
                     db.collection(type + 'invalid' + stage).doc(value).update({
                         [s.name]: s.value
 
-                    })
+                    }).catch(swal('','try again','error'))
 
 
                 })
-
+                swal('','Success','success')
             }
 
             else {
+                for (var i = 1; i <= tree.length; i++) {
+                    checked = $("input:checkbox[name=stage" + i + "]:checked").length;
+
+                    if (!checked) {
+                        swal('', "You must check at least one checkbox in each stage.", 'warning');
+                        return false;
+                    }
+                }
                 for (var i = 1; i < 11; i++) {
                     tmp = [];
                     $("input:checkbox[name=stage" + i + "]:checked").each(function () {
@@ -535,35 +531,37 @@
         function errorGetstage(err) {
             swal("Error!", err.ExceptionMessage, "error");
         }
+       
         function stagesopen(data) {
-            
+            $('#stagegrid').empty()
             db.collection(data+"tmp").orderBy('id', 'asc').get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
                     docids.push(doc.id)
                     tree.push(doc.data());
                 });
 
-                console.log(tree, tree.length)
+                
 
             });
             stage = categories.filter(t => data == t.Type)
+            $(".grid-container").css('grid-template-columns', 'repeat(' + stage[0].Stages + ', auto)')
+            
             ajaxCall("GET", "../api/Question?type=" + stage[0].Type, "", title, errortitle)
             ajaxCall("GET", "../api/AllItem?type=" + stage[0].Type + "&stages=" + stage[0].Stages, "", successGetstage, errorGetstage)
+            
             if ($("#si").val() == "standard") {
-
-
-                //setTimeout(function () {
-
-
-                //}, 3000);
+                
             }
             else {
-                $("#invalidstage").prop("disabled", false)
+                
+                $("#invalidstage").empty()
+                $("#invalidvalue").hide()
                 $("#invalidstage").show()
                 ajaxCall("GET", "../api/Question?type=" + stage[0].Type, "", invalidstage, errorGetstage)
             }
 
-
+            
+            
         }
         var q;
         function title(data) {
@@ -580,7 +578,7 @@
             swal("Error!", err.ExceptionMessage, "error");
         }
         function invalidstage(data) {
-
+            $("#invalidstage").append($("<option></option>").html('Choose Stage'))
             data.map(s => {
                 $("#invalidstage").append($("<option></option>").val(s.QID).html(s.Name))
             })
@@ -609,15 +607,26 @@
             swal("Error!", err.ExceptionMessage, "error");
         }
         function SorV() {
-
-            $("#type").prop("disabled", false)
+            
+            //$("#type").prop("disabled", false)
             $("#type").show()
+            $("#type").empty()
+            $('#stagegrid').empty()
+            $("#invalidstage").hide()
+            $("#invalidvalue").hide()
+            $("#type").append($("<option></option>").html('Choose Type'))
+            for (var i = 0; i < categories.length; i++) {
+                $("#type").append($("<option></option>").val(categories[i].Type).html(categories[i].Type));
+
+            }
+
         }
         function valuesopen() {
             var type = $("#type").val()
             var stage = $("#invalidstage").val()
+            $('#stagegrid').empty()
             $("#invalidvalue").empty()
-            $("#invalidvalue").prop("disabled", false)
+            //$("#invalidvalue").prop("disabled", false)
             $("#invalidvalue").show()
             $("#invalidvalue").append($("<option></option>").html('Choose Value'))
             db.collection(type+ "invalid" + stage).get().then(function (querySnapshot) {
@@ -630,7 +639,7 @@
 
         }
         function optionview() {
-
+            $('#stagegrid').empty()
             var stage = $("#invalidstage").val()
             q.map(s => {
                 $("#stagegrid").append("<div class='item'>" + s.Name + "</div>")
@@ -664,10 +673,10 @@
         //catagory
         //stage
         //value-->
-        <select id="si" onchange="SorV(this.value)"><option></option> <option value="invalid">InValid</option><option value="standard">Standard</option></select>
-        <select id="type" onchange="stagesopen(this.value)" disabled="disabled" style="display:none"><option></option></select>
-        <select id="invalidstage" onchange="valuesopen(this.value)" disabled="disabled" style="display:none"><option></option></select>
-        <select id="invalidvalue" onchange="optionview(this.value)" disabled="disabled" style="display:none"><option></option></select>
+        <select id="si"   onchange="SorV(this.value)"><option>Standart or Invalid</option> <option value="invalid">InValid</option><option value="standard">Standard</option></select>
+        <select id="type" onchange="stagesopen(this.value)"  style="display:none"></select>
+        <select id="invalidstage" onchange="valuesopen(this.value)"  style="display:none"></select>
+        <select id="invalidvalue" onchange="optionview(this.value)" style="display:none"></select>
 
         <div class="d-flex">
 
