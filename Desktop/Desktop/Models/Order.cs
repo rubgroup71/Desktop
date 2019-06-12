@@ -8,7 +8,7 @@ namespace WebApplication2.Models
     public class Order
     {
 
-        public string OrderDate { get; set; } = DateTime.Now.Date.ToShortDateString();
+        public string OrderDate { get; set; } = DateTime.Now.ToString("dd-MM-yyyy");
 
         public string Status { get; set; } = "wait to confirm";
         public List<string> Part { get; set; }
