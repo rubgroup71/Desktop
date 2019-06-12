@@ -272,7 +272,7 @@
         var docids = []
         var standardtree = [];
         var db = firebase.firestore();
-        
+        var categories
         $(document).ready(function () {
             ajaxCall("GET", "../api/Categories", "", successGettypes, errorGettypes);
             // ajaxCall("GET", "../api/AllItem", "", successGetstage, errorGetstage);
