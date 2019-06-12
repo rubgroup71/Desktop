@@ -14,7 +14,10 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
     <style>
-
+        #view{
+            text-align:center;
+            padding:50%;
+        }
         #head {
             list-style-type: none;
             overflow: hidden;
@@ -44,7 +47,7 @@
 
         table.dataTable tbody th, table.dataTable tbody td {
             padding: 6px 70px 0px 10px;
-            text-align: left;
+            text-align: center;
             float: unset;
             color: black;
         }
@@ -131,16 +134,12 @@
             margin-bottom: 10px;
         }
 
-        /*.Yorder {
-            margin-top: 15px;
-            height: 600px;
-            padding: 20px;
-            border: 1px solid #dadada;
-        }*/
+    
 
         table {
-            margin: 0;
-            padding: 0;
+            margin-left: 17%;
+         
+            
         }
 
         th {
@@ -155,7 +154,7 @@
 
         tr > td:nth-child(2) {
             text-align: right;
-            color: #52ad9c;
+          
         }
 
         td {
@@ -270,7 +269,7 @@
             var items = data.Part.map((p, i) => {
                 return '<tr><td>' + p + '</td><td>' + data.Quantity[i] + '</td></tr>'
             })
-            var swal_html = '<table><tr><td>Item</td><td>Quantity</td></tr>' + items + '</table>';
+            var swal_html = '<table><tr><td style="font-weight:bold">Item</td><td style="font-weight:bold">Quantity</td></tr>' + items + '</table>';
 
             Swal.fire({ title: "Items", html: swal_html });
 
@@ -282,7 +281,7 @@
                 if (key == 'ID' || key == 'Email') {
 
                 }
-                else adr.push('<tr><td>' + key + '</td><td>' + data.Address[key] + '</td></tr>')
+                else adr.push('<tr><td style="font-weight:bold">' + key + '</td><td>' + data.Address[key] + '</td></tr>')
             }
 
             var swal_html = "<table>" + adr + "</table>";
@@ -396,7 +395,7 @@
         <div class="title">
             <h2>Order List</h2>
         </div>
-        <div class="d-flex">
+        <div class="d-flex" >
             <form>
                 <table id="ordertable" class="hover" style="width:100%">
                     <thead>
@@ -406,7 +405,6 @@
                             <th>Order Date</th>
                             <th>Status</th>
                             <th>Item Serial</th>
-                            <!--<th>Quantity</th>-->
                             <th>Customer</th>
                             <th>Ship to</th>
                             <th></th>

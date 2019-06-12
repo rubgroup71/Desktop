@@ -125,14 +125,8 @@
             margin-bottom: 10px;
             border: 1px solid #dadada;
             color: #888;
+            
         }
-
-        /*select {
-            width: 72%;
-            height: 45px;
-            padding: 5px 10px;
-            margin-bottom: 10px;
-        }*/
 
         .Yorder {
             margin-top: 15px;
@@ -187,6 +181,7 @@
             color: #fff;
             font-size: 15px;
             font-weight: bold;
+            padding: 0;
         }
 
             button:hover {
@@ -231,7 +226,6 @@
                 console.log(error.message)
 
             }).then(function (resp) {
-                //var user = firebase.auth().currentUser;
                 AddCustomer(resp.user.email)
                 
 
@@ -250,15 +244,10 @@
                 PhoneNumber: $("#phonenumber").val(),
                 CompanyName: $("#companyname").val(),
                 City: $("#city option:selected").text(),
-                //CountryName: $("#countryname").val(),
 
             };
             
-            //Customer = {
-            //    UID: uid,
-            //    Email:Identifier,
-            //};
-
+          
 
             ajaxCall("POST", "../api/Address", JSON.stringify(Address), success, error);
             ajaxCall("POST", "../api/Customer", JSON.stringify(email) , successCustomer, errorCustomer);
@@ -355,21 +344,12 @@
                     <span>Phone Number<span class="required">*</span></span>
                     <input type="tel" name="lname" id="phonenumber" placeholder="Enter your Phone Number" required>
                 </label>
-                <!--<label>
-                    <span>Country<span class="required">*</span></span>
-                    <input type="text" name="lname" id="country">
-                </label>-->
                 <label>
                     <span>City<span class="required">*</span></span>
                     <select id="city" required>
-                        <option id="city" placeholder="Select your City" />
+                        <option id="city" />Select your City
                     </select>
                 </label>
-                <!--<label>
-                    <span>City<span class="required">*</span></span>
-                    <input type="text" name="lname" id="city">
-                </label>-->
-                <!--<input type="submit" value="Insert" />-->
                 <input type="submit" value="Insert" />
             </form>
 
