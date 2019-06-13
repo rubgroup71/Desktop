@@ -10,6 +10,8 @@ namespace WebApplication2.Models
     {
       
         public string Email { get; set; }
+       
+        public List< Address> Address  { get; set; }
 
 
 
@@ -38,10 +40,10 @@ namespace WebApplication2.Models
         //    return DBS.Login("ConnectionStringName", "SalesPerson",username,password);
         //}
 
-        public List<string> ShowEmail()
+        public List<Customer> ShowEmail()
         {
             DBservices DBS = new DBservices();
-            List<string> C = DBS.ShowEmail("ConnectionStringName", "Customers");
+            List<Customer> C = DBS.ShowEmail("ConnectionStringName");
             return C;
         }
         static public void deleteCustomer (string email)

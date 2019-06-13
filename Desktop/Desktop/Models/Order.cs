@@ -16,15 +16,15 @@ namespace WebApplication2.Models
         //public int Addressid { get; set; }
         public int OrderId { get; set; }
         public Address Address { get; set; }
-        public Items item { get; set; }
+        public string Email { get; set; }
 
 
-        public Order(List<string> _part, List<string> _qun,Address _address,Items _item,string _status)
+        public Order(List<string> _part, List<string> _qun,Address _address,string _status,string _email)
         {
             Part = _part;
             Quantity = _qun;
             Address = _address;
-            item = _item;
+            Email = _email;
             Status = _status;
         }
 
@@ -33,7 +33,7 @@ namespace WebApplication2.Models
             Address = new Address();
             Part = new List<string>();
             Quantity = new List<string>();
-            item = new Items();
+           // item = new Items();
         }
 
         public int insertO(List<string> parts, List<string> quantity)

@@ -401,11 +401,12 @@
         var stage;
         var count = 0;
         function chooseType(data) {
+            $("#selectstages").empty();
             stage = categories.filter(t => data == t.Type)
-            count++
-            if (count != 1) {
-                return false;
-            }
+            //count++
+            //if (count != 1) {
+            //    return false;
+            //}
 
             ajaxCall("GET", "../api/Question?type=" + stage[0].Type, "", setselection, errorGetstage)
             ajaxCall("GET", "../api/AllItem?type=" + stage[0].Type + "&stages=" + stage[0].Stages, "", successGetstage, errorGetstage)
@@ -414,7 +415,7 @@
 
         }
         function setselection(data) {
-
+            
             data.map(stage => {
 
                 $("#selectstages").append(

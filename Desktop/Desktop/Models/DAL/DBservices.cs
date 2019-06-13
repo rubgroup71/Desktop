@@ -563,11 +563,11 @@ public class DBservices
         }
     }
 
-    public List<string> ShowEmail(string conString, string tableName)
+    public List<Customer> ShowEmail(string conString)
     {
 
         SqlConnection con;
-        List<string> f = new List<string>();
+        List<Customer> f = new List<Customer>();
 
         try
         {
@@ -584,19 +584,42 @@ public class DBservices
 
         try
         {
-            String selectSTR = "SELECT * FROM " + tableName;
+            String selectSTR = " SELECT Customers.Email, Addresses.FirstName, Addresses.LastName, Addresses.PhoneNumber, Addresses.CompanyName, Addresses.Address, Addresses.City"+
+                               " FROM AddressCustomer right JOIN Addresses ON AddressCustomer.AddressID = Addresses.ID right JOIN"+
+                         " Customers ON AddressCustomer.Email = Customers.Email where Customers.Email <> ''";
 
             SqlCommand cmd = new SqlCommand(selectSTR, con);
 
             SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
+            
             while (dr.Read())
             {
-               
 
-                f.Add(Convert.ToString(dr["Email"]).TrimEnd());
+                string email = Convert.ToString(dr["Email"]);
+                Address ad = new Address();
+                ad.FirstName = Convert.ToString(dr["FirstName"]).TrimEnd();
+                ad.PhoneNumber = Convert.ToString(dr["PhoneNumber"]).TrimEnd();
+                ad.LastName = Convert.ToString(dr["LastName"]).TrimEnd();
+                ad.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
+                ad.City = Convert.ToString(dr["City"]).TrimEnd();
+                ad.Adress = Convert.ToString(dr["Address"]).TrimEnd();
+                if (f.Exists(x => x.Email == email))
+                {
+                    Customer tmp = f.Find(x => x.Email.Equals(email));
+                   
+                    tmp.Address.Add(ad);
+                    
+                }
+                else
+                {
+                    Customer C = new Customer();
+                    C.Address.Add(ad);
+                    f.Add(C);
+                }
+
                
             }
+
             return f;
         }
         catch (Exception ex)
@@ -1367,7 +1390,7 @@ public class DBservices
                     S.Address.CompanyName = Convert.ToString(dr["CompanyName"]).TrimEnd();
                     S.Address.City = Convert.ToString(dr["City"]).TrimEnd();
                     S.Address.Adress = Convert.ToString(dr["Address"]).TrimEnd();
-                    S.item.Email=Convert.ToString(dr["Email"]).TrimEnd();
+                    S.Email = Convert.ToString(dr["Email"]).TrimEnd();
                     S.Status = Convert.ToString(dr["Status"]).TrimEnd();
                     S.Part.Add(Convert.ToString(dr["ItemSerial"]).TrimEnd());
                     S.Quantity.Add(Convert.ToString(dr["Quantity"]).TrimEnd());
