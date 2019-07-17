@@ -19,12 +19,12 @@ namespace WebApplication2.Models
         {
            
             Email = _email;
-          
+           
                 }
 
         public Customer()
         {
-
+            Address = new List<Address>();
         }
 
         public int insertC()

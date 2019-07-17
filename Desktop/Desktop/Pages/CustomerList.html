@@ -15,8 +15,27 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
-
+    <script src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+
+   
+    
+    
+    
+    
+    
+    
+    
 
 
     <!-- Firebase App is always required and must be first -->
@@ -197,7 +216,7 @@
         }
 
         button {
-            width: 85%;
+            width: 7%;
             margin-top: 10px;
             padding: 10px;
             border: none;
@@ -235,12 +254,11 @@
                 box-shadow: 0 6px 14px 0 #666;
                 transform: scale(1.05);
             }
-       
     </style>
     <script>
         $(document).ready(function () {
             Navbar();
-            ajaxCall("GET", "../api/Address", "", getSuccess, error);
+            ajaxCall("GET", "../api/Customer", "", getSuccess, error);
         });
         function Navbar() {
             var user = JSON.parse(localStorage.getItem('data'));
@@ -252,83 +270,155 @@
                 $("#navuser").show();
             }
         }
-        function buttonEvents() {
+        //function buttonEvents() {
 
-            //delete
-            $(document).on("click", ".deletebtn", function () {
+        //    //delete
+        //    $(document).on("click", ".deletebtn", function () {
 
-                markSelected(this);
-                var customer = this.getAttribute('data-cust');
-                
-                swal({ // this will open a dialouge
-                    title: "Are you sure ??",
-                    text: "",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true
-                })
-                    .then(function (willDelete) {
-                        if (willDelete) DeleteUser(customer);
-                        else swal("Not Deleted!");
-                    });
-            });
-        }
-        function markSelected(btn) {
-            $("#customertable tr").removeClass("selected"); // remove seleced class from rows that were selected before
-            row = (btn.parentNode).parentNode; // button is in TD which is in Row
-            row.className = 'selected'; // mark as selected
-        }
-        function DeleteUser(customer) {
-            console.log(customer);
-            ajaxCall("Delete", "../api/Customer?email=" + customer, "", deleteSuccess, deleteerror);
-        }
-        function deleteSuccess(CustomerData) {
+        //        markSelected(this);
+        //        var customer = this.getAttribute('data-cust');
 
-            tbl.clear();
-            location.reload();
-            redrawTable(tbl, CustomerData);
-            console.log(Userdata);
-            buttonEvents(); // after redrawing the table, we must wire the new buttons
-            swal("Deleted Successfuly!", "Great Job", "success");
+        //        swal({ // this will open a dialouge
+        //            title: "Are you sure ??",
+        //            text: "",
+        //            icon: "warning",
+        //            buttons: true,
+        //            dangerMode: true
+        //        })
+        //            .then(function (willDelete) {
+        //                if (willDelete) DeleteUser(customer);
+        //                else swal("Not Deleted!");
+        //            });
+        //    });
+        //}
+        //function markSelected(btn) {
+        //    $("#customertable tr").removeClass("selected"); // remove seleced class from rows that were selected before
+        //    row = (btn.parentNode).parentNode; // button is in TD which is in Row
+        //    row.className = 'selected'; // mark as selected
+        //}
+        //function DeleteUser(customer) {
+        //    console.log(customer);
+        //    ajaxCall("Delete", "../api/Customer?email=" + customer, "", deleteSuccess, deleteerror);
+        //}
+        //function deleteSuccess(CustomerData) {
 
-        }
-        function deleteerror(err) {
-            swal("Error: " + err);
-        }
+        //    tbl.clear();
+        //    location.reload();
+        //    redrawTable(tbl, CustomerData);
+        //    console.log(Userdata);
+        //    buttonEvents(); // after redrawing the table, we must wire the new buttons
+        //    swal("Deleted Successfuly!", "Great Job", "success");
 
+        //}
+        //function deleteerror(err) {
+        //    swal("Error: " + err);
+        //}
+        //$(document).ready(function () {
+        //    $('#customertable').DataTable({
+
+        //    });
+        //});
         function getSuccess(CustomerData) {
+            console.log(CustomerData)
 
-           Data = CustomerData;
+
             try {
+
                 tbl = $('#customertable').DataTable({
                     data: CustomerData,
                     pageLength: 5,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
                     columns: [
-                        {data:"Email"},
-                        { data: "FirstName" },
-                        { data: "LastName" },
-                        { data: "City" },
-                        { data: "Adress" },
-                        { data: "PhoneNumber" },
-                        { data: "CompanyName" },
+
+                        { data: "Email" },
 
                         {
+                            data: "Address",
                             render: function (data, type, row, meta) {
-                                let cust = "data-cust='" + row.Email + "'";
+                                str = "";
+                                for (var i = 0; i < data.length; i++) {
 
+                                    str += "<p>" + data[i].FirstName + "</p>";
 
-                                deletebtn = "<button type='button'  class = 'deletebtn btn btn-info'" + cust + " > Delete </button>";
-                               
-                                return deletebtn;
+                                }
+                                return str;
                             }
-                        }
+
+                        },
+
+                        {
+                            data: "Address",
+                            render: function (data, type, row, meta) {
+                                str = "";
+                                for (var i = 0; i < data.length; i++) {
+
+                                    str += "<p>" + data[i].LastName + "</p>";
+
+                                }
+                                return str;
+                            }
+                        },
+                        {
+                            data: "Address",
+                            render: function (data, type, row, meta) {
+                                str = "";
+                                for (var i = 0; i < data.length; i++) {
+
+                                    str += "<p>" + data[i].City + "</p>";
+
+                                }
+                                return str;
+                            }
+                        },
+                        {
+                            data: "Address",
+                            render: function (data, type, row, meta) {
+                                str = "";
+                                for (var i = 0; i < data.length; i++) {
+
+                                    str += "<p>" + data[i].Adress + "</p>";
+
+                                }
+                                return str;
+                            }
+                        },
+                        {
+                            data: "Address",
+                            render: function (data, type, row, meta) {
+                                str = "";
+                                for (var i = 0; i < data.length; i++) {
+
+                                    str += "<p>" + data[i].PhoneNumber + "</p>";
+
+                                }
+                                return str;
+                            }
+                        },
+                        {
+                            data: "Address",
+                            render: function (data, type, row, meta) {
+                                str = "";
+                                for (var i = 0; i < data.length; i++) {
+
+                                    str += "<p>" + data[i].CompanyName + "</p>";
+
+                                }
+                                return str;
+                            }
+                        },
+
+
+
 
 
 
 
                     ],
                 });
-               buttonEvents();
+
             }
 
             catch (err) {
@@ -345,10 +435,11 @@
     </script>
 </head>
 <body>
- 
+
     <ul id="head">
         <li><a href="OrderList.html">Order List</a></li>
         <li><a class="active" href="CustomerList.html">Customer List</a></li>
+        <li><a href='Create New Customer.html'>Create New Customer </a></li>
         <li><a id="navuser" style="display:none" href="UserList.html">User List</a></li>
         <li><a id="navbaritem" style="display:none" href="InsertItem.html">Insert Item</a></li>
     </ul>
@@ -369,11 +460,11 @@
                             <th>Address</th>
                             <th>Phone Number</th>
                             <th>Company Name</th>
-                            <th></th>
+
                         </tr>
                     </thead>
 
-                 </table>
+                </table>
             </form>
         </div><!-- Yorder -->
 

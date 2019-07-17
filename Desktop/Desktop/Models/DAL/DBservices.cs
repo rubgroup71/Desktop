@@ -614,6 +614,7 @@ public class DBservices
                 {
                     Customer C = new Customer();
                     C.Address.Add(ad);
+                    C.Email = email;
                     f.Add(C);
                 }
 
