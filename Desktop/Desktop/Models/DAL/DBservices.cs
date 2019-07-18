@@ -81,7 +81,7 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', {4}, '{5}','{6}',{7} )", S.UserName, S.Password, S.FirstName, S.LastName, S.PhoneNumber, S.Area, S.Email,S.ISAdmin);
+        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}','{6}',{7} )", S.UserName, S.Password, S.FirstName, S.LastName, S.PhoneNumber, S.Area, S.Email,S.ISAdmin);
         String prefix = "INSERT INTO SalesPerson " + "(UserName,Password,FirstName,LastName,PhoneNumber,Area,Email,ISAdmin)";
         command = prefix + sb.ToString();
 
@@ -1753,7 +1753,7 @@ public class DBservices
         try
         {
 
-            int numEffected = (int)cmd.ExecuteScalar();
+            int numEffected = cmd.ExecuteNonQuery();
             return numEffected;
         }
         catch (Exception ex)

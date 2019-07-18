@@ -256,12 +256,27 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CreatenewCustomer.js" />
+    <Content Include="Scripts\createneworder.js" />
+    <Content Include="Scripts\createnewuser.js" />
+    <Content Include="Scripts\customerlist.js" />
     <Content Include="Scripts\fbconfig.js" />
+    <Content Include="Scripts\homepage.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\updateuser.js" />
+    <Content Include="style\CreateNewCustomer.css" />
+    <Content Include="style\CreateNewOrder.css" />
+    <Content Include="style\CreateNewUser.css" />
+    <Content Include="style\CustomerList.css" />
+    <Content Include="style\HomePage.css" />
+    <Content Include="style\InsetItem.css" />
+    <Content Include="style\Orderlist.css" />
+    <Content Include="style\UpdateUser.css" />
+    <Content Include="style\UserList.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
