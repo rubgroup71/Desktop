@@ -33,7 +33,9 @@ table.dataTable tbody th, table.dataTable tbody td {
     text-align: left;
     float: unset;
     color: black;
+    font-size: x-small;
 }
+
 
 body {
     background: url('http://all4desktop.com/data_images/original/4236532-background-images.jpg');
