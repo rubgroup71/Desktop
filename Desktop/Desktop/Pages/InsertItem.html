@@ -101,9 +101,10 @@
             }
 
             else {
-                for (var i = 1; i <= tree.length; i++) {
+                stage = categories.filter(t => $("#type").val() == t.Type)
+                for (var i = 1; i <= stage[0].Stages; i++) {
                     checked = $("input:checkbox[name=stage" + i + "]:checked").length;
-
+                    console.log(checked)
                     if (!checked) {
                         swal('', "You must check at least one checkbox in each stage.", 'warning');
                         return false;
